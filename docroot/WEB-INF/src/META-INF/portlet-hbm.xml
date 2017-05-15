@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="de.ki.sbamdc.model.CardBox" />
+	<import class="de.ki.sbamdc.model.Flashcard" />
+	<class name="de.ki.sbamdc.model.impl.CardBoxImpl" table="sbamdc_CardBox">
+		<id name="cardBoxId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="author" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="shared" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="de.ki.sbamdc.model.impl.FlashcardImpl" table="sbamdc_Flashcard">
+		<id column="id_" name="id" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="question_txt" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="question_pct" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="answer_txt" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="answer_pct" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="cardBoxId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+</hibernate-mapping>

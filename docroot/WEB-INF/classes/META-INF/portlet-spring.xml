@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="de.ki.sbamdc.service.impl.CardBoxLocalServiceImpl" id="de.ki.sbamdc.service.CardBoxLocalService" />
+	<bean class="de.ki.sbamdc.service.impl.CardBoxServiceImpl" id="de.ki.sbamdc.service.CardBoxService" />
+	<bean class="de.ki.sbamdc.service.persistence.impl.CardBoxPersistenceImpl" id="de.ki.sbamdc.service.persistence.CardBoxPersistence" parent="basePersistence" />
+	<bean class="de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl" id="de.ki.sbamdc.service.FlashcardLocalService" />
+	<bean class="de.ki.sbamdc.service.impl.FlashcardServiceImpl" id="de.ki.sbamdc.service.FlashcardService" />
+	<bean class="de.ki.sbamdc.service.persistence.impl.FlashcardPersistenceImpl" id="de.ki.sbamdc.service.persistence.FlashcardPersistence" parent="basePersistence" />
+</beans>
