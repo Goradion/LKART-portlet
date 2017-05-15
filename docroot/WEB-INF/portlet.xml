@@ -4,10 +4,14 @@
 	<portlet>
 		<portlet-name>LKART</portlet-name>
 		<display-name>LKART</display-name>
-		<portlet-class>com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet</portlet-class>
+		<portlet-class>de.ki.sbamdc.portlet.LernKarteiPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/view.jsp</value>
+			<value>/html/lernkartei/view.jsp</value>
+		</init-param>
+		<init-param>
+			<name>edit-template</name>
+			<value>/html/lernkartei/edit.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
