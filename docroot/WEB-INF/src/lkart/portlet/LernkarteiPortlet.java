@@ -1,6 +1,8 @@
 package lkart.portlet;
 
-import static lkart.util.Constants.*;
+import static lkart.util.Constants.EDIT_CONTENT_JSP;
+import static lkart.util.Constants.VIEW_JSP;
+
 import java.io.IOException;
 
 import javax.portlet.ActionRequest;
@@ -22,7 +24,7 @@ public class LernkarteiPortlet extends MVCPortlet{
 
 		PortletContext portletContext = this.getPortletContext();
 		PortletRequestDispatcher portletRequestDispatcher = portletContext
-				.getRequestDispatcher("/html/infonaergame/view.jsp");
+				.getRequestDispatcher(VIEW_JSP);
 		Object o = renderRequest.getPortletSession().getAttribute("currentPage", PortletSession.PORTLET_SCOPE);
 		String curPage = VIEW_JSP;
 		if (o != null) {
@@ -36,7 +38,11 @@ public class LernkarteiPortlet extends MVCPortlet{
 	public void gotoEditMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
+
 	
+	public void test(ActionRequest actionRequest, ActionResponse actionResponse){
+		
+	}
 	
 	
 }
