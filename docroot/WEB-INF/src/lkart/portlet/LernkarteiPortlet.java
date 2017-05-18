@@ -22,7 +22,7 @@ public class LernkarteiPortlet extends MVCPortlet{
 
 		PortletContext portletContext = this.getPortletContext();
 		PortletRequestDispatcher portletRequestDispatcher = portletContext
-				.getRequestDispatcher("/html/infonaergame/view.jsp");
+				.getRequestDispatcher(VIEW_JSP);
 		Object o = renderRequest.getPortletSession().getAttribute("currentPage", PortletSession.PORTLET_SCOPE);
 		String curPage = VIEW_JSP;
 		if (o != null) {
@@ -36,6 +36,7 @@ public class LernkarteiPortlet extends MVCPortlet{
 	public void gotoEditMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
+
 	
 	/**
 	 * navigates to a category overview clears the portlet session of attributes
@@ -93,5 +94,8 @@ public class LernkarteiPortlet extends MVCPortlet{
 		// TODO Auto-generated method stub
 	}
 
+	public void test(ActionRequest actionRequest, ActionResponse actionResponse){
+		
+	}
 	
 }
