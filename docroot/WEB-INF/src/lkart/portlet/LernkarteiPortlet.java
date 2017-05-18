@@ -37,6 +37,61 @@ public class LernkarteiPortlet extends MVCPortlet{
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
 	
-	
+	/**
+	 * navigates to a category overview clears the portlet session of attributes
+	 * of a category
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
+	//TODO anpassen an Karteikasten
+	public void gotoCategoryOverview(ActionRequest actionRequest, ActionResponse actionResponse) {
+		actionRequest.getPortletSession().setAttribute("currentPage", CATEGORY_OVERVIEW_JSP,
+				PortletSession.PORTLET_SCOPE);
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.removeAttribute("categoryId", PortletSession.APPLICATION_SCOPE);
+		portletSession.removeAttribute("categoryName", PortletSession.APPLICATION_SCOPE);
+		portletSession.removeAttribute("unlocked", PortletSession.APPLICATION_SCOPE);
+	}
+
+	/**
+	 * navigates to a form to create a new category clears the portlet session
+	 * of attributes of a category
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
+	//TODO anpassen an Karteikasten
+	public void gotoNewCategory(ActionRequest actionRequest, ActionResponse actionResponse) {
+		actionRequest.getPortletSession().setAttribute("currentPage", NEW_CATEGORY_JSP, PortletSession.PORTLET_SCOPE);
+		PortletSession portletSession = actionRequest.getPortletSession();
+		portletSession.removeAttribute("categoryId", PortletSession.APPLICATION_SCOPE);
+		portletSession.removeAttribute("categoryName", PortletSession.APPLICATION_SCOPE);
+		portletSession.removeAttribute("unlocked", PortletSession.APPLICATION_SCOPE);
+	}
+
+	/**
+	 * navigates to a form to edit an existing category fills the portlet
+	 * session with attributes of the category
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
+	public void gotoEditCategory(ActionRequest actionRequest, ActionResponse actionResponse) {
+		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CATEGORY_JSP, PortletSession.PORTLET_SCOPE);
+		fillCategoryEditForm(actionRequest, actionResponse);
+	}
+
+	/**
+	 * fills the portlet session with attributes of the category to use in a
+	 * page
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
+	private void fillCategoryEditForm(ActionRequest actionRequest, ActionResponse actionResponse) {
+		// TODO Auto-generated method stub
+	}
+
 	
 }
