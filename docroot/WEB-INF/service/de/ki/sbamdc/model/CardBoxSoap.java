@@ -34,7 +34,7 @@ public class CardBoxSoap implements Serializable {
 	public static CardBoxSoap toSoapModel(CardBox model) {
 		CardBoxSoap soapModel = new CardBoxSoap();
 
-		soapModel.setCardBoxId(model.getCardBoxId());
+		soapModel.setId(model.getId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
@@ -89,19 +89,19 @@ public class CardBoxSoap implements Serializable {
 	}
 
 	public long getPrimaryKey() {
-		return _cardBoxId;
+		return _id;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setCardBoxId(pk);
+		setId(pk);
 	}
 
-	public long getCardBoxId() {
-		return _cardBoxId;
+	public long getId() {
+		return _id;
 	}
 
-	public void setCardBoxId(long cardBoxId) {
-		_cardBoxId = cardBoxId;
+	public void setId(long id) {
+		_id = id;
 	}
 
 	public long getGroupId() {
@@ -180,7 +180,7 @@ public class CardBoxSoap implements Serializable {
 		_shared = shared;
 	}
 
-	private long _cardBoxId;
+	private long _id;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;

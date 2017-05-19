@@ -51,7 +51,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 
 		CardBoxCacheModel cardBoxCacheModel = (CardBoxCacheModel)obj;
 
-		if (cardBoxId == cardBoxCacheModel.cardBoxId) {
+		if (id == cardBoxCacheModel.id) {
 			return true;
 		}
 
@@ -60,15 +60,15 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 
 	@Override
 	public int hashCode() {
-		return HashUtil.hash(0, cardBoxId);
+		return HashUtil.hash(0, id);
 	}
 
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
 
-		sb.append("{cardBoxId=");
-		sb.append(cardBoxId);
+		sb.append("{id=");
+		sb.append(id);
 		sb.append(", groupId=");
 		sb.append(groupId);
 		sb.append(", companyId=");
@@ -96,7 +96,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 	public CardBox toEntityModel() {
 		CardBoxImpl cardBoxImpl = new CardBoxImpl();
 
-		cardBoxImpl.setCardBoxId(cardBoxId);
+		cardBoxImpl.setId(id);
 		cardBoxImpl.setGroupId(groupId);
 		cardBoxImpl.setCompanyId(companyId);
 		cardBoxImpl.setUserId(userId);
@@ -145,7 +145,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
-		cardBoxId = objectInput.readLong();
+		id = objectInput.readLong();
 
 		groupId = objectInput.readLong();
 
@@ -164,7 +164,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
-		objectOutput.writeLong(cardBoxId);
+		objectOutput.writeLong(id);
 
 		objectOutput.writeLong(groupId);
 
@@ -199,7 +199,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 		objectOutput.writeBoolean(shared);
 	}
 
-	public long cardBoxId;
+	public long id;
 	public long groupId;
 	public long companyId;
 	public long userId;

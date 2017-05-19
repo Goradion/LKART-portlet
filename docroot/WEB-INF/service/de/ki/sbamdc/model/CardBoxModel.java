@@ -66,18 +66,18 @@ public interface CardBoxModel extends BaseModel<CardBox>, GroupedModel,
 	public void setPrimaryKey(long primaryKey);
 
 	/**
-	 * Returns the card box ID of this card box.
+	 * Returns the ID of this card box.
 	 *
-	 * @return the card box ID of this card box
+	 * @return the ID of this card box
 	 */
-	public long getCardBoxId();
+	public long getId();
 
 	/**
-	 * Sets the card box ID of this card box.
+	 * Sets the ID of this card box.
 	 *
-	 * @param cardBoxId the card box ID of this card box
+	 * @param id the ID of this card box
 	 */
-	public void setCardBoxId(long cardBoxId);
+	public void setId(long id);
 
 	/**
 	 * Returns the group ID of this card box.

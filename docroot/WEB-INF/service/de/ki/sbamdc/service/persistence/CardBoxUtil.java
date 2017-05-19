@@ -238,23 +238,23 @@ public class CardBoxUtil {
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
 	*
-	* @param cardBoxId the primary key for the new card box
+	* @param id the primary key for the new card box
 	* @return the new card box
 	*/
-	public static CardBox create(long cardBoxId) {
-		return getPersistence().create(cardBoxId);
+	public static CardBox create(long id) {
+		return getPersistence().create(id);
 	}
 
 	/**
 	* Removes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box that was removed
 	* @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	*/
-	public static CardBox remove(long cardBoxId)
+	public static CardBox remove(long id)
 		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
-		return getPersistence().remove(cardBoxId);
+		return getPersistence().remove(id);
 	}
 
 	public static CardBox updateImpl(CardBox cardBox) {
@@ -264,23 +264,23 @@ public class CardBoxUtil {
 	/**
 	* Returns the card box with the primary key or throws a {@link NoSuchCardBoxException} if it could not be found.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box
 	* @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	*/
-	public static CardBox findByPrimaryKey(long cardBoxId)
+	public static CardBox findByPrimaryKey(long id)
 		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
-		return getPersistence().findByPrimaryKey(cardBoxId);
+		return getPersistence().findByPrimaryKey(id);
 	}
 
 	/**
 	* Returns the card box with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box, or <code>null</code> if a card box with the primary key could not be found
 	*/
-	public static CardBox fetchByPrimaryKey(long cardBoxId) {
-		return getPersistence().fetchByPrimaryKey(cardBoxId);
+	public static CardBox fetchByPrimaryKey(long id) {
+		return getPersistence().fetchByPrimaryKey(id);
 	}
 
 	public static java.util.Map<java.io.Serializable, CardBox> fetchByPrimaryKeys(
@@ -362,6 +362,10 @@ public class CardBoxUtil {
 	*/
 	public static int countAll() {
 		return getPersistence().countAll();
+	}
+
+	public static java.util.Set<java.lang.String> getBadColumnNames() {
+		return getPersistence().getBadColumnNames();
 	}
 
 	public static CardBoxPersistence getPersistence() {

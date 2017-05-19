@@ -57,7 +57,7 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("cardBoxId", getCardBoxId());
+		attributes.put("id", getId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -73,10 +73,10 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long cardBoxId = (Long)attributes.get("cardBoxId");
+		Long id = (Long)attributes.get("id");
 
-		if (cardBoxId != null) {
-			setCardBoxId(cardBoxId);
+		if (id != null) {
+			setId(id);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -155,16 +155,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	}
 
 	/**
-	* Returns the card box ID of this card box.
-	*
-	* @return the card box ID of this card box
-	*/
-	@Override
-	public long getCardBoxId() {
-		return _cardBox.getCardBoxId();
-	}
-
-	/**
 	* Returns the company ID of this card box.
 	*
 	* @return the company ID of this card box
@@ -197,6 +187,16 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	@Override
 	public long getGroupId() {
 		return _cardBox.getGroupId();
+	}
+
+	/**
+	* Returns the ID of this card box.
+	*
+	* @return the ID of this card box
+	*/
+	@Override
+	public long getId() {
+		return _cardBox.getId();
 	}
 
 	/**
@@ -325,16 +325,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	}
 
 	/**
-	* Sets the card box ID of this card box.
-	*
-	* @param cardBoxId the card box ID of this card box
-	*/
-	@Override
-	public void setCardBoxId(long cardBoxId) {
-		_cardBox.setCardBoxId(cardBoxId);
-	}
-
-	/**
 	* Sets the company ID of this card box.
 	*
 	* @param companyId the company ID of this card box
@@ -378,6 +368,16 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	@Override
 	public void setGroupId(long groupId) {
 		_cardBox.setGroupId(groupId);
+	}
+
+	/**
+	* Sets the ID of this card box.
+	*
+	* @param id the ID of this card box
+	*/
+	@Override
+	public void setId(long id) {
+		_cardBox.setId(id);
 	}
 
 	/**

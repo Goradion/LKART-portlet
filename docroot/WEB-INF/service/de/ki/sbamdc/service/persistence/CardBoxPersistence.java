@@ -147,39 +147,38 @@ public interface CardBoxPersistence extends BasePersistence<CardBox> {
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
 	*
-	* @param cardBoxId the primary key for the new card box
+	* @param id the primary key for the new card box
 	* @return the new card box
 	*/
-	public CardBox create(long cardBoxId);
+	public CardBox create(long id);
 
 	/**
 	* Removes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box that was removed
 	* @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	*/
-	public CardBox remove(long cardBoxId) throws NoSuchCardBoxException;
+	public CardBox remove(long id) throws NoSuchCardBoxException;
 
 	public CardBox updateImpl(CardBox cardBox);
 
 	/**
 	* Returns the card box with the primary key or throws a {@link NoSuchCardBoxException} if it could not be found.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box
 	* @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	*/
-	public CardBox findByPrimaryKey(long cardBoxId)
-		throws NoSuchCardBoxException;
+	public CardBox findByPrimaryKey(long id) throws NoSuchCardBoxException;
 
 	/**
 	* Returns the card box with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box, or <code>null</code> if a card box with the primary key could not be found
 	*/
-	public CardBox fetchByPrimaryKey(long cardBoxId);
+	public CardBox fetchByPrimaryKey(long id);
 
 	@Override
 	public java.util.Map<java.io.Serializable, CardBox> fetchByPrimaryKeys(
@@ -248,4 +247,7 @@ public interface CardBoxPersistence extends BasePersistence<CardBox> {
 	* @return the number of card boxs
 	*/
 	public int countAll();
+
+	@Override
+	public java.util.Set<java.lang.String> getBadColumnNames();
 }

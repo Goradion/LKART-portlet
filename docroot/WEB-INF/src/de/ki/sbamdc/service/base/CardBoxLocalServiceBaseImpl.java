@@ -89,25 +89,25 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	/**
 	 * Creates a new card box with the primary key. Does not add the card box to the database.
 	 *
-	 * @param cardBoxId the primary key for the new card box
+	 * @param id the primary key for the new card box
 	 * @return the new card box
 	 */
 	@Override
-	public CardBox createCardBox(long cardBoxId) {
-		return cardBoxPersistence.create(cardBoxId);
+	public CardBox createCardBox(long id) {
+		return cardBoxPersistence.create(id);
 	}
 
 	/**
 	 * Deletes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param cardBoxId the primary key of the card box
+	 * @param id the primary key of the card box
 	 * @return the card box that was removed
 	 * @throws PortalException if a card box with the primary key could not be found
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public CardBox deleteCardBox(long cardBoxId) throws PortalException {
-		return cardBoxPersistence.remove(cardBoxId);
+	public CardBox deleteCardBox(long id) throws PortalException {
+		return cardBoxPersistence.remove(id);
 	}
 
 	/**
@@ -204,20 +204,20 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	@Override
-	public CardBox fetchCardBox(long cardBoxId) {
-		return cardBoxPersistence.fetchByPrimaryKey(cardBoxId);
+	public CardBox fetchCardBox(long id) {
+		return cardBoxPersistence.fetchByPrimaryKey(id);
 	}
 
 	/**
 	 * Returns the card box with the primary key.
 	 *
-	 * @param cardBoxId the primary key of the card box
+	 * @param id the primary key of the card box
 	 * @return the card box
 	 * @throws PortalException if a card box with the primary key could not be found
 	 */
 	@Override
-	public CardBox getCardBox(long cardBoxId) throws PortalException {
-		return cardBoxPersistence.findByPrimaryKey(cardBoxId);
+	public CardBox getCardBox(long id) throws PortalException {
+		return cardBoxPersistence.findByPrimaryKey(id);
 	}
 
 	@Override
@@ -228,7 +228,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName("cardBoxId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("id");
 
 		return actionableDynamicQuery;
 	}
@@ -241,7 +241,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(CardBox.class);
 
-		indexableActionableDynamicQuery.setPrimaryKeyPropertyName("cardBoxId");
+		indexableActionableDynamicQuery.setPrimaryKeyPropertyName("id");
 
 		return indexableActionableDynamicQuery;
 	}
@@ -252,7 +252,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
-		actionableDynamicQuery.setPrimaryKeyPropertyName("cardBoxId");
+		actionableDynamicQuery.setPrimaryKeyPropertyName("id");
 	}
 
 	/**

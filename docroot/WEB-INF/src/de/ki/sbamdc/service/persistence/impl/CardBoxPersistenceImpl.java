@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.service.persistence.CompanyProvider;
 import com.liferay.portal.kernel.service.persistence.CompanyProviderWrapper;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -727,15 +728,15 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	/**
 	 * Creates a new card box with the primary key. Does not add the card box to the database.
 	 *
-	 * @param cardBoxId the primary key for the new card box
+	 * @param id the primary key for the new card box
 	 * @return the new card box
 	 */
 	@Override
-	public CardBox create(long cardBoxId) {
+	public CardBox create(long id) {
 		CardBox cardBox = new CardBoxImpl();
 
 		cardBox.setNew(true);
-		cardBox.setPrimaryKey(cardBoxId);
+		cardBox.setPrimaryKey(id);
 
 		cardBox.setCompanyId(companyProvider.getCompanyId());
 
@@ -745,13 +746,13 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	/**
 	 * Removes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
-	 * @param cardBoxId the primary key of the card box
+	 * @param id the primary key of the card box
 	 * @return the card box that was removed
 	 * @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	 */
 	@Override
-	public CardBox remove(long cardBoxId) throws NoSuchCardBoxException {
-		return remove((Serializable)cardBoxId);
+	public CardBox remove(long id) throws NoSuchCardBoxException {
+		return remove((Serializable)id);
 	}
 
 	/**
@@ -903,7 +904,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		cardBoxImpl.setNew(cardBox.isNew());
 		cardBoxImpl.setPrimaryKey(cardBox.getPrimaryKey());
 
-		cardBoxImpl.setCardBoxId(cardBox.getCardBoxId());
+		cardBoxImpl.setId(cardBox.getId());
 		cardBoxImpl.setGroupId(cardBox.getGroupId());
 		cardBoxImpl.setCompanyId(cardBox.getCompanyId());
 		cardBoxImpl.setUserId(cardBox.getUserId());
@@ -944,14 +945,13 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	/**
 	 * Returns the card box with the primary key or throws a {@link NoSuchCardBoxException} if it could not be found.
 	 *
-	 * @param cardBoxId the primary key of the card box
+	 * @param id the primary key of the card box
 	 * @return the card box
 	 * @throws NoSuchCardBoxException if a card box with the primary key could not be found
 	 */
 	@Override
-	public CardBox findByPrimaryKey(long cardBoxId)
-		throws NoSuchCardBoxException {
-		return findByPrimaryKey((Serializable)cardBoxId);
+	public CardBox findByPrimaryKey(long id) throws NoSuchCardBoxException {
+		return findByPrimaryKey((Serializable)id);
 	}
 
 	/**
@@ -1002,12 +1002,12 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	/**
 	 * Returns the card box with the primary key or returns <code>null</code> if it could not be found.
 	 *
-	 * @param cardBoxId the primary key of the card box
+	 * @param id the primary key of the card box
 	 * @return the card box, or <code>null</code> if a card box with the primary key could not be found
 	 */
 	@Override
-	public CardBox fetchByPrimaryKey(long cardBoxId) {
-		return fetchByPrimaryKey((Serializable)cardBoxId);
+	public CardBox fetchByPrimaryKey(long id) {
+		return fetchByPrimaryKey((Serializable)id);
 	}
 
 	@Override
@@ -1293,6 +1293,11 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	}
 
 	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
 	protected Map<String, Integer> getTableColumnsMap() {
 		return CardBoxModelImpl.TABLE_COLUMNS_MAP;
 	}
@@ -1315,7 +1320,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	protected EntityCache entityCache = EntityCacheUtil.getEntityCache();
 	protected FinderCache finderCache = FinderCacheUtil.getFinderCache();
 	private static final String _SQL_SELECT_CARDBOX = "SELECT cardBox FROM CardBox cardBox";
-	private static final String _SQL_SELECT_CARDBOX_WHERE_PKS_IN = "SELECT cardBox FROM CardBox cardBox WHERE cardBoxId IN (";
+	private static final String _SQL_SELECT_CARDBOX_WHERE_PKS_IN = "SELECT cardBox FROM CardBox cardBox WHERE id_ IN (";
 	private static final String _SQL_SELECT_CARDBOX_WHERE = "SELECT cardBox FROM CardBox cardBox WHERE ";
 	private static final String _SQL_COUNT_CARDBOX = "SELECT COUNT(cardBox) FROM CardBox cardBox";
 	private static final String _SQL_COUNT_CARDBOX_WHERE = "SELECT COUNT(cardBox) FROM CardBox cardBox WHERE ";
@@ -1323,6 +1328,9 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No CardBox exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No CardBox exists with the key {";
 	private static final Log _log = LogFactoryUtil.getLog(CardBoxPersistenceImpl.class);
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+				"id"
+			});
 	private static final CardBox _nullCardBox = new CardBoxImpl() {
 			@Override
 			public Object clone() {

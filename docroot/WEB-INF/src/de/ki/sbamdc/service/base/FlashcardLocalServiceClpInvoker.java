@@ -120,6 +120,10 @@ public class FlashcardLocalServiceClpInvoker {
 		_methodName42 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes42 = new String[] {  };
+
+		_methodName47 = "findByCardBoxId";
+
+		_methodParameterTypes47 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -231,6 +235,11 @@ public class FlashcardLocalServiceClpInvoker {
 			return FlashcardLocalServiceUtil.getOSGiServiceIdentifier();
 		}
 
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return FlashcardLocalServiceUtil.findByCardBoxId(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -274,4 +283,6 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes19;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
 }

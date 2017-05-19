@@ -58,17 +58,17 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 
 	@Override
 	public long getPrimaryKey() {
-		return _cardBoxId;
+		return _id;
 	}
 
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		setCardBoxId(primaryKey);
+		setId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return _cardBoxId;
+		return _id;
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("cardBoxId", getCardBoxId());
+		attributes.put("id", getId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -99,10 +99,10 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long cardBoxId = (Long)attributes.get("cardBoxId");
+		Long id = (Long)attributes.get("id");
 
-		if (cardBoxId != null) {
-			setCardBoxId(cardBoxId);
+		if (id != null) {
+			setId(id);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -164,21 +164,21 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	}
 
 	@Override
-	public long getCardBoxId() {
-		return _cardBoxId;
+	public long getId() {
+		return _id;
 	}
 
 	@Override
-	public void setCardBoxId(long cardBoxId) {
-		_cardBoxId = cardBoxId;
+	public void setId(long id) {
+		_id = id;
 
 		if (_cardBoxRemoteModel != null) {
 			try {
 				Class<?> clazz = _cardBoxRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setCardBoxId", long.class);
+				Method method = clazz.getMethod("setId", long.class);
 
-				method.invoke(_cardBoxRemoteModel, cardBoxId);
+				method.invoke(_cardBoxRemoteModel, id);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -483,7 +483,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	public Object clone() {
 		CardBoxClp clone = new CardBoxClp();
 
-		clone.setCardBoxId(getCardBoxId());
+		clone.setId(getId());
 		clone.setGroupId(getGroupId());
 		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
@@ -557,8 +557,8 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
 
-		sb.append("{cardBoxId=");
-		sb.append(getCardBoxId());
+		sb.append("{id=");
+		sb.append(getId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
 		sb.append(", companyId=");
@@ -591,8 +591,8 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>cardBoxId</column-name><column-value><![CDATA[");
-		sb.append(getCardBoxId());
+			"<column><column-name>id</column-name><column-value><![CDATA[");
+		sb.append(getId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>groupId</column-name><column-value><![CDATA[");
@@ -636,7 +636,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		return sb.toString();
 	}
 
-	private long _cardBoxId;
+	private long _id;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;

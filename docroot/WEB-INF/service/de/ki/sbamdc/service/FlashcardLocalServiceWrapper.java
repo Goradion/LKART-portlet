@@ -181,6 +181,12 @@ public class FlashcardLocalServiceWrapper implements FlashcardLocalService,
 	}
 
 	@Override
+	public java.util.List<de.ki.sbamdc.model.Flashcard> findByCardBoxId(
+		long cardBoxId) {
+		return _flashcardLocalService.findByCardBoxId(cardBoxId);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
 		return _flashcardLocalService.getActionableDynamicQuery();
 	}

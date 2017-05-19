@@ -74,10 +74,10 @@ public interface CardBoxLocalService extends BaseLocalService,
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
 	*
-	* @param cardBoxId the primary key for the new card box
+	* @param id the primary key for the new card box
 	* @return the new card box
 	*/
-	public CardBox createCardBox(long cardBoxId);
+	public CardBox createCardBox(long id);
 
 	/**
 	* Deletes the card box from the database. Also notifies the appropriate model listeners.
@@ -91,12 +91,12 @@ public interface CardBoxLocalService extends BaseLocalService,
 	/**
 	* Deletes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box that was removed
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	public CardBox deleteCardBox(long cardBoxId) throws PortalException;
+	public CardBox deleteCardBox(long id) throws PortalException;
 
 	/**
 	* @throws PortalException
@@ -165,7 +165,7 @@ public interface CardBoxLocalService extends BaseLocalService,
 		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CardBox fetchCardBox(long cardBoxId);
+	public CardBox fetchCardBox(long id);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
@@ -173,12 +173,12 @@ public interface CardBoxLocalService extends BaseLocalService,
 	/**
 	* Returns the card box with the primary key.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CardBox getCardBox(long cardBoxId) throws PortalException;
+	public CardBox getCardBox(long id) throws PortalException;
 
 	/**
 	* Returns a range of all the card boxs.

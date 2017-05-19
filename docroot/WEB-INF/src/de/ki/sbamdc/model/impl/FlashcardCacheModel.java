@@ -76,8 +76,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		sb.append(answer_txt);
 		sb.append(", answer_pct=");
 		sb.append(answer_pct);
-		sb.append(", cardBoxId=");
-		sb.append(cardBoxId);
+		sb.append(", cardBoxId_fk=");
+		sb.append(cardBoxId_fk);
 		sb.append("}");
 
 		return sb.toString();
@@ -117,7 +117,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 			flashcardImpl.setAnswer_pct(answer_pct);
 		}
 
-		flashcardImpl.setCardBoxId(cardBoxId);
+		flashcardImpl.setCardBoxId_fk(cardBoxId_fk);
 
 		flashcardImpl.resetOriginalValues();
 
@@ -132,7 +132,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		answer_txt = objectInput.readUTF();
 		answer_pct = objectInput.readUTF();
 
-		cardBoxId = objectInput.readLong();
+		cardBoxId_fk = objectInput.readLong();
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 			objectOutput.writeUTF(answer_pct);
 		}
 
-		objectOutput.writeLong(cardBoxId);
+		objectOutput.writeLong(cardBoxId_fk);
 	}
 
 	public long id;
@@ -176,5 +176,5 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	public String question_pct;
 	public String answer_txt;
 	public String answer_pct;
-	public long cardBoxId;
+	public long cardBoxId_fk;
 }

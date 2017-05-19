@@ -56,11 +56,11 @@ public class CardBoxLocalServiceUtil {
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
 	*
-	* @param cardBoxId the primary key for the new card box
+	* @param id the primary key for the new card box
 	* @return the new card box
 	*/
-	public static de.ki.sbamdc.model.CardBox createCardBox(long cardBoxId) {
-		return getService().createCardBox(cardBoxId);
+	public static de.ki.sbamdc.model.CardBox createCardBox(long id) {
+		return getService().createCardBox(id);
 	}
 
 	/**
@@ -77,13 +77,13 @@ public class CardBoxLocalServiceUtil {
 	/**
 	* Deletes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box that was removed
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
-	public static de.ki.sbamdc.model.CardBox deleteCardBox(long cardBoxId)
+	public static de.ki.sbamdc.model.CardBox deleteCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deleteCardBox(cardBoxId);
+		return getService().deleteCardBox(id);
 	}
 
 	/**
@@ -173,8 +173,8 @@ public class CardBoxLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static de.ki.sbamdc.model.CardBox fetchCardBox(long cardBoxId) {
-		return getService().fetchCardBox(cardBoxId);
+	public static de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
+		return getService().fetchCardBox(id);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
@@ -184,13 +184,13 @@ public class CardBoxLocalServiceUtil {
 	/**
 	* Returns the card box with the primary key.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
-	public static de.ki.sbamdc.model.CardBox getCardBox(long cardBoxId)
+	public static de.ki.sbamdc.model.CardBox getCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getCardBox(cardBoxId);
+		return getService().getCardBox(id);
 	}
 
 	/**

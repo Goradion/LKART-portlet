@@ -70,7 +70,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	 */
 	public static final String TABLE_NAME = "sbamdc_CardBox";
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "cardBoxId", Types.BIGINT },
+			{ "id_", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
@@ -84,7 +84,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
 	static {
-		TABLE_COLUMNS_MAP.put("cardBoxId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
@@ -96,7 +96,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		TABLE_COLUMNS_MAP.put("shared", Types.BOOLEAN);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_CardBox (cardBoxId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,author VARCHAR(75) null,shared BOOLEAN)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_CardBox (id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,author VARCHAR(75) null,shared BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_CardBox";
 	public static final String ORDER_BY_JPQL = " ORDER BY cardBox.name DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_CardBox.name DESC";
@@ -128,7 +128,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 		CardBox model = new CardBoxImpl();
 
-		model.setCardBoxId(soapModel.getCardBoxId());
+		model.setId(soapModel.getId());
 		model.setGroupId(soapModel.getGroupId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
@@ -170,17 +170,17 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public long getPrimaryKey() {
-		return _cardBoxId;
+		return _id;
 	}
 
 	@Override
 	public void setPrimaryKey(long primaryKey) {
-		setCardBoxId(primaryKey);
+		setId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return _cardBoxId;
+		return _id;
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("cardBoxId", getCardBoxId());
+		attributes.put("id", getId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
@@ -221,10 +221,10 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long cardBoxId = (Long)attributes.get("cardBoxId");
+		Long id = (Long)attributes.get("id");
 
-		if (cardBoxId != null) {
-			setCardBoxId(cardBoxId);
+		if (id != null) {
+			setId(id);
 		}
 
 		Long groupId = (Long)attributes.get("groupId");
@@ -284,13 +284,13 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@JSON
 	@Override
-	public long getCardBoxId() {
-		return _cardBoxId;
+	public long getId() {
+		return _id;
 	}
 
 	@Override
-	public void setCardBoxId(long cardBoxId) {
-		_cardBoxId = cardBoxId;
+	public void setId(long id) {
+		_id = id;
 	}
 
 	@JSON
@@ -485,7 +485,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public Object clone() {
 		CardBoxImpl cardBoxImpl = new CardBoxImpl();
 
-		cardBoxImpl.setCardBoxId(getCardBoxId());
+		cardBoxImpl.setId(getId());
 		cardBoxImpl.setGroupId(getGroupId());
 		cardBoxImpl.setCompanyId(getCompanyId());
 		cardBoxImpl.setUserId(getUserId());
@@ -570,7 +570,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public CacheModel<CardBox> toCacheModel() {
 		CardBoxCacheModel cardBoxCacheModel = new CardBoxCacheModel();
 
-		cardBoxCacheModel.cardBoxId = getCardBoxId();
+		cardBoxCacheModel.id = getId();
 
 		cardBoxCacheModel.groupId = getGroupId();
 
@@ -629,8 +629,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
 
-		sb.append("{cardBoxId=");
-		sb.append(getCardBoxId());
+		sb.append("{id=");
+		sb.append(getId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
 		sb.append(", companyId=");
@@ -663,8 +663,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>cardBoxId</column-name><column-value><![CDATA[");
-		sb.append(getCardBoxId());
+			"<column><column-name>id</column-name><column-value><![CDATA[");
+		sb.append(getId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>groupId</column-name><column-value><![CDATA[");
@@ -712,7 +712,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
 			CardBox.class
 		};
-	private long _cardBoxId;
+	private long _id;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;

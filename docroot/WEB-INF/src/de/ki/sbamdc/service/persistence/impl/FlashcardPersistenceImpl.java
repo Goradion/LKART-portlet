@@ -99,68 +99,68 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 			FlashcardModelImpl.FINDER_CACHE_ENABLED, FlashcardImpl.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCardBoxId",
 			new String[] { Long.class.getName() },
-			FlashcardModelImpl.CARDBOXID_COLUMN_BITMASK);
+			FlashcardModelImpl.CARDBOXID_FK_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_CARDBOXID = new FinderPath(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
 			FlashcardModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCardBoxId",
 			new String[] { Long.class.getName() });
 
 	/**
-	 * Returns all the flashcards where cardBoxId = &#63;.
+	 * Returns all the flashcards where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @return the matching flashcards
 	 */
 	@Override
-	public List<Flashcard> findByCardBoxId(long cardBoxId) {
-		return findByCardBoxId(cardBoxId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+	public List<Flashcard> findByCardBoxId(long cardBoxId_fk) {
+		return findByCardBoxId(cardBoxId_fk, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the flashcards where cardBoxId = &#63;.
+	 * Returns a range of all the flashcards where cardBoxId_fk = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link FlashcardModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param start the lower bound of the range of flashcards
 	 * @param end the upper bound of the range of flashcards (not inclusive)
 	 * @return the range of matching flashcards
 	 */
 	@Override
-	public List<Flashcard> findByCardBoxId(long cardBoxId, int start, int end) {
-		return findByCardBoxId(cardBoxId, start, end, null);
+	public List<Flashcard> findByCardBoxId(long cardBoxId_fk, int start, int end) {
+		return findByCardBoxId(cardBoxId_fk, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the flashcards where cardBoxId = &#63;.
+	 * Returns an ordered range of all the flashcards where cardBoxId_fk = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link FlashcardModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param start the lower bound of the range of flashcards
 	 * @param end the upper bound of the range of flashcards (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching flashcards
 	 */
 	@Override
-	public List<Flashcard> findByCardBoxId(long cardBoxId, int start, int end,
-		OrderByComparator<Flashcard> orderByComparator) {
-		return findByCardBoxId(cardBoxId, start, end, orderByComparator, true);
+	public List<Flashcard> findByCardBoxId(long cardBoxId_fk, int start,
+		int end, OrderByComparator<Flashcard> orderByComparator) {
+		return findByCardBoxId(cardBoxId_fk, start, end, orderByComparator, true);
 	}
 
 	/**
-	 * Returns an ordered range of all the flashcards where cardBoxId = &#63;.
+	 * Returns an ordered range of all the flashcards where cardBoxId_fk = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link FlashcardModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param start the lower bound of the range of flashcards
 	 * @param end the upper bound of the range of flashcards (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -168,8 +168,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	 * @return the ordered range of matching flashcards
 	 */
 	@Override
-	public List<Flashcard> findByCardBoxId(long cardBoxId, int start, int end,
-		OrderByComparator<Flashcard> orderByComparator,
+	public List<Flashcard> findByCardBoxId(long cardBoxId_fk, int start,
+		int end, OrderByComparator<Flashcard> orderByComparator,
 		boolean retrieveFromCache) {
 		boolean pagination = true;
 		FinderPath finderPath = null;
@@ -179,11 +179,15 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 				(orderByComparator == null)) {
 			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CARDBOXID;
-			finderArgs = new Object[] { cardBoxId };
+			finderArgs = new Object[] { cardBoxId_fk };
 		}
 		else {
 			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_CARDBOXID;
-			finderArgs = new Object[] { cardBoxId, start, end, orderByComparator };
+			finderArgs = new Object[] {
+					cardBoxId_fk,
+					
+					start, end, orderByComparator
+				};
 		}
 
 		List<Flashcard> list = null;
@@ -194,7 +198,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 			if ((list != null) && !list.isEmpty()) {
 				for (Flashcard flashcard : list) {
-					if ((cardBoxId != flashcard.getCardBoxId())) {
+					if ((cardBoxId_fk != flashcard.getCardBoxId_fk())) {
 						list = null;
 
 						break;
@@ -216,7 +220,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 			query.append(_SQL_SELECT_FLASHCARD_WHERE);
 
-			query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_2);
+			query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_FK_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -238,7 +242,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(cardBoxId);
+				qPos.add(cardBoxId_fk);
 
 				if (!pagination) {
 					list = (List<Flashcard>)QueryUtil.list(q, getDialect(),
@@ -271,18 +275,18 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Returns the first flashcard in the ordered set where cardBoxId = &#63;.
+	 * Returns the first flashcard in the ordered set where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching flashcard
 	 * @throws NoSuchFlashcardException if a matching flashcard could not be found
 	 */
 	@Override
-	public Flashcard findByCardBoxId_First(long cardBoxId,
+	public Flashcard findByCardBoxId_First(long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator)
 		throws NoSuchFlashcardException {
-		Flashcard flashcard = fetchByCardBoxId_First(cardBoxId,
+		Flashcard flashcard = fetchByCardBoxId_First(cardBoxId_fk,
 				orderByComparator);
 
 		if (flashcard != null) {
@@ -293,8 +297,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("cardBoxId=");
-		msg.append(cardBoxId);
+		msg.append("cardBoxId_fk=");
+		msg.append(cardBoxId_fk);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -302,16 +306,16 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Returns the first flashcard in the ordered set where cardBoxId = &#63;.
+	 * Returns the first flashcard in the ordered set where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching flashcard, or <code>null</code> if a matching flashcard could not be found
 	 */
 	@Override
-	public Flashcard fetchByCardBoxId_First(long cardBoxId,
+	public Flashcard fetchByCardBoxId_First(long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator) {
-		List<Flashcard> list = findByCardBoxId(cardBoxId, 0, 1,
+		List<Flashcard> list = findByCardBoxId(cardBoxId_fk, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -322,18 +326,19 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Returns the last flashcard in the ordered set where cardBoxId = &#63;.
+	 * Returns the last flashcard in the ordered set where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching flashcard
 	 * @throws NoSuchFlashcardException if a matching flashcard could not be found
 	 */
 	@Override
-	public Flashcard findByCardBoxId_Last(long cardBoxId,
+	public Flashcard findByCardBoxId_Last(long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator)
 		throws NoSuchFlashcardException {
-		Flashcard flashcard = fetchByCardBoxId_Last(cardBoxId, orderByComparator);
+		Flashcard flashcard = fetchByCardBoxId_Last(cardBoxId_fk,
+				orderByComparator);
 
 		if (flashcard != null) {
 			return flashcard;
@@ -343,8 +348,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-		msg.append("cardBoxId=");
-		msg.append(cardBoxId);
+		msg.append("cardBoxId_fk=");
+		msg.append(cardBoxId_fk);
 
 		msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -352,22 +357,22 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Returns the last flashcard in the ordered set where cardBoxId = &#63;.
+	 * Returns the last flashcard in the ordered set where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching flashcard, or <code>null</code> if a matching flashcard could not be found
 	 */
 	@Override
-	public Flashcard fetchByCardBoxId_Last(long cardBoxId,
+	public Flashcard fetchByCardBoxId_Last(long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator) {
-		int count = countByCardBoxId(cardBoxId);
+		int count = countByCardBoxId(cardBoxId_fk);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<Flashcard> list = findByCardBoxId(cardBoxId, count - 1, count,
+		List<Flashcard> list = findByCardBoxId(cardBoxId_fk, count - 1, count,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -378,16 +383,16 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Returns the flashcards before and after the current flashcard in the ordered set where cardBoxId = &#63;.
+	 * Returns the flashcards before and after the current flashcard in the ordered set where cardBoxId_fk = &#63;.
 	 *
 	 * @param id the primary key of the current flashcard
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next flashcard
 	 * @throws NoSuchFlashcardException if a flashcard with the primary key could not be found
 	 */
 	@Override
-	public Flashcard[] findByCardBoxId_PrevAndNext(long id, long cardBoxId,
+	public Flashcard[] findByCardBoxId_PrevAndNext(long id, long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator)
 		throws NoSuchFlashcardException {
 		Flashcard flashcard = findByPrimaryKey(id);
@@ -400,12 +405,12 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 			Flashcard[] array = new FlashcardImpl[3];
 
 			array[0] = getByCardBoxId_PrevAndNext(session, flashcard,
-					cardBoxId, orderByComparator, true);
+					cardBoxId_fk, orderByComparator, true);
 
 			array[1] = flashcard;
 
 			array[2] = getByCardBoxId_PrevAndNext(session, flashcard,
-					cardBoxId, orderByComparator, false);
+					cardBoxId_fk, orderByComparator, false);
 
 			return array;
 		}
@@ -418,7 +423,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	protected Flashcard getByCardBoxId_PrevAndNext(Session session,
-		Flashcard flashcard, long cardBoxId,
+		Flashcard flashcard, long cardBoxId_fk,
 		OrderByComparator<Flashcard> orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -433,7 +438,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 		query.append(_SQL_SELECT_FLASHCARD_WHERE);
 
-		query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_2);
+		query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_FK_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -503,7 +508,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(cardBoxId);
+		qPos.add(cardBoxId_fk);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(flashcard);
@@ -524,29 +529,29 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	/**
-	 * Removes all the flashcards where cardBoxId = &#63; from the database.
+	 * Removes all the flashcards where cardBoxId_fk = &#63; from the database.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 */
 	@Override
-	public void removeByCardBoxId(long cardBoxId) {
-		for (Flashcard flashcard : findByCardBoxId(cardBoxId,
+	public void removeByCardBoxId(long cardBoxId_fk) {
+		for (Flashcard flashcard : findByCardBoxId(cardBoxId_fk,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(flashcard);
 		}
 	}
 
 	/**
-	 * Returns the number of flashcards where cardBoxId = &#63;.
+	 * Returns the number of flashcards where cardBoxId_fk = &#63;.
 	 *
-	 * @param cardBoxId the card box ID
+	 * @param cardBoxId_fk the card box id_fk
 	 * @return the number of matching flashcards
 	 */
 	@Override
-	public int countByCardBoxId(long cardBoxId) {
+	public int countByCardBoxId(long cardBoxId_fk) {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_CARDBOXID;
 
-		Object[] finderArgs = new Object[] { cardBoxId };
+		Object[] finderArgs = new Object[] { cardBoxId_fk };
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
@@ -555,7 +560,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 			query.append(_SQL_COUNT_FLASHCARD_WHERE);
 
-			query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_2);
+			query.append(_FINDER_COLUMN_CARDBOXID_CARDBOXID_FK_2);
 
 			String sql = query.toString();
 
@@ -568,7 +573,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(cardBoxId);
+				qPos.add(cardBoxId_fk);
 
 				count = (Long)q.uniqueResult();
 
@@ -587,7 +592,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_CARDBOXID_CARDBOXID_2 = "flashcard.cardBoxId = ?";
+	private static final String _FINDER_COLUMN_CARDBOXID_CARDBOXID_FK_2 = "flashcard.cardBoxId_fk = ?";
 
 	public FlashcardPersistenceImpl() {
 		setModelClass(Flashcard.class);
@@ -806,14 +811,14 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 			if ((flashcardModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CARDBOXID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						flashcardModelImpl.getOriginalCardBoxId()
+						flashcardModelImpl.getOriginalCardBoxId_fk()
 					};
 
 				finderCache.removeResult(FINDER_PATH_COUNT_BY_CARDBOXID, args);
 				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CARDBOXID,
 					args);
 
-				args = new Object[] { flashcardModelImpl.getCardBoxId() };
+				args = new Object[] { flashcardModelImpl.getCardBoxId_fk() };
 
 				finderCache.removeResult(FINDER_PATH_COUNT_BY_CARDBOXID, args);
 				finderCache.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_CARDBOXID,
@@ -844,7 +849,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		flashcardImpl.setQuestion_pct(flashcard.getQuestion_pct());
 		flashcardImpl.setAnswer_txt(flashcard.getAnswer_txt());
 		flashcardImpl.setAnswer_pct(flashcard.getAnswer_pct());
-		flashcardImpl.setCardBoxId(flashcard.getCardBoxId());
+		flashcardImpl.setCardBoxId_fk(flashcard.getCardBoxId_fk());
 
 		return flashcardImpl;
 	}

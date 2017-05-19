@@ -135,18 +135,18 @@ public interface FlashcardModel extends BaseModel<Flashcard> {
 	public void setAnswer_pct(String answer_pct);
 
 	/**
-	 * Returns the card box ID of this flashcard.
+	 * Returns the card box id_fk of this flashcard.
 	 *
-	 * @return the card box ID of this flashcard
+	 * @return the card box id_fk of this flashcard
 	 */
-	public long getCardBoxId();
+	public long getCardBoxId_fk();
 
 	/**
-	 * Sets the card box ID of this flashcard.
+	 * Sets the card box id_fk of this flashcard.
 	 *
-	 * @param cardBoxId the card box ID of this flashcard
+	 * @param cardBoxId_fk the card box id_fk of this flashcard
 	 */
-	public void setCardBoxId(long cardBoxId);
+	public void setCardBoxId_fk(long cardBoxId_fk);
 
 	@Override
 	public boolean isNew();

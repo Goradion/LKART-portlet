@@ -148,12 +148,12 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox createCardBox(long cardBoxId) {
+	public de.ki.sbamdc.model.CardBox createCardBox(long id) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName1,
-					_methodParameterTypes1, new Object[] { cardBoxId });
+					_methodParameterTypes1, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -196,13 +196,13 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox deleteCardBox(long cardBoxId)
+	public de.ki.sbamdc.model.CardBox deleteCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName3,
-					_methodParameterTypes3, new Object[] { cardBoxId });
+					_methodParameterTypes3, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -424,12 +424,12 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox fetchCardBox(long cardBoxId) {
+	public de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11, new Object[] { cardBoxId });
+					_methodParameterTypes11, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -470,13 +470,13 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox getCardBox(long cardBoxId)
+	public de.ki.sbamdc.model.CardBox getCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] { cardBoxId });
+					_methodParameterTypes13, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

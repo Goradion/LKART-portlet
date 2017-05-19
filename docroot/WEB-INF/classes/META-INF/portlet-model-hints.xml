@@ -2,7 +2,7 @@
 
 <model-hints>
 	<model name="de.ki.sbamdc.model.CardBox">
-		<field name="cardBoxId" type="long" />
+		<field name="id" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
@@ -19,6 +19,6 @@
 		<field name="question_pct" type="String" />
 		<field name="answer_txt" type="String" />
 		<field name="answer_pct" type="String" />
-		<field name="cardBoxId" type="long" />
+		<field name="cardBoxId_fk" type="long" />
 	</model>
 </model-hints>

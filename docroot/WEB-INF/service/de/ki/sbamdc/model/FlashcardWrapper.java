@@ -61,7 +61,7 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		attributes.put("question_pct", getQuestion_pct());
 		attributes.put("answer_txt", getAnswer_txt());
 		attributes.put("answer_pct", getAnswer_pct());
-		attributes.put("cardBoxId", getCardBoxId());
+		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 
 		return attributes;
 	}
@@ -98,10 +98,10 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 			setAnswer_pct(answer_pct);
 		}
 
-		Long cardBoxId = (Long)attributes.get("cardBoxId");
+		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
 
-		if (cardBoxId != null) {
-			setCardBoxId(cardBoxId);
+		if (cardBoxId_fk != null) {
+			setCardBoxId_fk(cardBoxId_fk);
 		}
 	}
 
@@ -136,13 +136,13 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	/**
-	* Returns the card box ID of this flashcard.
+	* Returns the card box id_fk of this flashcard.
 	*
-	* @return the card box ID of this flashcard
+	* @return the card box id_fk of this flashcard
 	*/
 	@Override
-	public long getCardBoxId() {
-		return _flashcard.getCardBoxId();
+	public long getCardBoxId_fk() {
+		return _flashcard.getCardBoxId_fk();
 	}
 
 	@Override
@@ -246,13 +246,13 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	/**
-	* Sets the card box ID of this flashcard.
+	* Sets the card box id_fk of this flashcard.
 	*
-	* @param cardBoxId the card box ID of this flashcard
+	* @param cardBoxId_fk the card box id_fk of this flashcard
 	*/
 	@Override
-	public void setCardBoxId(long cardBoxId) {
-		_flashcard.setCardBoxId(cardBoxId);
+	public void setCardBoxId_fk(long cardBoxId_fk) {
+		_flashcard.setCardBoxId_fk(cardBoxId_fk);
 	}
 
 	@Override

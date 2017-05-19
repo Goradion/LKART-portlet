@@ -14,8 +14,10 @@
 
 package de.ki.sbamdc.service.impl;
 
-import aQute.bnd.annotation.ProviderType;
+import java.util.List;
 
+import aQute.bnd.annotation.ProviderType;
+import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.service.base.FlashcardLocalServiceBaseImpl;
 
 /**
@@ -39,4 +41,8 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.FlashcardLocalServiceUtil} to access the flashcard local service.
 	 */
+	
+	public List<Flashcard> findByCardBoxId(long cardBoxId){
+		return flashcardPersistence.findByCardBoxId(cardBoxId);
+	}
 }

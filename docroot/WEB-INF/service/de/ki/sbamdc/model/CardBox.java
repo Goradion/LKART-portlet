@@ -37,10 +37,10 @@ public interface CardBox extends CardBoxModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link de.ki.sbamdc.model.impl.CardBoxImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public static final Accessor<CardBox, Long> CARD_BOX_ID_ACCESSOR = new Accessor<CardBox, Long>() {
+	public static final Accessor<CardBox, Long> ID_ACCESSOR = new Accessor<CardBox, Long>() {
 			@Override
 			public Long get(CardBox cardBox) {
-				return cardBox.getCardBoxId();
+				return cardBox.getId();
 			}
 
 			@Override

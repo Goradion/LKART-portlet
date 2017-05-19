@@ -71,7 +71,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			{ "question_pct", Types.VARCHAR },
 			{ "answer_txt", Types.VARCHAR },
 			{ "answer_pct", Types.VARCHAR },
-			{ "cardBoxId", Types.BIGINT }
+			{ "cardBoxId_fk", Types.BIGINT }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -81,10 +81,10 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		TABLE_COLUMNS_MAP.put("question_pct", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("answer_txt", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("answer_pct", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("cardBoxId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("cardBoxId_fk", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,question_txt VARCHAR(75) null,question_pct VARCHAR(75) null,answer_txt VARCHAR(75) null,answer_pct VARCHAR(75) null,cardBoxId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,question_txt VARCHAR(75) null,question_pct VARCHAR(75) null,answer_txt VARCHAR(75) null,answer_pct VARCHAR(75) null,cardBoxId_fk LONG)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
 	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
@@ -100,7 +100,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.de.ki.sbamdc.model.Flashcard"),
 			true);
-	public static final long CARDBOXID_COLUMN_BITMASK = 1L;
+	public static final long CARDBOXID_FK_COLUMN_BITMASK = 1L;
 	public static final long ID_COLUMN_BITMASK = 2L;
 
 	/**
@@ -121,7 +121,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		model.setQuestion_pct(soapModel.getQuestion_pct());
 		model.setAnswer_txt(soapModel.getAnswer_txt());
 		model.setAnswer_pct(soapModel.getAnswer_pct());
-		model.setCardBoxId(soapModel.getCardBoxId());
+		model.setCardBoxId_fk(soapModel.getCardBoxId_fk());
 
 		return model;
 	}
@@ -191,7 +191,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		attributes.put("question_pct", getQuestion_pct());
 		attributes.put("answer_txt", getAnswer_txt());
 		attributes.put("answer_pct", getAnswer_pct());
-		attributes.put("cardBoxId", getCardBoxId());
+		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -231,10 +231,10 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			setAnswer_pct(answer_pct);
 		}
 
-		Long cardBoxId = (Long)attributes.get("cardBoxId");
+		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
 
-		if (cardBoxId != null) {
-			setCardBoxId(cardBoxId);
+		if (cardBoxId_fk != null) {
+			setCardBoxId_fk(cardBoxId_fk);
 		}
 	}
 
@@ -317,25 +317,25 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@JSON
 	@Override
-	public long getCardBoxId() {
-		return _cardBoxId;
+	public long getCardBoxId_fk() {
+		return _cardBoxId_fk;
 	}
 
 	@Override
-	public void setCardBoxId(long cardBoxId) {
-		_columnBitmask |= CARDBOXID_COLUMN_BITMASK;
+	public void setCardBoxId_fk(long cardBoxId_fk) {
+		_columnBitmask |= CARDBOXID_FK_COLUMN_BITMASK;
 
-		if (!_setOriginalCardBoxId) {
-			_setOriginalCardBoxId = true;
+		if (!_setOriginalCardBoxId_fk) {
+			_setOriginalCardBoxId_fk = true;
 
-			_originalCardBoxId = _cardBoxId;
+			_originalCardBoxId_fk = _cardBoxId_fk;
 		}
 
-		_cardBoxId = cardBoxId;
+		_cardBoxId_fk = cardBoxId_fk;
 	}
 
-	public long getOriginalCardBoxId() {
-		return _originalCardBoxId;
+	public long getOriginalCardBoxId_fk() {
+		return _originalCardBoxId_fk;
 	}
 
 	public long getColumnBitmask() {
@@ -374,7 +374,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		flashcardImpl.setQuestion_pct(getQuestion_pct());
 		flashcardImpl.setAnswer_txt(getAnswer_txt());
 		flashcardImpl.setAnswer_pct(getAnswer_pct());
-		flashcardImpl.setCardBoxId(getCardBoxId());
+		flashcardImpl.setCardBoxId_fk(getCardBoxId_fk());
 
 		flashcardImpl.resetOriginalValues();
 
@@ -445,9 +445,9 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public void resetOriginalValues() {
 		FlashcardModelImpl flashcardModelImpl = this;
 
-		flashcardModelImpl._originalCardBoxId = flashcardModelImpl._cardBoxId;
+		flashcardModelImpl._originalCardBoxId_fk = flashcardModelImpl._cardBoxId_fk;
 
-		flashcardModelImpl._setOriginalCardBoxId = false;
+		flashcardModelImpl._setOriginalCardBoxId_fk = false;
 
 		flashcardModelImpl._columnBitmask = 0;
 	}
@@ -490,7 +490,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			flashcardCacheModel.answer_pct = null;
 		}
 
-		flashcardCacheModel.cardBoxId = getCardBoxId();
+		flashcardCacheModel.cardBoxId_fk = getCardBoxId_fk();
 
 		return flashcardCacheModel;
 	}
@@ -509,8 +509,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		sb.append(getAnswer_txt());
 		sb.append(", answer_pct=");
 		sb.append(getAnswer_pct());
-		sb.append(", cardBoxId=");
-		sb.append(getCardBoxId());
+		sb.append(", cardBoxId_fk=");
+		sb.append(getCardBoxId_fk());
 		sb.append("}");
 
 		return sb.toString();
@@ -545,8 +545,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		sb.append(getAnswer_pct());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>cardBoxId</column-name><column-value><![CDATA[");
-		sb.append(getCardBoxId());
+			"<column><column-name>cardBoxId_fk</column-name><column-value><![CDATA[");
+		sb.append(getCardBoxId_fk());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -563,9 +563,9 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	private String _question_pct;
 	private String _answer_txt;
 	private String _answer_pct;
-	private long _cardBoxId;
-	private long _originalCardBoxId;
-	private boolean _setOriginalCardBoxId;
+	private long _cardBoxId_fk;
+	private long _originalCardBoxId_fk;
+	private boolean _setOriginalCardBoxId_fk;
 	private long _columnBitmask;
 	private Flashcard _escapedModel;
 }

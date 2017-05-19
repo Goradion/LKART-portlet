@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.CardBoxLocalServiceUtil;
+import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 
 public class LernkarteiPortlet extends MVCPortlet{
 
@@ -96,11 +97,11 @@ public class LernkarteiPortlet extends MVCPortlet{
 	 */
 	private void fillCardBoxEditForm(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String cardBoxId = actionRequest.getParameter("cardBoxId");
-
+		
 		try {
 			CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(Long.parseLong(cardBoxId));
 			PortletSession portletSession = actionRequest.getPortletSession();
-			portletSession.setAttribute("cardBoxId", cardBox.getCardBoxId(), PortletSession.APPLICATION_SCOPE);
+			portletSession.setAttribute("cardBoxId", cardBox.getId(), PortletSession.APPLICATION_SCOPE);
 			portletSession.setAttribute("cardBoxName", cardBox.getName(), PortletSession.APPLICATION_SCOPE);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -144,7 +145,8 @@ public class LernkarteiPortlet extends MVCPortlet{
 	}
 
 	public void test(ActionRequest actionRequest, ActionResponse actionResponse){
-		
+//		FlashcardLocalServiceUtil.getFlashcard(0).get
+//		CardBoxLocalServiceUtil.fi
 	}
 	
 }

@@ -177,6 +177,11 @@ public class FlashcardLocalServiceUtil {
 		return getService().fetchFlashcard(id);
 	}
 
+	public static java.util.List<de.ki.sbamdc.model.Flashcard> findByCardBoxId(
+		long cardBoxId) {
+		return getService().findByCardBoxId(cardBoxId);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
 		return getService().getActionableDynamicQuery();
 	}

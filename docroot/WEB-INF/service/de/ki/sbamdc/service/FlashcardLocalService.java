@@ -167,6 +167,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Flashcard fetchFlashcard(long id);
 
+	public List<Flashcard> findByCardBoxId(long cardBoxId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 

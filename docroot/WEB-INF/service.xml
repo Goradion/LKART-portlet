@@ -8,7 +8,7 @@
 
 		<!-- PK fields -->
 
-		<column name="cardBoxId" type="long" primary="true" />
+		<column name="id" type="long" primary="true" />
 
 		<!-- Group instance -->
 
@@ -62,7 +62,7 @@
 		</order>
 		
 		<finder return-type="Collection" name="CardBoxId">
-			<finder-column name="cardBoxId">
+			<finder-column name="cardBoxId_fk">
 		</finder-column></finder>
 	</entity>
 </service-builder>

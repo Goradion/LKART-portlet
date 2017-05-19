@@ -47,12 +47,12 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
 	*
-	* @param cardBoxId the primary key for the new card box
+	* @param id the primary key for the new card box
 	* @return the new card box
 	*/
 	@Override
-	public de.ki.sbamdc.model.CardBox createCardBox(long cardBoxId) {
-		return _cardBoxLocalService.createCardBox(cardBoxId);
+	public de.ki.sbamdc.model.CardBox createCardBox(long id) {
+		return _cardBoxLocalService.createCardBox(id);
 	}
 
 	/**
@@ -70,14 +70,14 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	/**
 	* Deletes the card box with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box that was removed
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
 	@Override
-	public de.ki.sbamdc.model.CardBox deleteCardBox(long cardBoxId)
+	public de.ki.sbamdc.model.CardBox deleteCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cardBoxLocalService.deleteCardBox(cardBoxId);
+		return _cardBoxLocalService.deleteCardBox(id);
 	}
 
 	/**
@@ -175,8 +175,8 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox fetchCardBox(long cardBoxId) {
-		return _cardBoxLocalService.fetchCardBox(cardBoxId);
+	public de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
+		return _cardBoxLocalService.fetchCardBox(id);
 	}
 
 	@Override
@@ -187,14 +187,14 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	/**
 	* Returns the card box with the primary key.
 	*
-	* @param cardBoxId the primary key of the card box
+	* @param id the primary key of the card box
 	* @return the card box
 	* @throws PortalException if a card box with the primary key could not be found
 	*/
 	@Override
-	public de.ki.sbamdc.model.CardBox getCardBox(long cardBoxId)
+	public de.ki.sbamdc.model.CardBox getCardBox(long id)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cardBoxLocalService.getCardBox(cardBoxId);
+		return _cardBoxLocalService.getCardBox(id);
 	}
 
 	/**
