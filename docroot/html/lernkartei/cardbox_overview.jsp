@@ -38,8 +38,8 @@
 	</liferay-ui:search-container-results>
 
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.CardBox"
-		modelVar="cardBox" keyProperty="cardBoxId">
-		<liferay-ui:search-container-column-text property="cardBoxName"
+		modelVar="cardBox" keyProperty="id">
+		<liferay-ui:search-container-column-text property="name"
 			name="Name" />
 		
 	</liferay-ui:search-container-row>

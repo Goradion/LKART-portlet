@@ -8,7 +8,7 @@
 <h1>Neuer Karteikasten</h1>
 <form method="POST" action="${saveCardBox}" >
 Name:
-<input type="text" name="<portlet:namespace cardBoxName" value="${cardBoxName}" maxlength="75" /> <br />
+<input type="text" name="<portlet:namespace/>cardBoxName" value="${cardBoxName}" maxlength="75" /> <br />
 <input type="submit" value="Abschicken"> <br>
 </form>
 <p><a href=<%=cardBoxOverview%>>Zurück</a></p>
