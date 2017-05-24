@@ -41,6 +41,11 @@ public class CardBoxServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link de.ki.sbamdc.service.impl.CardBoxServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,12 +54,6 @@ public class CardBoxServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
 	public static void clearService() {

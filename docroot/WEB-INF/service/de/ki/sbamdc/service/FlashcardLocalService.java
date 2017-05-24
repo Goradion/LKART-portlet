@@ -61,6 +61,25 @@ public interface FlashcardLocalService extends BaseLocalService,
 	 *
 	 * Never modify or reference this interface directly. Always use {@link FlashcardLocalServiceUtil} to access the flashcard local service. Add custom service methods to {@link de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	public DynamicQuery dynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
+
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	/**
 	* Adds the flashcard to the database. Also notifies the appropriate model listeners.
@@ -98,14 +117,47 @@ public interface FlashcardLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	public Flashcard deleteFlashcard(long id) throws PortalException;
 
-	/**
-	* @throws PortalException
-	*/
-	@Override
-	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
-		throws PortalException;
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Flashcard fetchFlashcard(long id);
 
-	public DynamicQuery dynamicQuery();
+	/**
+	* Returns the flashcard with the primary key.
+	*
+	* @param id the primary key of the flashcard
+	* @return the flashcard
+	* @throws PortalException if a flashcard with the primary key could not be found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Flashcard getFlashcard(long id) throws PortalException;
+
+	/**
+	* Updates the flashcard in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param flashcard the flashcard
+	* @return the flashcard that was updated
+	*/
+	@Indexable(type = IndexableType.REINDEX)
+	public Flashcard updateFlashcard(Flashcard flashcard);
+
+	/**
+	* Returns the number of flashcards.
+	*
+	* @return the number of flashcards
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getFlashcardsCount();
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable;
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public java.lang.String getOSGiServiceIdentifier();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -146,6 +198,22 @@ public interface FlashcardLocalService extends BaseLocalService,
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
 
+	public List<Flashcard> findByCardBoxId(long cardBoxId);
+
+	/**
+	* Returns a range of all the flashcards.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.FlashcardModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of flashcards
+	* @param end the upper bound of the range of flashcards (not inclusive)
+	* @return the range of flashcards
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Flashcard> getFlashcards(int start, int end);
+
 	/**
 	* Returns the number of rows matching the dynamic query.
 	*
@@ -163,73 +231,4 @@ public interface FlashcardLocalService extends BaseLocalService,
 	*/
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Flashcard fetchFlashcard(long id);
-
-	public List<Flashcard> findByCardBoxId(long cardBoxId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ActionableDynamicQuery getActionableDynamicQuery();
-
-	/**
-	* Returns the flashcard with the primary key.
-	*
-	* @param id the primary key of the flashcard
-	* @return the flashcard
-	* @throws PortalException if a flashcard with the primary key could not be found
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Flashcard getFlashcard(long id) throws PortalException;
-
-	/**
-	* Returns a range of all the flashcards.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.FlashcardModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param start the lower bound of the range of flashcards
-	* @param end the upper bound of the range of flashcards (not inclusive)
-	* @return the range of flashcards
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Flashcard> getFlashcards(int start, int end);
-
-	/**
-	* Returns the number of flashcards.
-	*
-	* @return the number of flashcards
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getFlashcardsCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
-
-	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
-	public java.lang.String getOSGiServiceIdentifier();
-
-	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
-		throws PortalException;
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable;
-
-	/**
-	* Updates the flashcard in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param flashcard the flashcard
-	* @return the flashcard that was updated
-	*/
-	@Indexable(type = IndexableType.REINDEX)
-	public Flashcard updateFlashcard(Flashcard flashcard);
 }

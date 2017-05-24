@@ -13,7 +13,7 @@
 
 <!-- SearchContainer START -->
 <%
-	List<CardBox> categories = CardBoxLocalServiceUtil.getCardBoxs(0,
+	List<CardBox> cardboxes = CardBoxLocalServiceUtil.getCardBoxs(0,
 			CardBoxLocalServiceUtil.getCardBoxsCount());
 %>
 <portlet:actionURL name="toMainMenu" var="mainMenu"></portlet:actionURL>
@@ -23,7 +23,7 @@
 
 <h1>Lernkarteien</h1>
 
-<liferay-ui:search-container var="searchContainer" delta="5"
+<liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Karteien wurden gefunden."
 	compactEmptyResultsMessage="Keine Kartei gefunden." deltaConfigurable="true"
 	iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>

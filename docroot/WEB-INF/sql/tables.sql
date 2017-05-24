@@ -1,5 +1,5 @@
 create table sbamdc_CardBox (
-	cardBoxId LONG not null primary key,
+	id_ LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
@@ -17,5 +17,5 @@ create table sbamdc_Flashcard (
 	question_pct VARCHAR(75) null,
 	answer_txt VARCHAR(75) null,
 	answer_pct VARCHAR(75) null,
-	cardBoxId LONG
+	cardBoxId_fk LONG
 );

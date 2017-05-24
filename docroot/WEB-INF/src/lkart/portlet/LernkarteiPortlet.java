@@ -44,6 +44,10 @@ public class LernkarteiPortlet extends MVCPortlet{
 	public void toEditMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
+	
+	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse){
+		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
+	}
 
 	
 	/**
