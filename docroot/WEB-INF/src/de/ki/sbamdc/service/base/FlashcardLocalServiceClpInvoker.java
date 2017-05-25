@@ -121,9 +121,13 @@ public class FlashcardLocalServiceClpInvoker {
 
 		_methodParameterTypes42 = new String[] {  };
 
-		_methodName47 = "findByCardBoxId";
+		_methodName47 = "addFlashcard";
 
-		_methodParameterTypes47 = new String[] { "long" };
+		_methodParameterTypes47 = new String[] { "java.lang.String", "long" };
+
+		_methodName48 = "findByCardBoxId";
+
+		_methodParameterTypes48 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,6 +241,12 @@ public class FlashcardLocalServiceClpInvoker {
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return FlashcardLocalServiceUtil.addFlashcard((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return FlashcardLocalServiceUtil.findByCardBoxId(((Long)arguments[0]).longValue());
 		}
 
@@ -285,4 +295,6 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes42;
 	private String _methodName47;
 	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
 }

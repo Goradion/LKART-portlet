@@ -77,6 +77,12 @@ public class FlashcardLocalServiceWrapper implements FlashcardLocalService,
 		return _flashcardLocalService.addFlashcard(flashcard);
 	}
 
+	@Override
+	public de.ki.sbamdc.model.Flashcard addFlashcard(java.lang.String content,
+		long cardBoxId) {
+		return _flashcardLocalService.addFlashcard(content, cardBoxId);
+	}
+
 	/**
 	* Creates a new flashcard with the primary key. Does not add the flashcard to the database.
 	*

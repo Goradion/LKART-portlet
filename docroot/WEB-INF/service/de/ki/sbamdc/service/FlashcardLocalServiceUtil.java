@@ -79,6 +79,11 @@ public class FlashcardLocalServiceUtil {
 		return getService().addFlashcard(flashcard);
 	}
 
+	public static de.ki.sbamdc.model.Flashcard addFlashcard(
+		java.lang.String content, long cardBoxId) {
+		return getService().addFlashcard(content, cardBoxId);
+	}
+
 	/**
 	* Creates a new flashcard with the primary key. Does not add the flashcard to the database.
 	*

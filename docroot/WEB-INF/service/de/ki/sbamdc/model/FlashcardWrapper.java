@@ -57,10 +57,7 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
-		attributes.put("question_txt", getQuestion_txt());
-		attributes.put("question_pct", getQuestion_pct());
-		attributes.put("answer_txt", getAnswer_txt());
-		attributes.put("answer_pct", getAnswer_pct());
+		attributes.put("content", getContent());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 
 		return attributes;
@@ -74,28 +71,10 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 			setId(id);
 		}
 
-		String question_txt = (String)attributes.get("question_txt");
+		String content = (String)attributes.get("content");
 
-		if (question_txt != null) {
-			setQuestion_txt(question_txt);
-		}
-
-		String question_pct = (String)attributes.get("question_pct");
-
-		if (question_pct != null) {
-			setQuestion_pct(question_pct);
-		}
-
-		String answer_txt = (String)attributes.get("answer_txt");
-
-		if (answer_txt != null) {
-			setAnswer_txt(answer_txt);
-		}
-
-		String answer_pct = (String)attributes.get("answer_pct");
-
-		if (answer_pct != null) {
-			setAnswer_pct(answer_pct);
+		if (content != null) {
+			setContent(content);
 		}
 
 		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
@@ -161,43 +140,13 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	/**
-	* Returns the answer_pct of this flashcard.
+	* Returns the content of this flashcard.
 	*
-	* @return the answer_pct of this flashcard
+	* @return the content of this flashcard
 	*/
 	@Override
-	public java.lang.String getAnswer_pct() {
-		return _flashcard.getAnswer_pct();
-	}
-
-	/**
-	* Returns the answer_txt of this flashcard.
-	*
-	* @return the answer_txt of this flashcard
-	*/
-	@Override
-	public java.lang.String getAnswer_txt() {
-		return _flashcard.getAnswer_txt();
-	}
-
-	/**
-	* Returns the question_pct of this flashcard.
-	*
-	* @return the question_pct of this flashcard
-	*/
-	@Override
-	public java.lang.String getQuestion_pct() {
-		return _flashcard.getQuestion_pct();
-	}
-
-	/**
-	* Returns the question_txt of this flashcard.
-	*
-	* @return the question_txt of this flashcard
-	*/
-	@Override
-	public java.lang.String getQuestion_txt() {
-		return _flashcard.getQuestion_txt();
+	public java.lang.String getContent() {
+		return _flashcard.getContent();
 	}
 
 	@Override
@@ -245,26 +194,6 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		_flashcard.persist();
 	}
 
-	/**
-	* Sets the answer_pct of this flashcard.
-	*
-	* @param answer_pct the answer_pct of this flashcard
-	*/
-	@Override
-	public void setAnswer_pct(java.lang.String answer_pct) {
-		_flashcard.setAnswer_pct(answer_pct);
-	}
-
-	/**
-	* Sets the answer_txt of this flashcard.
-	*
-	* @param answer_txt the answer_txt of this flashcard
-	*/
-	@Override
-	public void setAnswer_txt(java.lang.String answer_txt) {
-		_flashcard.setAnswer_txt(answer_txt);
-	}
-
 	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_flashcard.setCachedModel(cachedModel);
@@ -278,6 +207,16 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public void setCardBoxId_fk(long cardBoxId_fk) {
 		_flashcard.setCardBoxId_fk(cardBoxId_fk);
+	}
+
+	/**
+	* Sets the content of this flashcard.
+	*
+	* @param content the content of this flashcard
+	*/
+	@Override
+	public void setContent(java.lang.String content) {
+		_flashcard.setContent(content);
 	}
 
 	@Override
@@ -324,26 +263,6 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_flashcard.setPrimaryKeyObj(primaryKeyObj);
-	}
-
-	/**
-	* Sets the question_pct of this flashcard.
-	*
-	* @param question_pct the question_pct of this flashcard
-	*/
-	@Override
-	public void setQuestion_pct(java.lang.String question_pct) {
-		_flashcard.setQuestion_pct(question_pct);
-	}
-
-	/**
-	* Sets the question_txt of this flashcard.
-	*
-	* @param question_txt the question_txt of this flashcard
-	*/
-	@Override
-	public void setQuestion_txt(java.lang.String question_txt) {
-		_flashcard.setQuestion_txt(question_txt);
 	}
 
 	@Override

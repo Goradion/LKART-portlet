@@ -75,64 +75,19 @@ public interface FlashcardModel extends BaseModel<Flashcard> {
 	public void setId(long id);
 
 	/**
-	 * Returns the question_txt of this flashcard.
+	 * Returns the content of this flashcard.
 	 *
-	 * @return the question_txt of this flashcard
+	 * @return the content of this flashcard
 	 */
 	@AutoEscape
-	public String getQuestion_txt();
+	public String getContent();
 
 	/**
-	 * Sets the question_txt of this flashcard.
+	 * Sets the content of this flashcard.
 	 *
-	 * @param question_txt the question_txt of this flashcard
+	 * @param content the content of this flashcard
 	 */
-	public void setQuestion_txt(String question_txt);
-
-	/**
-	 * Returns the question_pct of this flashcard.
-	 *
-	 * @return the question_pct of this flashcard
-	 */
-	@AutoEscape
-	public String getQuestion_pct();
-
-	/**
-	 * Sets the question_pct of this flashcard.
-	 *
-	 * @param question_pct the question_pct of this flashcard
-	 */
-	public void setQuestion_pct(String question_pct);
-
-	/**
-	 * Returns the answer_txt of this flashcard.
-	 *
-	 * @return the answer_txt of this flashcard
-	 */
-	@AutoEscape
-	public String getAnswer_txt();
-
-	/**
-	 * Sets the answer_txt of this flashcard.
-	 *
-	 * @param answer_txt the answer_txt of this flashcard
-	 */
-	public void setAnswer_txt(String answer_txt);
-
-	/**
-	 * Returns the answer_pct of this flashcard.
-	 *
-	 * @return the answer_pct of this flashcard
-	 */
-	@AutoEscape
-	public String getAnswer_pct();
-
-	/**
-	 * Sets the answer_pct of this flashcard.
-	 *
-	 * @param answer_pct the answer_pct of this flashcard
-	 */
-	public void setAnswer_pct(String answer_pct);
+	public void setContent(String content);
 
 	/**
 	 * Returns the card box id_fk of this flashcard.

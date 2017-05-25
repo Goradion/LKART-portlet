@@ -2,6 +2,7 @@ package lkart.portlet;
 
 import static lkart.util.Constants.*;
 import java.io.IOException;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -122,9 +123,36 @@ public class LernkarteiPortlet extends MVCPortlet{
 	
 	public void toNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
+		
+		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
+		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList);
+		
 	}
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
+	}
+	
+	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse){
+		String fcContent = actionRequest.getParameter("flashcardEditor");
+		String cardBoxId = actionRequest.getParameter("cardBoxList");
+		
+		
+		if(!(cardBoxId==null)){ 
+			try{
+				long cbId = Long.parseLong(cardBoxId);
+				
+				if(!fcContent.isEmpty()){
+					// create and store flashcard in database
+					FlashcardLocalServiceUtil.addFlashcard(fcContent, cbId);
+				}
+				
+			} catch(NumberFormatException nfe){
+				// hier eventuell ein Feedback an User
+				nfe.printStackTrace();
+			}
+		}
+		
+		
 	}
 	
 	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse){

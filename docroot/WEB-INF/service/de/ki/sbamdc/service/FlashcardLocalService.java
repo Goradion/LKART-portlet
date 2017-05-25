@@ -90,6 +90,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Flashcard addFlashcard(Flashcard flashcard);
 
+	public Flashcard addFlashcard(java.lang.String content, long cardBoxId);
+
 	/**
 	* Creates a new flashcard with the primary key. Does not add the flashcard to the database.
 	*

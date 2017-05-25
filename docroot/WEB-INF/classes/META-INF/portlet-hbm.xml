@@ -22,10 +22,7 @@
 		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="question_txt" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="question_pct" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="answer_txt" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="answer_pct" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 </hibernate-mapping>

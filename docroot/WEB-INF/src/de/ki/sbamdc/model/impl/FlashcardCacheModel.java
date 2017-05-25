@@ -64,18 +64,12 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{id=");
 		sb.append(id);
-		sb.append(", question_txt=");
-		sb.append(question_txt);
-		sb.append(", question_pct=");
-		sb.append(question_pct);
-		sb.append(", answer_txt=");
-		sb.append(answer_txt);
-		sb.append(", answer_pct=");
-		sb.append(answer_pct);
+		sb.append(", content=");
+		sb.append(content);
 		sb.append(", cardBoxId_fk=");
 		sb.append(cardBoxId_fk);
 		sb.append("}");
@@ -89,32 +83,11 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 		flashcardImpl.setId(id);
 
-		if (question_txt == null) {
-			flashcardImpl.setQuestion_txt(StringPool.BLANK);
+		if (content == null) {
+			flashcardImpl.setContent(StringPool.BLANK);
 		}
 		else {
-			flashcardImpl.setQuestion_txt(question_txt);
-		}
-
-		if (question_pct == null) {
-			flashcardImpl.setQuestion_pct(StringPool.BLANK);
-		}
-		else {
-			flashcardImpl.setQuestion_pct(question_pct);
-		}
-
-		if (answer_txt == null) {
-			flashcardImpl.setAnswer_txt(StringPool.BLANK);
-		}
-		else {
-			flashcardImpl.setAnswer_txt(answer_txt);
-		}
-
-		if (answer_pct == null) {
-			flashcardImpl.setAnswer_pct(StringPool.BLANK);
-		}
-		else {
-			flashcardImpl.setAnswer_pct(answer_pct);
+			flashcardImpl.setContent(content);
 		}
 
 		flashcardImpl.setCardBoxId_fk(cardBoxId_fk);
@@ -127,10 +100,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		id = objectInput.readLong();
-		question_txt = objectInput.readUTF();
-		question_pct = objectInput.readUTF();
-		answer_txt = objectInput.readUTF();
-		answer_pct = objectInput.readUTF();
+		content = objectInput.readUTF();
 
 		cardBoxId_fk = objectInput.readLong();
 	}
@@ -140,41 +110,17 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		throws IOException {
 		objectOutput.writeLong(id);
 
-		if (question_txt == null) {
+		if (content == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(question_txt);
-		}
-
-		if (question_pct == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(question_pct);
-		}
-
-		if (answer_txt == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(answer_txt);
-		}
-
-		if (answer_pct == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(answer_pct);
+			objectOutput.writeUTF(content);
 		}
 
 		objectOutput.writeLong(cardBoxId_fk);
 	}
 
 	public long id;
-	public String question_txt;
-	public String question_pct;
-	public String answer_txt;
-	public String answer_pct;
+	public String content;
 	public long cardBoxId_fk;
 }

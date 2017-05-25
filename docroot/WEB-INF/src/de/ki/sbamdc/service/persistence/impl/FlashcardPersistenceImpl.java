@@ -845,10 +845,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		flashcardImpl.setPrimaryKey(flashcard.getPrimaryKey());
 
 		flashcardImpl.setId(flashcard.getId());
-		flashcardImpl.setQuestion_txt(flashcard.getQuestion_txt());
-		flashcardImpl.setQuestion_pct(flashcard.getQuestion_pct());
-		flashcardImpl.setAnswer_txt(flashcard.getAnswer_txt());
-		flashcardImpl.setAnswer_pct(flashcard.getAnswer_pct());
+		flashcardImpl.setContent(flashcard.getContent());
 		flashcardImpl.setCardBoxId_fk(flashcard.getCardBoxId_fk());
 
 		return flashcardImpl;

@@ -34,10 +34,7 @@ public class FlashcardSoap implements Serializable {
 		FlashcardSoap soapModel = new FlashcardSoap();
 
 		soapModel.setId(model.getId());
-		soapModel.setQuestion_txt(model.getQuestion_txt());
-		soapModel.setQuestion_pct(model.getQuestion_pct());
-		soapModel.setAnswer_txt(model.getAnswer_txt());
-		soapModel.setAnswer_pct(model.getAnswer_pct());
+		soapModel.setContent(model.getContent());
 		soapModel.setCardBoxId_fk(model.getCardBoxId_fk());
 
 		return soapModel;
@@ -99,36 +96,12 @@ public class FlashcardSoap implements Serializable {
 		_id = id;
 	}
 
-	public String getQuestion_txt() {
-		return _question_txt;
+	public String getContent() {
+		return _content;
 	}
 
-	public void setQuestion_txt(String question_txt) {
-		_question_txt = question_txt;
-	}
-
-	public String getQuestion_pct() {
-		return _question_pct;
-	}
-
-	public void setQuestion_pct(String question_pct) {
-		_question_pct = question_pct;
-	}
-
-	public String getAnswer_txt() {
-		return _answer_txt;
-	}
-
-	public void setAnswer_txt(String answer_txt) {
-		_answer_txt = answer_txt;
-	}
-
-	public String getAnswer_pct() {
-		return _answer_pct;
-	}
-
-	public void setAnswer_pct(String answer_pct) {
-		_answer_pct = answer_pct;
+	public void setContent(String content) {
+		_content = content;
 	}
 
 	public long getCardBoxId_fk() {
@@ -140,9 +113,6 @@ public class FlashcardSoap implements Serializable {
 	}
 
 	private long _id;
-	private String _question_txt;
-	private String _question_pct;
-	private String _answer_txt;
-	private String _answer_pct;
+	private String _content;
 	private long _cardBoxId_fk;
 }

@@ -15,10 +15,7 @@
 	</model>
 	<model name="de.ki.sbamdc.model.Flashcard">
 		<field name="id" type="long" />
-		<field name="question_txt" type="String" />
-		<field name="question_pct" type="String" />
-		<field name="answer_txt" type="String" />
-		<field name="answer_pct" type="String" />
+		<field name="content" type="String" />
 		<field name="cardBoxId_fk" type="long" />
 	</model>
 </model-hints>

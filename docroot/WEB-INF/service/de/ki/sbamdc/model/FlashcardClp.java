@@ -76,10 +76,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
-		attributes.put("question_txt", getQuestion_txt());
-		attributes.put("question_pct", getQuestion_pct());
-		attributes.put("answer_txt", getAnswer_txt());
-		attributes.put("answer_pct", getAnswer_pct());
+		attributes.put("content", getContent());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -96,28 +93,10 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 			setId(id);
 		}
 
-		String question_txt = (String)attributes.get("question_txt");
+		String content = (String)attributes.get("content");
 
-		if (question_txt != null) {
-			setQuestion_txt(question_txt);
-		}
-
-		String question_pct = (String)attributes.get("question_pct");
-
-		if (question_pct != null) {
-			setQuestion_pct(question_pct);
-		}
-
-		String answer_txt = (String)attributes.get("answer_txt");
-
-		if (answer_txt != null) {
-			setAnswer_txt(answer_txt);
-		}
-
-		String answer_pct = (String)attributes.get("answer_pct");
-
-		if (answer_pct != null) {
-			setAnswer_pct(answer_pct);
+		if (content != null) {
+			setContent(content);
 		}
 
 		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
@@ -154,90 +133,21 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 	}
 
 	@Override
-	public String getQuestion_txt() {
-		return _question_txt;
+	public String getContent() {
+		return _content;
 	}
 
 	@Override
-	public void setQuestion_txt(String question_txt) {
-		_question_txt = question_txt;
+	public void setContent(String content) {
+		_content = content;
 
 		if (_flashcardRemoteModel != null) {
 			try {
 				Class<?> clazz = _flashcardRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setQuestion_txt", String.class);
+				Method method = clazz.getMethod("setContent", String.class);
 
-				method.invoke(_flashcardRemoteModel, question_txt);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getQuestion_pct() {
-		return _question_pct;
-	}
-
-	@Override
-	public void setQuestion_pct(String question_pct) {
-		_question_pct = question_pct;
-
-		if (_flashcardRemoteModel != null) {
-			try {
-				Class<?> clazz = _flashcardRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setQuestion_pct", String.class);
-
-				method.invoke(_flashcardRemoteModel, question_pct);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getAnswer_txt() {
-		return _answer_txt;
-	}
-
-	@Override
-	public void setAnswer_txt(String answer_txt) {
-		_answer_txt = answer_txt;
-
-		if (_flashcardRemoteModel != null) {
-			try {
-				Class<?> clazz = _flashcardRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setAnswer_txt", String.class);
-
-				method.invoke(_flashcardRemoteModel, answer_txt);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getAnswer_pct() {
-		return _answer_pct;
-	}
-
-	@Override
-	public void setAnswer_pct(String answer_pct) {
-		_answer_pct = answer_pct;
-
-		if (_flashcardRemoteModel != null) {
-			try {
-				Class<?> clazz = _flashcardRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setAnswer_pct", String.class);
-
-				method.invoke(_flashcardRemoteModel, answer_pct);
+				method.invoke(_flashcardRemoteModel, content);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -338,10 +248,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		FlashcardClp clone = new FlashcardClp();
 
 		clone.setId(getId());
-		clone.setQuestion_txt(getQuestion_txt());
-		clone.setQuestion_pct(getQuestion_pct());
-		clone.setAnswer_txt(getAnswer_txt());
-		clone.setAnswer_pct(getAnswer_pct());
+		clone.setContent(getContent());
 		clone.setCardBoxId_fk(getCardBoxId_fk());
 
 		return clone;
@@ -413,18 +320,12 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{id=");
 		sb.append(getId());
-		sb.append(", question_txt=");
-		sb.append(getQuestion_txt());
-		sb.append(", question_pct=");
-		sb.append(getQuestion_pct());
-		sb.append(", answer_txt=");
-		sb.append(getAnswer_txt());
-		sb.append(", answer_pct=");
-		sb.append(getAnswer_pct());
+		sb.append(", content=");
+		sb.append(getContent());
 		sb.append(", cardBoxId_fk=");
 		sb.append(getCardBoxId_fk());
 		sb.append("}");
@@ -434,7 +335,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -445,20 +346,8 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		sb.append(getId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>question_txt</column-name><column-value><![CDATA[");
-		sb.append(getQuestion_txt());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>question_pct</column-name><column-value><![CDATA[");
-		sb.append(getQuestion_pct());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>answer_txt</column-name><column-value><![CDATA[");
-		sb.append(getAnswer_txt());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>answer_pct</column-name><column-value><![CDATA[");
-		sb.append(getAnswer_pct());
+			"<column><column-name>content</column-name><column-value><![CDATA[");
+		sb.append(getContent());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>cardBoxId_fk</column-name><column-value><![CDATA[");
@@ -471,10 +360,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 	}
 
 	private long _id;
-	private String _question_txt;
-	private String _question_pct;
-	private String _answer_txt;
-	private String _answer_pct;
+	private String _content;
 	private long _cardBoxId_fk;
 	private BaseModel<?> _flashcardRemoteModel;
 	private Class<?> _clpSerializerClass = ClpSerializer.class;

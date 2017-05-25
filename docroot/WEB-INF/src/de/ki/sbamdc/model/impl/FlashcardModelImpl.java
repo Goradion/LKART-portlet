@@ -67,24 +67,18 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public static final String TABLE_NAME = "sbamdc_Flashcard";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "id_", Types.BIGINT },
-			{ "question_txt", Types.VARCHAR },
-			{ "question_pct", Types.VARCHAR },
-			{ "answer_txt", Types.VARCHAR },
-			{ "answer_pct", Types.VARCHAR },
+			{ "content", Types.VARCHAR },
 			{ "cardBoxId_fk", Types.BIGINT }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
 	static {
 		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("question_txt", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("question_pct", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("answer_txt", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("answer_pct", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("content", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("cardBoxId_fk", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,question_txt VARCHAR(75) null,question_pct VARCHAR(75) null,answer_txt VARCHAR(75) null,answer_pct VARCHAR(75) null,cardBoxId_fk LONG)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,content VARCHAR(75) null,cardBoxId_fk LONG)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
 	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
@@ -117,10 +111,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Flashcard model = new FlashcardImpl();
 
 		model.setId(soapModel.getId());
-		model.setQuestion_txt(soapModel.getQuestion_txt());
-		model.setQuestion_pct(soapModel.getQuestion_pct());
-		model.setAnswer_txt(soapModel.getAnswer_txt());
-		model.setAnswer_pct(soapModel.getAnswer_pct());
+		model.setContent(soapModel.getContent());
 		model.setCardBoxId_fk(soapModel.getCardBoxId_fk());
 
 		return model;
@@ -187,10 +178,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
-		attributes.put("question_txt", getQuestion_txt());
-		attributes.put("question_pct", getQuestion_pct());
-		attributes.put("answer_txt", getAnswer_txt());
-		attributes.put("answer_pct", getAnswer_pct());
+		attributes.put("content", getContent());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -207,28 +195,10 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			setId(id);
 		}
 
-		String question_txt = (String)attributes.get("question_txt");
+		String content = (String)attributes.get("content");
 
-		if (question_txt != null) {
-			setQuestion_txt(question_txt);
-		}
-
-		String question_pct = (String)attributes.get("question_pct");
-
-		if (question_pct != null) {
-			setQuestion_pct(question_pct);
-		}
-
-		String answer_txt = (String)attributes.get("answer_txt");
-
-		if (answer_txt != null) {
-			setAnswer_txt(answer_txt);
-		}
-
-		String answer_pct = (String)attributes.get("answer_pct");
-
-		if (answer_pct != null) {
-			setAnswer_pct(answer_pct);
+		if (content != null) {
+			setContent(content);
 		}
 
 		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
@@ -253,66 +223,18 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@JSON
 	@Override
-	public String getQuestion_txt() {
-		if (_question_txt == null) {
+	public String getContent() {
+		if (_content == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _question_txt;
+			return _content;
 		}
 	}
 
 	@Override
-	public void setQuestion_txt(String question_txt) {
-		_question_txt = question_txt;
-	}
-
-	@JSON
-	@Override
-	public String getQuestion_pct() {
-		if (_question_pct == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _question_pct;
-		}
-	}
-
-	@Override
-	public void setQuestion_pct(String question_pct) {
-		_question_pct = question_pct;
-	}
-
-	@JSON
-	@Override
-	public String getAnswer_txt() {
-		if (_answer_txt == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _answer_txt;
-		}
-	}
-
-	@Override
-	public void setAnswer_txt(String answer_txt) {
-		_answer_txt = answer_txt;
-	}
-
-	@JSON
-	@Override
-	public String getAnswer_pct() {
-		if (_answer_pct == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _answer_pct;
-		}
-	}
-
-	@Override
-	public void setAnswer_pct(String answer_pct) {
-		_answer_pct = answer_pct;
+	public void setContent(String content) {
+		_content = content;
 	}
 
 	@JSON
@@ -370,10 +292,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		FlashcardImpl flashcardImpl = new FlashcardImpl();
 
 		flashcardImpl.setId(getId());
-		flashcardImpl.setQuestion_txt(getQuestion_txt());
-		flashcardImpl.setQuestion_pct(getQuestion_pct());
-		flashcardImpl.setAnswer_txt(getAnswer_txt());
-		flashcardImpl.setAnswer_pct(getAnswer_pct());
+		flashcardImpl.setContent(getContent());
 		flashcardImpl.setCardBoxId_fk(getCardBoxId_fk());
 
 		flashcardImpl.resetOriginalValues();
@@ -458,36 +377,12 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 		flashcardCacheModel.id = getId();
 
-		flashcardCacheModel.question_txt = getQuestion_txt();
+		flashcardCacheModel.content = getContent();
 
-		String question_txt = flashcardCacheModel.question_txt;
+		String content = flashcardCacheModel.content;
 
-		if ((question_txt != null) && (question_txt.length() == 0)) {
-			flashcardCacheModel.question_txt = null;
-		}
-
-		flashcardCacheModel.question_pct = getQuestion_pct();
-
-		String question_pct = flashcardCacheModel.question_pct;
-
-		if ((question_pct != null) && (question_pct.length() == 0)) {
-			flashcardCacheModel.question_pct = null;
-		}
-
-		flashcardCacheModel.answer_txt = getAnswer_txt();
-
-		String answer_txt = flashcardCacheModel.answer_txt;
-
-		if ((answer_txt != null) && (answer_txt.length() == 0)) {
-			flashcardCacheModel.answer_txt = null;
-		}
-
-		flashcardCacheModel.answer_pct = getAnswer_pct();
-
-		String answer_pct = flashcardCacheModel.answer_pct;
-
-		if ((answer_pct != null) && (answer_pct.length() == 0)) {
-			flashcardCacheModel.answer_pct = null;
+		if ((content != null) && (content.length() == 0)) {
+			flashcardCacheModel.content = null;
 		}
 
 		flashcardCacheModel.cardBoxId_fk = getCardBoxId_fk();
@@ -497,18 +392,12 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(7);
 
 		sb.append("{id=");
 		sb.append(getId());
-		sb.append(", question_txt=");
-		sb.append(getQuestion_txt());
-		sb.append(", question_pct=");
-		sb.append(getQuestion_pct());
-		sb.append(", answer_txt=");
-		sb.append(getAnswer_txt());
-		sb.append(", answer_pct=");
-		sb.append(getAnswer_pct());
+		sb.append(", content=");
+		sb.append(getContent());
 		sb.append(", cardBoxId_fk=");
 		sb.append(getCardBoxId_fk());
 		sb.append("}");
@@ -518,7 +407,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -529,20 +418,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		sb.append(getId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>question_txt</column-name><column-value><![CDATA[");
-		sb.append(getQuestion_txt());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>question_pct</column-name><column-value><![CDATA[");
-		sb.append(getQuestion_pct());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>answer_txt</column-name><column-value><![CDATA[");
-		sb.append(getAnswer_txt());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>answer_pct</column-name><column-value><![CDATA[");
-		sb.append(getAnswer_pct());
+			"<column><column-name>content</column-name><column-value><![CDATA[");
+		sb.append(getContent());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>cardBoxId_fk</column-name><column-value><![CDATA[");
@@ -559,10 +436,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			Flashcard.class
 		};
 	private long _id;
-	private String _question_txt;
-	private String _question_pct;
-	private String _answer_txt;
-	private String _answer_pct;
+	private String _content;
 	private long _cardBoxId_fk;
 	private long _originalCardBoxId_fk;
 	private boolean _setOriginalCardBoxId_fk;
