@@ -163,58 +163,218 @@ public class CardBoxUtil {
 	}
 
 	/**
-	* Returns the card box where author = &#63; or throws a {@link NoSuchCardBoxException} if it could not be found.
+	* Returns all the card boxs where userId = &#63;.
 	*
-	* @param author the author
+	* @param userId the user ID
+	* @return the matching card boxs
+	*/
+	public static List<CardBox> findByUserId(long userId) {
+		return getPersistence().findByUserId(userId);
+	}
+
+	/**
+	* Returns a range of all the card boxs where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of card boxs
+	* @param end the upper bound of the range of card boxs (not inclusive)
+	* @return the range of matching card boxs
+	*/
+	public static List<CardBox> findByUserId(long userId, int start, int end) {
+		return getPersistence().findByUserId(userId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the card boxs where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of card boxs
+	* @param end the upper bound of the range of card boxs (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching card boxs
+	*/
+	public static List<CardBox> findByUserId(long userId, int start, int end,
+		OrderByComparator<CardBox> orderByComparator) {
+		return getPersistence()
+				   .findByUserId(userId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns an ordered range of all the card boxs where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of card boxs
+	* @param end the upper bound of the range of card boxs (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching card boxs
+	*/
+	public static List<CardBox> findByUserId(long userId, int start, int end,
+		OrderByComparator<CardBox> orderByComparator, boolean retrieveFromCache) {
+		return getPersistence()
+				   .findByUserId(userId, start, end, orderByComparator,
+			retrieveFromCache);
+	}
+
+	/**
+	* Returns the first card box in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching card box
+	* @throws NoSuchCardBoxException if a matching card box could not be found
+	*/
+	public static CardBox findByUserId_First(long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence().findByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the first card box in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching card box, or <code>null</code> if a matching card box could not be found
+	*/
+	public static CardBox fetchByUserId_First(long userId,
+		OrderByComparator<CardBox> orderByComparator) {
+		return getPersistence().fetchByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the last card box in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching card box
+	* @throws NoSuchCardBoxException if a matching card box could not be found
+	*/
+	public static CardBox findByUserId_Last(long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence().findByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the last card box in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching card box, or <code>null</code> if a matching card box could not be found
+	*/
+	public static CardBox fetchByUserId_Last(long userId,
+		OrderByComparator<CardBox> orderByComparator) {
+		return getPersistence().fetchByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the card boxs before and after the current card box in the ordered set where userId = &#63;.
+	*
+	* @param id the primary key of the current card box
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next card box
+	* @throws NoSuchCardBoxException if a card box with the primary key could not be found
+	*/
+	public static CardBox[] findByUserId_PrevAndNext(long id, long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence()
+				   .findByUserId_PrevAndNext(id, userId, orderByComparator);
+	}
+
+	/**
+	* Removes all the card boxs where userId = &#63; from the database.
+	*
+	* @param userId the user ID
+	*/
+	public static void removeByUserId(long userId) {
+		getPersistence().removeByUserId(userId);
+	}
+
+	/**
+	* Returns the number of card boxs where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the number of matching card boxs
+	*/
+	public static int countByUserId(long userId) {
+		return getPersistence().countByUserId(userId);
+	}
+
+	/**
+	* Returns the card box where name = &#63; and userId = &#63; or throws a {@link NoSuchCardBoxException} if it could not be found.
+	*
+	* @param name the name
+	* @param userId the user ID
 	* @return the matching card box
 	* @throws NoSuchCardBoxException if a matching card box could not be found
 	*/
-	public static CardBox findByAuthor(java.lang.String author)
+	public static CardBox findByNameAndUserId(java.lang.String name, long userId)
 		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
-		return getPersistence().findByAuthor(author);
+		return getPersistence().findByNameAndUserId(name, userId);
 	}
 
 	/**
-	* Returns the card box where author = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the card box where name = &#63; and userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param author the author
+	* @param name the name
+	* @param userId the user ID
 	* @return the matching card box, or <code>null</code> if a matching card box could not be found
 	*/
-	public static CardBox fetchByAuthor(java.lang.String author) {
-		return getPersistence().fetchByAuthor(author);
+	public static CardBox fetchByNameAndUserId(java.lang.String name,
+		long userId) {
+		return getPersistence().fetchByNameAndUserId(name, userId);
 	}
 
 	/**
-	* Returns the card box where author = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the card box where name = &#63; and userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param author the author
+	* @param name the name
+	* @param userId the user ID
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching card box, or <code>null</code> if a matching card box could not be found
 	*/
-	public static CardBox fetchByAuthor(java.lang.String author,
-		boolean retrieveFromCache) {
-		return getPersistence().fetchByAuthor(author, retrieveFromCache);
+	public static CardBox fetchByNameAndUserId(java.lang.String name,
+		long userId, boolean retrieveFromCache) {
+		return getPersistence()
+				   .fetchByNameAndUserId(name, userId, retrieveFromCache);
 	}
 
 	/**
-	* Removes the card box where author = &#63; from the database.
+	* Removes the card box where name = &#63; and userId = &#63; from the database.
 	*
-	* @param author the author
+	* @param name the name
+	* @param userId the user ID
 	* @return the card box that was removed
 	*/
-	public static CardBox removeByAuthor(java.lang.String author)
-		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
-		return getPersistence().removeByAuthor(author);
+	public static CardBox removeByNameAndUserId(java.lang.String name,
+		long userId) throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence().removeByNameAndUserId(name, userId);
 	}
 
 	/**
-	* Returns the number of card boxs where author = &#63;.
+	* Returns the number of card boxs where name = &#63; and userId = &#63;.
 	*
-	* @param author the author
+	* @param name the name
+	* @param userId the user ID
 	* @return the number of matching card boxs
 	*/
-	public static int countByAuthor(java.lang.String author) {
-		return getPersistence().countByAuthor(author);
+	public static int countByNameAndUserId(java.lang.String name, long userId) {
+		return getPersistence().countByNameAndUserId(name, userId);
 	}
 
 	/**

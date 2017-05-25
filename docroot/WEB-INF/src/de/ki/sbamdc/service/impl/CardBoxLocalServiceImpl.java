@@ -14,8 +14,10 @@
 
 package de.ki.sbamdc.service.impl;
 
-import aQute.bnd.annotation.ProviderType;
+import java.util.List;
 
+import aQute.bnd.annotation.ProviderType;
+import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.base.CardBoxLocalServiceBaseImpl;
 
 /**
@@ -39,4 +41,29 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.CardBoxLocalServiceUtil} to access the card box local service.
 	 */
+	
+	public CardBox findByNameAndUser(String name, long userId){
+		return cardBoxPersistence.fetchByNameAndUserId(name, userId);
+	}
+	
+	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end){
+		return cardBoxPersistence.findByUserId(userId, start, end);
+	}
+	
+	public int getCardBoxesCountOfUser(long userId){
+		return cardBoxPersistence.countByUserId(userId);
+	}
+	public CardBox addCardBox(String name, long userId) {
+		CardBox cardBox = cardBoxPersistence.fetchByNameAndUserId(name, userId);
+		if (cardBox == null) {
+			long cardBoxId = counterLocalService.increment();
+			cardBox = cardBoxPersistence.create(cardBoxId);
+			cardBox.setName(name);
+			cardBox.setUserId(userId);
+			addCardBox(cardBox);
+		}
+		return cardBox;
+	}
+	
+	
 }

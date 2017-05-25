@@ -1,6 +1,15 @@
 package lkart.portlet;
 
-import static lkart.util.Constants.*;
+import static lkart.util.Constants.CARDBOX_OVERVIEW_JSP;
+import static lkart.util.Constants.EDIT_CARDBOX_JSP;
+import static lkart.util.Constants.EDIT_CONTENT_JSP;
+import static lkart.util.Constants.EDIT_FLASHCARD_JSP;
+import static lkart.util.Constants.FLASHCARD_OVERVIEW_JSP;
+import static lkart.util.Constants.LEARN_JSP;
+import static lkart.util.Constants.NEW_CARDBOX_JSP;
+import static lkart.util.Constants.NEW_FLASHCARD_JSP;
+import static lkart.util.Constants.VIEW_JSP;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -14,21 +23,24 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
+import de.ki.sbamdc.exception.NoSuchCardBoxException;
 import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.CardBoxLocalServiceUtil;
 import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 
-public class LernkarteiPortlet extends MVCPortlet{
+public class LernkarteiPortlet extends MVCPortlet {
 
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
 
 		PortletContext portletContext = this.getPortletContext();
-		PortletRequestDispatcher portletRequestDispatcher = portletContext
-				.getRequestDispatcher(VIEW_JSP);
+		PortletRequestDispatcher portletRequestDispatcher = portletContext.getRequestDispatcher(VIEW_JSP);
 		Object o = renderRequest.getPortletSession().getAttribute("currentPage", PortletSession.PORTLET_SCOPE);
 		String curPage = VIEW_JSP;
 		if (o != null) {
@@ -38,27 +50,27 @@ public class LernkarteiPortlet extends MVCPortlet{
 		portletRequestDispatcher.include(renderRequest, renderResponse);
 
 	}
-	
+
 	public void toMainMenu(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", VIEW_JSP, PortletSession.PORTLET_SCOPE);
 	}
+
 	public void toEditMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
-	
-	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse){
+
+	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
 	}
 
-	
 	/**
-	 * navigates to a cardBox overview and clears the portlet session of attributes
-	 * of a cardBox
+	 * navigates to a cardBox overview and clears the portlet session of
+	 * attributes of a cardBox
 	 * 
 	 * @param actionRequest
 	 * @param actionResponse
 	 */
-	
+
 	public void toCardBoxOverview(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", CARDBOX_OVERVIEW_JSP,
 				PortletSession.PORTLET_SCOPE);
@@ -68,8 +80,8 @@ public class LernkarteiPortlet extends MVCPortlet{
 	}
 
 	/**
-	 * navigates to a form to create a new cardBox and clears the portlet session
-	 * of attributes of a cardBox
+	 * navigates to a form to create a new cardBox and clears the portlet
+	 * session of attributes of a cardBox
 	 * 
 	 * @param actionRequest
 	 * @param actionResponse
@@ -79,6 +91,7 @@ public class LernkarteiPortlet extends MVCPortlet{
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.removeAttribute("cardBoxId", PortletSession.APPLICATION_SCOPE);
 		portletSession.removeAttribute("cardBoxName", PortletSession.APPLICATION_SCOPE);
+		portletSession.removeAttribute("cardBoxShared", PortletSession.APPLICATION_SCOPE);
 	}
 
 	/**
@@ -94,20 +107,20 @@ public class LernkarteiPortlet extends MVCPortlet{
 	}
 
 	/**
-	 * fills the portlet session with attributes of the cardBox to use in a
-	 * page
+	 * fills the portlet session with attributes of the cardBox to use in a page
 	 * 
 	 * @param actionRequest
 	 * @param actionResponse
 	 */
 	private void fillCardBoxEditForm(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String cardBoxId = actionRequest.getParameter("cardBoxId");
-		
+
 		try {
 			CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(Long.parseLong(cardBoxId));
 			PortletSession portletSession = actionRequest.getPortletSession();
 			portletSession.setAttribute("cardBoxId", cardBox.getId(), PortletSession.APPLICATION_SCOPE);
 			portletSession.setAttribute("cardBoxName", cardBox.getName(), PortletSession.APPLICATION_SCOPE);
+			portletSession.setAttribute("cardBoxShared", cardBox.isShared(), PortletSession.APPLICATION_SCOPE);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,69 +129,96 @@ public class LernkarteiPortlet extends MVCPortlet{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void toFlashcardOverview(ActionRequest actionRequest, ActionResponse actionResponse) {
-		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
+				PortletSession.PORTLET_SCOPE);
 	}
-	
+
 	public void toNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
-		
+
 		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList);
-		
+
 	}
+
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 	}
-	
-	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse){
+
+	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String fcContent = actionRequest.getParameter("flashcardEditor");
 		String cardBoxId = actionRequest.getParameter("cardBoxList");
-		
-		
-		if(!(cardBoxId==null)){ 
-			try{
+
+		if (!(cardBoxId == null)) {
+			try {
 				long cbId = Long.parseLong(cardBoxId);
-				
-				if(!fcContent.isEmpty()){
+
+				if (!fcContent.isEmpty()) {
 					// create and store flashcard in database
 					FlashcardLocalServiceUtil.addFlashcard(fcContent, cbId);
 				}
-				
-			} catch(NumberFormatException nfe){
+
+			} catch (NumberFormatException nfe) {
 				// hier eventuell ein Feedback an User
 				nfe.printStackTrace();
 			}
 		}
-		
-		
+
 	}
-	
-	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse){
+
+	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String cardBoxIdString = actionRequest.getParameter("cardBoxId");
 		String cardBoxName = actionRequest.getParameter("cardBoxName");
+		String shared = actionRequest.getParameter("shared");
+		boolean isShared = (shared != null);
+		ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		User user = td.getUser();
 		try {
-		if (cardBoxIdString == null){
-			//TODO add new CardBox
-		} else {
-			long cardBoxId = Long.parseLong(cardBoxIdString);
-			CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(cardBoxId);
-			cardBox.setName(cardBoxName);
-			CardBoxLocalServiceUtil.updateCardBox(cardBox);
-		}
+			if (cardBoxIdString == null) {
+				if (CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, user.getUserId()) != null) {
+					actionRequest.setAttribute("error", "Name " + cardBoxName + " bereits vorhanden!");
+					toNewCardBox(actionRequest, actionResponse);
+				} else {
+					CardBox cardBox = CardBoxLocalServiceUtil.addCardBox(cardBoxName, user.getUserId());
+					CardBoxLocalServiceUtil.addCardBox(cardBox);
+				}
+			} else {
+				long cardBoxId = Long.parseLong(cardBoxIdString);
+				CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(cardBoxId);
+				cardBox.setName(cardBoxName);
+				cardBox.setShared(isShared);
+				CardBoxLocalServiceUtil.updateCardBox(cardBox);
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
+		toCardBoxOverview(actionRequest, actionResponse);
 	}
 
-	public void test(ActionRequest actionRequest, ActionResponse actionResponse){
-//		FlashcardLocalServiceUtil.getFlashcard(0).get
-//		CardBoxLocalServiceUtil.fi
+	public void deleteCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
+		String cardBoxId = actionRequest.getParameter("cardBoxId");
+		try {
+			CardBoxLocalServiceUtil.deleteCardBox(Long.parseLong(cardBoxId));
+		} catch (NoSuchCardBoxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+	public void test(ActionRequest actionRequest, ActionResponse actionResponse) {
+		// FlashcardLocalServiceUtil.getFlashcard(0).get
+		// CardBoxLocalServiceUtil.fi
+	}
+
 }

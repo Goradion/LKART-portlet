@@ -112,8 +112,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.de.ki.sbamdc.model.CardBox"),
 			true);
-	public static final long AUTHOR_COLUMN_BITMASK = 1L;
-	public static final long NAME_COLUMN_BITMASK = 2L;
+	public static final long NAME_COLUMN_BITMASK = 1L;
+	public static final long USERID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -323,6 +323,14 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
 		_userId = userId;
 	}
 
@@ -340,6 +348,10 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setUserUuid(String userUuid) {
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
 	}
 
 	@JSON
@@ -425,17 +437,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setAuthor(String author) {
-		_columnBitmask |= AUTHOR_COLUMN_BITMASK;
-
-		if (_originalAuthor == null) {
-			_originalAuthor = _author;
-		}
-
 		_author = author;
-	}
-
-	public String getOriginalAuthor() {
-		return GetterUtil.getString(_originalAuthor);
 	}
 
 	@JSON
@@ -557,11 +559,13 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public void resetOriginalValues() {
 		CardBoxModelImpl cardBoxModelImpl = this;
 
+		cardBoxModelImpl._originalUserId = cardBoxModelImpl._userId;
+
+		cardBoxModelImpl._setOriginalUserId = false;
+
 		cardBoxModelImpl._setModifiedDate = false;
 
 		cardBoxModelImpl._originalName = cardBoxModelImpl._name;
-
-		cardBoxModelImpl._originalAuthor = cardBoxModelImpl._author;
 
 		cardBoxModelImpl._columnBitmask = 0;
 	}
@@ -716,6 +720,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
@@ -723,7 +729,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	private String _name;
 	private String _originalName;
 	private String _author;
-	private String _originalAuthor;
 	private boolean _shared;
 	private long _columnBitmask;
 	private CardBox _escapedModel;

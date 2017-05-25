@@ -43,10 +43,14 @@
 			<finder-column name="name" />
 		</finder>
 		
-		<finder return-type="CardBox" name="Author">
-			<finder-column name="author"></finder-column>
+		<finder return-type="Collection" name="UserId">
+			<finder-column name="userId"></finder-column>
 		</finder> 
 
+		<finder name="NameAndUserId" return-type="CardBox">
+			<finder-column name="name" />
+			<finder-column name="userId" />
+		</finder>
 	</entity>
 	
 	<entity name="Flashcard" remote-service="true" local-service="true">

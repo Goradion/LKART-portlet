@@ -647,7 +647,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	private String _author;
 	private boolean _shared;
 	private BaseModel<?> _cardBoxRemoteModel;
-	private Class<?> _clpSerializerClass = ClpSerializer.class;
+	private Class<?> _clpSerializerClass = de.ki.sbamdc.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

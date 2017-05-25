@@ -41,32 +41,6 @@ public class CardBoxLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link de.ki.sbamdc.service.impl.CardBoxLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		return getService().getIndexableActionableDynamicQuery();
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
-	}
-
-	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
 
 	/**
 	* Adds the card box to the database. Also notifies the appropriate model listeners.
@@ -77,6 +51,11 @@ public class CardBoxLocalServiceUtil {
 	public static de.ki.sbamdc.model.CardBox addCardBox(
 		de.ki.sbamdc.model.CardBox cardBox) {
 		return getService().addCardBox(cardBox);
+	}
+
+	public static de.ki.sbamdc.model.CardBox addCardBox(java.lang.String name,
+		long userId) {
+		return getService().addCardBox(name, userId);
 	}
 
 	/**
@@ -112,55 +91,17 @@ public class CardBoxLocalServiceUtil {
 		return getService().deleteCardBox(id);
 	}
 
-	public static de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
-		return getService().fetchCardBox(id);
-	}
-
 	/**
-	* Returns the card box with the primary key.
-	*
-	* @param id the primary key of the card box
-	* @return the card box
-	* @throws PortalException if a card box with the primary key could not be found
+	* @throws PortalException
 	*/
-	public static de.ki.sbamdc.model.CardBox getCardBox(long id)
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
 		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getCardBox(id);
+		return getService().deletePersistedModel(persistedModel);
 	}
 
-	/**
-	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param cardBox the card box
-	* @return the card box that was updated
-	*/
-	public static de.ki.sbamdc.model.CardBox updateCardBox(
-		de.ki.sbamdc.model.CardBox cardBox) {
-		return getService().updateCardBox(cardBox);
-	}
-
-	/**
-	* Returns the number of card boxs.
-	*
-	* @return the number of card boxs
-	*/
-	public static int getCardBoxsCount() {
-		return getService().getCardBoxsCount();
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
 	}
 
 	/**
@@ -214,22 +155,6 @@ public class CardBoxLocalServiceUtil {
 	}
 
 	/**
-	* Returns a range of all the card boxs.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param start the lower bound of the range of card boxs
-	* @param end the upper bound of the range of card boxs (not inclusive)
-	* @return the range of card boxs
-	*/
-	public static java.util.List<de.ki.sbamdc.model.CardBox> getCardBoxs(
-		int start, int end) {
-		return getService().getCardBoxs(start, end);
-	}
-
-	/**
 	* Returns the number of rows matching the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
@@ -251,6 +176,101 @@ public class CardBoxLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	public static de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
+		return getService().fetchCardBox(id);
+	}
+
+	public static de.ki.sbamdc.model.CardBox findByNameAndUser(
+		java.lang.String name, long userId) {
+		return getService().findByNameAndUser(name, userId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the card box with the primary key.
+	*
+	* @param id the primary key of the card box
+	* @return the card box
+	* @throws PortalException if a card box with the primary key could not be found
+	*/
+	public static de.ki.sbamdc.model.CardBox getCardBox(long id)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCardBox(id);
+	}
+
+	public static int getCardBoxesCountOfUser(long userId) {
+		return getService().getCardBoxesCountOfUser(userId);
+	}
+
+	public static java.util.List<de.ki.sbamdc.model.CardBox> getCardBoxesOfUser(
+		long userId, int start, int end) {
+		return getService().getCardBoxesOfUser(userId, start, end);
+	}
+
+	/**
+	* Returns a range of all the card boxs.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of card boxs
+	* @param end the upper bound of the range of card boxs (not inclusive)
+	* @return the range of card boxs
+	*/
+	public static java.util.List<de.ki.sbamdc.model.CardBox> getCardBoxs(
+		int start, int end) {
+		return getService().getCardBoxs(start, end);
+	}
+
+	/**
+	* Returns the number of card boxs.
+	*
+	* @return the number of card boxs
+	*/
+	public static int getCardBoxsCount() {
+		return getService().getCardBoxsCount();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param cardBox the card box
+	* @return the card box that was updated
+	*/
+	public static de.ki.sbamdc.model.CardBox updateCardBox(
+		de.ki.sbamdc.model.CardBox cardBox) {
+		return getService().updateCardBox(cardBox);
 	}
 
 	public static void clearService() {

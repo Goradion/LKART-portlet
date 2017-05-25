@@ -120,6 +120,22 @@ public class CardBoxLocalServiceClpInvoker {
 		_methodName42 = "getOSGiServiceIdentifier";
 
 		_methodParameterTypes42 = new String[] {  };
+
+		_methodName47 = "findByNameAndUser";
+
+		_methodParameterTypes47 = new String[] { "java.lang.String", "long" };
+
+		_methodName48 = "getCardBoxesOfUser";
+
+		_methodParameterTypes48 = new String[] { "long", "int", "int" };
+
+		_methodName49 = "getCardBoxesCountOfUser";
+
+		_methodParameterTypes49 = new String[] { "long" };
+
+		_methodName50 = "addCardBox";
+
+		_methodParameterTypes50 = new String[] { "java.lang.String", "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -231,6 +247,30 @@ public class CardBoxLocalServiceClpInvoker {
 			return CardBoxLocalServiceUtil.getOSGiServiceIdentifier();
 		}
 
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return CardBoxLocalServiceUtil.findByNameAndUser((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+			return CardBoxLocalServiceUtil.getCardBoxesOfUser(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+			return CardBoxLocalServiceUtil.getCardBoxesCountOfUser(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return CardBoxLocalServiceUtil.addCardBox((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -274,4 +314,12 @@ public class CardBoxLocalServiceClpInvoker {
 	private String[] _methodParameterTypes19;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
 }
