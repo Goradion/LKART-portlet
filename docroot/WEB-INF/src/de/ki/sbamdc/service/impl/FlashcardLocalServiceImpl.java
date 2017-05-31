@@ -46,6 +46,7 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 		long fcId = counterLocalService.increment();
 		Flashcard fc = flashcardPersistence.create(fcId);
 		fc.setContent(content);
+		fc.setCardBoxId_fk(cardBoxId);
 		flashcardPersistence.update(fc);
 		return fc;
 	}

@@ -11,7 +11,7 @@
     Kartei: <br />
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">
-			<option value="${c.getScore()}">${c.getScore()}</option>
+			<option value="${c.getName()}">${c.getName()}</option>
 		</c:forEach>
 	</select>
     

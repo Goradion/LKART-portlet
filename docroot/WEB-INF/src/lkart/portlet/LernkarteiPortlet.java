@@ -26,10 +26,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import de.ki.sbamdc.exception.NoSuchCardBoxException;
 import de.ki.sbamdc.model.CardBox;
+import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.service.CardBoxLocalServiceUtil;
 import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 
@@ -139,8 +141,15 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 
 		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
-		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList);
-
+		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.APPLICATION_SCOPE);
+		
+		// Debug
+		for(CardBox cb : cardBoxList){
+			System.out.println(cb.getName());
+		}
+		for(Flashcard f : FlashcardLocalServiceUtil.getFlashcards(0, FlashcardLocalServiceUtil.getFlashcardsCount())){
+			System.out.println(f.getContent());
+		}
 	}
 
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -149,15 +158,25 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String fcContent = actionRequest.getParameter("flashcardEditor");
-		String cardBoxId = actionRequest.getParameter("cardBoxList");
+		String cardBoxName = actionRequest.getParameter("kartei");
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		// now read your parameters, e.g. like this:
+		// long someParameter = ParamUtil.getLong(request, "someParameter");
+		long uid = themeDisplay.getUserId();
 
-		if (!(cardBoxId == null)) {
+		
+
+		long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
+		//Debug
+		System.out.println(fcContent);
+		System.out.println(cardBoxName);
+		//
+		
+		if (!(cardBoxId<0)) {
 			try {
-				long cbId = Long.parseLong(cardBoxId);
-
 				if (!fcContent.isEmpty()) {
 					// create and store flashcard in database
-					FlashcardLocalServiceUtil.addFlashcard(fcContent, cbId);
+					FlashcardLocalServiceUtil.addFlashcard(fcContent, cardBoxId);
 				}
 
 			} catch (NumberFormatException nfe) {
