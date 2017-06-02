@@ -13,6 +13,6 @@ create table sbamdc_CardBox (
 
 create table sbamdc_Flashcard (
 	id_ LONG not null primary key,
-	content VARCHAR(75) null,
+	content STRING null,
 	cardBoxId_fk LONG
 );

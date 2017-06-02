@@ -78,7 +78,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		TABLE_COLUMNS_MAP.put("cardBoxId_fk", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,content VARCHAR(75) null,cardBoxId_fk LONG)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,content STRING null,cardBoxId_fk LONG)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
 	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
