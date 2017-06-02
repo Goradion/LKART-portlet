@@ -127,7 +127,13 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodName22 = "updateFlashcard";
 
-		_methodParameterTypes22 = new String[] { "de.ki.sbamdc.model.Flashcard" };
+		_methodParameterTypes22 = new String[] {
+				"java.lang.String", "long", "long"
+			};
+
+		_methodName23 = "updateFlashcard";
+
+		_methodParameterTypes23 = new String[] { "de.ki.sbamdc.model.Flashcard" };
 	}
 
 	@Override
@@ -690,12 +696,43 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 	@Override
 	public de.ki.sbamdc.model.Flashcard updateFlashcard(
-		de.ki.sbamdc.model.Flashcard flashcard) {
+		java.lang.String content, long fcId, long cardBoxId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName22,
 					_methodParameterTypes22,
+					new Object[] {
+						ClpSerializer.translateInput(content),
+						
+					fcId,
+						
+					cardBoxId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.Flashcard)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.Flashcard updateFlashcard(
+		de.ki.sbamdc.model.Flashcard flashcard) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] { ClpSerializer.translateInput(flashcard) });
 		}
 		catch (Throwable t) {
@@ -758,4 +795,6 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

@@ -225,6 +225,9 @@ public interface FlashcardLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	public Flashcard updateFlashcard(java.lang.String content, long fcId,
+		long cardBoxId);
+
 	/**
 	* Updates the flashcard in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

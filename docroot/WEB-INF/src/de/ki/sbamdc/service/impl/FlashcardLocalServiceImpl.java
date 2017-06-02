@@ -51,6 +51,16 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 		return fc;
 	}
 	
+	public Flashcard updateFlashcard(String content, long fcId, long cardBoxId){
+		Flashcard fc = flashcardPersistence.fetchByPrimaryKey(fcId);
+		if(fc!=null){
+			fc.setContent(content);
+			fc.setCardBoxId_fk(cardBoxId);
+			flashcardPersistence.update(fc);
+		}
+		return fc;
+	}
+	
 	public List<Flashcard> findByCardBoxId(long cardBoxId){
 		return flashcardPersistence.findByCardBoxId(cardBoxId);
 	}

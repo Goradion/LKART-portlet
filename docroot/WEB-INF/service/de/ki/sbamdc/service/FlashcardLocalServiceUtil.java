@@ -252,6 +252,11 @@ public class FlashcardLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static de.ki.sbamdc.model.Flashcard updateFlashcard(
+		java.lang.String content, long fcId, long cardBoxId) {
+		return getService().updateFlashcard(content, fcId, cardBoxId);
+	}
+
 	/**
 	* Updates the flashcard in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
