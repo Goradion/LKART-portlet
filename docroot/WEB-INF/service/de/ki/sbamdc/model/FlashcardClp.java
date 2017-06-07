@@ -78,6 +78,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		attributes.put("id", getId());
 		attributes.put("content", getContent());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
+		attributes.put("title", getTitle());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -103,6 +104,12 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 		if (cardBoxId_fk != null) {
 			setCardBoxId_fk(cardBoxId_fk);
+		}
+
+		String title = (String)attributes.get("title");
+
+		if (title != null) {
+			setTitle(title);
 		}
 
 		_entityCacheEnabled = GetterUtil.getBoolean("entityCacheEnabled");
@@ -171,6 +178,29 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 				Method method = clazz.getMethod("setCardBoxId_fk", long.class);
 
 				method.invoke(_flashcardRemoteModel, cardBoxId_fk);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getTitle() {
+		return _title;
+	}
+
+	@Override
+	public void setTitle(String title) {
+		_title = title;
+
+		if (_flashcardRemoteModel != null) {
+			try {
+				Class<?> clazz = _flashcardRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTitle", String.class);
+
+				method.invoke(_flashcardRemoteModel, title);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -250,6 +280,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		clone.setId(getId());
 		clone.setContent(getContent());
 		clone.setCardBoxId_fk(getCardBoxId_fk());
+		clone.setTitle(getTitle());
 
 		return clone;
 	}
@@ -320,7 +351,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{id=");
 		sb.append(getId());
@@ -328,6 +359,8 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		sb.append(getContent());
 		sb.append(", cardBoxId_fk=");
 		sb.append(getCardBoxId_fk());
+		sb.append(", title=");
+		sb.append(getTitle());
 		sb.append("}");
 
 		return sb.toString();
@@ -335,7 +368,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(16);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -353,6 +386,10 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 			"<column><column-name>cardBoxId_fk</column-name><column-value><![CDATA[");
 		sb.append(getCardBoxId_fk());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>title</column-name><column-value><![CDATA[");
+		sb.append(getTitle());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -362,6 +399,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 	private long _id;
 	private String _content;
 	private long _cardBoxId_fk;
+	private String _title;
 	private BaseModel<?> _flashcardRemoteModel;
 	private Class<?> _clpSerializerClass = de.ki.sbamdc.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;

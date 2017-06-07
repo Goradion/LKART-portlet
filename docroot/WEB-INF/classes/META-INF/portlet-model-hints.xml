@@ -19,5 +19,6 @@
 			<hint-collection name="TEXTAREA" />
 		</field>
 		<field name="cardBoxId_fk" type="long" />
+		<field name="title" type="String" />
 	</model>
 </model-hints>

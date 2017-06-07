@@ -156,15 +156,16 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 
 		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
-		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.APPLICATION_SCOPE);
+		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.PORTLET_SCOPE);
 
 		long fcId = Long.parseLong(actionRequest.getParameter("flashcardId"));
-		actionRequest.getPortletSession().setAttribute("flashcardId", "" + fcId);
+		actionRequest.getPortletSession().setAttribute("flashcardId", "" + fcId, PortletSession.PORTLET_SCOPE);
 
 		try {
 			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
 			String content = fc.getContent();
-			actionRequest.setAttribute(content, "flashcardContent");
+			System.out.println(content);
+			actionRequest.getPortletSession().setAttribute(content, "flashcardContent", PortletSession.PORTLET_SCOPE);
 
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
@@ -175,12 +176,15 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String fcContent = actionRequest.getParameter("flashcardEditor");
 		String cardBoxName = actionRequest.getParameter("kartei");
+		String flashcardTitle = actionRequest.getParameter("flashcardTitle");
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 		// now read your parameters, e.g. like this:
 		// long someParameter = ParamUtil.getLong(request, "someParameter");
 		long uid = themeDisplay.getUserId();
-
-		long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
+		CardBox cardbox = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid);
+		long cardBoxId = -1;
+		if(cardbox != null)
+			cardBoxId = cardbox.getId();
 		// Debug
 		System.out.println(fcContent);
 		System.out.println(cardBoxName);
@@ -190,7 +194,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			try {
 				if (!fcContent.isEmpty()) {
 					// create and store flashcard in database
-					FlashcardLocalServiceUtil.addFlashcard(fcContent, cardBoxId);
+					FlashcardLocalServiceUtil.addFlashcard(fcContent,flashcardTitle, cardBoxId);
 				}
 
 			} catch (NumberFormatException nfe) {
@@ -206,6 +210,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 				PortletSession.PORTLET_SCOPE);
 		String fcContent = actionRequest.getParameter("flashcardEditor");
 		String cardBoxName = actionRequest.getParameter("kartei");
+		String flashcardTitle = actionRequest.getParameter("flashcardTitle");
 		long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
 		
 		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
@@ -215,7 +220,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 		long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
 
-		FlashcardLocalServiceUtil.updateFlashcard(fcContent, fcId, cardBoxId);
+		FlashcardLocalServiceUtil.updateFlashcard(fcContent, flashcardTitle, fcId, cardBoxId);
 	}
 
 	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -261,6 +266,19 @@ public class LernkarteiPortlet extends MVCPortlet {
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (PortalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse){
+		
+		try {
+			long flashcardId = Long.parseLong(actionRequest.getParameter("flashcardId"));
+			FlashcardLocalServiceUtil.deleteFlashcard(flashcardId);
+		}catch(NumberFormatException nfe){
+			nfe.printStackTrace();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,14 +2,17 @@
 
 <portlet:actionURL name="toFlashcardOverview" var="back"></portlet:actionURL>
 <portlet:actionURL name="updateFlashcard" var="updateFlashcard">
-	<portlet:param name="fcId" value="${flashcardId }"/>
+	<portlet:param name="fcId" value="${sessionScope.flashcardId }"/>
 </portlet:actionURL>
+
+<p><%=(String)portletSession.getAttribute("flashcardId") %></p>
+<p><%=(String)portletSession.getAttribute("flashcardContent") %></p>
 
 <!-- TEST -->
 <aui:form action="<%=updateFlashcard %>">
 <aui:field-wrapper label="Hier Karteikarte editieren">
-    <liferay-ui:input-editor name="flashcardEditor" toolbarSet="simple" contents="${flashcardContent}" width="200" />
-    
+	Kartenbezeichnung: <input type="text" name="<portlet:namespace/>flashcardTitle" required="true"/>
+    <liferay-ui:input-editor name="flashcardEditor" toolbarSet="simple" contents="${sessionScope.flashcardContent}" width="200" />
     Kartei: <br />
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">

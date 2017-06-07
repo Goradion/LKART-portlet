@@ -6,8 +6,8 @@
 <!-- TEST -->
 <aui:form action="<%=createFlashcard %>">
 <aui:field-wrapper label="Hier neue Karteikarte erstellen">
+	Kartenbezeichnung: <input type="text" name="<portlet:namespace/>flashcardTitle" required="true"/>
     <liferay-ui:input-editor name="flashcardEditor" toolbarSet="simple" contents="Hier die Karteikarte" width="200" />
-    
     Kartei: <br />
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">

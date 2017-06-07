@@ -29,7 +29,9 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodName0 = "addFlashcard";
 
-		_methodParameterTypes0 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes0 = new String[] {
+				"java.lang.String", "java.lang.String", "long"
+			};
 
 		_methodName1 = "addFlashcard";
 
@@ -128,7 +130,7 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		_methodName22 = "updateFlashcard";
 
 		_methodParameterTypes22 = new String[] {
-				"java.lang.String", "long", "long"
+				"java.lang.String", "java.lang.String", "long", "long"
 			};
 
 		_methodName23 = "updateFlashcard";
@@ -138,7 +140,7 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 	@Override
 	public de.ki.sbamdc.model.Flashcard addFlashcard(java.lang.String content,
-		long cardBoxId) {
+		java.lang.String title, long cardBoxId) {
 		Object returnObj = null;
 
 		try {
@@ -146,6 +148,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 					_methodParameterTypes0,
 					new Object[] {
 						ClpSerializer.translateInput(content),
+						
+					ClpSerializer.translateInput(title),
 						
 					cardBoxId
 					});
@@ -696,7 +700,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 	@Override
 	public de.ki.sbamdc.model.Flashcard updateFlashcard(
-		java.lang.String content, long fcId, long cardBoxId) {
+		java.lang.String content, java.lang.String title, long fcId,
+		long cardBoxId) {
 		Object returnObj = null;
 
 		try {
@@ -704,6 +709,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 					_methodParameterTypes22,
 					new Object[] {
 						ClpSerializer.translateInput(content),
+						
+					ClpSerializer.translateInput(title),
 						
 					fcId,
 						

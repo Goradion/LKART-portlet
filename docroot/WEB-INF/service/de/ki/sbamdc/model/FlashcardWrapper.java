@@ -59,6 +59,7 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		attributes.put("id", getId());
 		attributes.put("content", getContent());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
+		attributes.put("title", getTitle());
 
 		return attributes;
 	}
@@ -81,6 +82,12 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 
 		if (cardBoxId_fk != null) {
 			setCardBoxId_fk(cardBoxId_fk);
+		}
+
+		String title = (String)attributes.get("title");
+
+		if (title != null) {
+			setTitle(title);
 		}
 	}
 
@@ -142,6 +149,16 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _flashcard.getPrimaryKeyObj();
+	}
+
+	/**
+	* Returns the title of this flashcard.
+	*
+	* @return the title of this flashcard
+	*/
+	@Override
+	public java.lang.String getTitle() {
+		return _flashcard.getTitle();
 	}
 
 	@Override
@@ -238,6 +255,16 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		_flashcard.setPrimaryKeyObj(primaryKeyObj);
+	}
+
+	/**
+	* Sets the title of this flashcard.
+	*
+	* @param title the title of this flashcard
+	*/
+	@Override
+	public void setTitle(java.lang.String title) {
+		_flashcard.setTitle(title);
 	}
 
 	@Override

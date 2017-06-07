@@ -61,7 +61,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 	 *
 	 * Never modify or reference this interface directly. Always use {@link FlashcardLocalServiceUtil} to access the flashcard local service. Add custom service methods to {@link de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
-	public Flashcard addFlashcard(java.lang.String content, long cardBoxId);
+	public Flashcard addFlashcard(java.lang.String content,
+		java.lang.String title, long cardBoxId);
 
 	/**
 	* Adds the flashcard to the database. Also notifies the appropriate model listeners.
@@ -225,8 +226,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public Flashcard updateFlashcard(java.lang.String content, long fcId,
-		long cardBoxId);
+	public Flashcard updateFlashcard(java.lang.String content,
+		java.lang.String title, long fcId, long cardBoxId);
 
 	/**
 	* Updates the flashcard in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

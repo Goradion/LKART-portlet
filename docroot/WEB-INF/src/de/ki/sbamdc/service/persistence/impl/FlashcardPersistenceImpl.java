@@ -847,6 +847,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		flashcardImpl.setId(flashcard.getId());
 		flashcardImpl.setContent(flashcard.getContent());
 		flashcardImpl.setCardBoxId_fk(flashcard.getCardBoxId_fk());
+		flashcardImpl.setTitle(flashcard.getTitle());
 
 		return flashcardImpl;
 	}
