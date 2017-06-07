@@ -6,6 +6,7 @@ import static lkart.util.Constants.EDIT_CONTENT_JSP;
 import static lkart.util.Constants.EDIT_FLASHCARD_JSP;
 import static lkart.util.Constants.FLASHCARD_OVERVIEW_JSP;
 import static lkart.util.Constants.LEARN_JSP;
+import static lkart.util.Constants.LEARN_MENU_JSP;
 import static lkart.util.Constants.NEW_CARDBOX_JSP;
 import static lkart.util.Constants.NEW_FLASHCARD_JSP;
 import static lkart.util.Constants.VIEW_JSP;
@@ -26,7 +27,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import de.ki.sbamdc.exception.NoSuchCardBoxException;
@@ -61,6 +61,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
 
+	public void toLearnMenue(ActionRequest actionRequest, ActionResponse actionResponse){
+		List<CardBox> learnableBoxes = CardBoxLocalServiceUtil.findLearnableCardBoxes(getThemeDisplay(actionRequest).getUserId());
+		actionRequest.getPortletSession().setAttribute("cardBoxList", learnableBoxes, PortletSession.APPLICATION_SCOPE);
+		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_MENU_JSP, PortletSession.PORTLET_SCOPE);
+	}
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
 	}
@@ -140,7 +145,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void toNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 
-		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
+		List<CardBox> cardBoxList = getMyCardboxes(getThemeDisplay(actionRequest).getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.APPLICATION_SCOPE);
 		
 		// Debug
@@ -150,6 +155,16 @@ public class LernkarteiPortlet extends MVCPortlet {
 		for(Flashcard f : FlashcardLocalServiceUtil.getFlashcards(0, FlashcardLocalServiceUtil.getFlashcardsCount())){
 			System.out.println(f.getContent());
 		}
+	}
+
+	private ThemeDisplay getThemeDisplay(ActionRequest actionRequest) {
+		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		return themeDisplay;
+	}
+
+	private List<CardBox> getMyCardboxes(long userId) {
+		int end = CardBoxLocalServiceUtil.getCardBoxesCountOfUser(userId);
+		return CardBoxLocalServiceUtil.getCardBoxesOfUser(userId, 0, end);
 	}
 
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -200,8 +215,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 					actionRequest.setAttribute("error", "Name " + cardBoxName + " bereits vorhanden!");
 					toNewCardBox(actionRequest, actionResponse);
 				} else {
-					CardBox cardBox = CardBoxLocalServiceUtil.addCardBox(cardBoxName, user.getUserId());
-					CardBoxLocalServiceUtil.addCardBox(cardBox);
+					CardBoxLocalServiceUtil.addCardBox(cardBoxName, user.getUserId());
 				}
 			} else {
 				long cardBoxId = Long.parseLong(cardBoxIdString);

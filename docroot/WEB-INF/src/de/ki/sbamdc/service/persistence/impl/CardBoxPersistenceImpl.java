@@ -39,7 +39,6 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import de.ki.sbamdc.exception.NoSuchCardBoxException;
 import de.ki.sbamdc.model.CardBox;
@@ -56,6 +55,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -123,8 +123,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
 			}
 
 			throw new NoSuchCardBoxException(msg.toString());
@@ -165,7 +165,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		if (result instanceof CardBox) {
 			CardBox cardBox = (CardBox)result;
 
-			if (!Validator.equals(name, cardBox.getName())) {
+			if (!Objects.equals(name, cardBox.getName())) {
 				result = null;
 			}
 		}
@@ -867,8 +867,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
 			}
 
 			throw new NoSuchCardBoxException(msg.toString());
@@ -912,7 +912,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		if (result instanceof CardBox) {
 			CardBox cardBox = (CardBox)result;
 
-			if (!Validator.equals(name, cardBox.getName()) ||
+			if (!Objects.equals(name, cardBox.getName()) ||
 					(userId != cardBox.getUserId())) {
 				result = null;
 			}
@@ -1092,6 +1092,498 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_NAME_2 = "cardBox.name = ? AND ";
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_NAME_3 = "(cardBox.name IS NULL OR cardBox.name = '') AND ";
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_USERID_2 = "cardBox.userId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_FOREIGNANDSHARED =
+		new FinderPath(CardBoxModelImpl.ENTITY_CACHE_ENABLED,
+			CardBoxModelImpl.FINDER_CACHE_ENABLED, CardBoxImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByForeignAndShared",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_FOREIGNANDSHARED =
+		new FinderPath(CardBoxModelImpl.ENTITY_CACHE_ENABLED,
+			CardBoxModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByForeignAndShared",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns all the card boxs where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the matching card boxs
+	 */
+	@Override
+	public List<CardBox> findByForeignAndShared(long userId) {
+		return findByForeignAndShared(userId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the card boxs where userId &ne; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of card boxs
+	 * @param end the upper bound of the range of card boxs (not inclusive)
+	 * @return the range of matching card boxs
+	 */
+	@Override
+	public List<CardBox> findByForeignAndShared(long userId, int start, int end) {
+		return findByForeignAndShared(userId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the card boxs where userId &ne; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of card boxs
+	 * @param end the upper bound of the range of card boxs (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching card boxs
+	 */
+	@Override
+	public List<CardBox> findByForeignAndShared(long userId, int start,
+		int end, OrderByComparator<CardBox> orderByComparator) {
+		return findByForeignAndShared(userId, start, end, orderByComparator,
+			true);
+	}
+
+	/**
+	 * Returns an ordered range of all the card boxs where userId &ne; &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link CardBoxModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param userId the user ID
+	 * @param start the lower bound of the range of card boxs
+	 * @param end the upper bound of the range of card boxs (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the ordered range of matching card boxs
+	 */
+	@Override
+	public List<CardBox> findByForeignAndShared(long userId, int start,
+		int end, OrderByComparator<CardBox> orderByComparator,
+		boolean retrieveFromCache) {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_FOREIGNANDSHARED;
+		finderArgs = new Object[] { userId, start, end, orderByComparator };
+
+		List<CardBox> list = null;
+
+		if (retrieveFromCache) {
+			list = (List<CardBox>)finderCache.getResult(finderPath, finderArgs,
+					this);
+
+			if ((list != null) && !list.isEmpty()) {
+				for (CardBox cardBox : list) {
+					if ((userId == cardBox.getUserId())) {
+						list = null;
+
+						break;
+					}
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 2));
+			}
+			else {
+				query = new StringBundler(3);
+			}
+
+			query.append(_SQL_SELECT_CARDBOX_WHERE);
+
+			query.append(_FINDER_COLUMN_FOREIGNANDSHARED_USERID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(CardBoxModelImpl.ORDER_BY_JPQL);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				if (!pagination) {
+					list = (List<CardBox>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = Collections.unmodifiableList(list);
+				}
+				else {
+					list = (List<CardBox>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				finderCache.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first card box in the ordered set where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching card box
+	 * @throws NoSuchCardBoxException if a matching card box could not be found
+	 */
+	@Override
+	public CardBox findByForeignAndShared_First(long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws NoSuchCardBoxException {
+		CardBox cardBox = fetchByForeignAndShared_First(userId,
+				orderByComparator);
+
+		if (cardBox != null) {
+			return cardBox;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCardBoxException(msg.toString());
+	}
+
+	/**
+	 * Returns the first card box in the ordered set where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching card box, or <code>null</code> if a matching card box could not be found
+	 */
+	@Override
+	public CardBox fetchByForeignAndShared_First(long userId,
+		OrderByComparator<CardBox> orderByComparator) {
+		List<CardBox> list = findByForeignAndShared(userId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last card box in the ordered set where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching card box
+	 * @throws NoSuchCardBoxException if a matching card box could not be found
+	 */
+	@Override
+	public CardBox findByForeignAndShared_Last(long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws NoSuchCardBoxException {
+		CardBox cardBox = fetchByForeignAndShared_Last(userId, orderByComparator);
+
+		if (cardBox != null) {
+			return cardBox;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchCardBoxException(msg.toString());
+	}
+
+	/**
+	 * Returns the last card box in the ordered set where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching card box, or <code>null</code> if a matching card box could not be found
+	 */
+	@Override
+	public CardBox fetchByForeignAndShared_Last(long userId,
+		OrderByComparator<CardBox> orderByComparator) {
+		int count = countByForeignAndShared(userId);
+
+		if (count == 0) {
+			return null;
+		}
+
+		List<CardBox> list = findByForeignAndShared(userId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the card boxs before and after the current card box in the ordered set where userId &ne; &#63;.
+	 *
+	 * @param id the primary key of the current card box
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next card box
+	 * @throws NoSuchCardBoxException if a card box with the primary key could not be found
+	 */
+	@Override
+	public CardBox[] findByForeignAndShared_PrevAndNext(long id, long userId,
+		OrderByComparator<CardBox> orderByComparator)
+		throws NoSuchCardBoxException {
+		CardBox cardBox = findByPrimaryKey(id);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			CardBox[] array = new CardBoxImpl[3];
+
+			array[0] = getByForeignAndShared_PrevAndNext(session, cardBox,
+					userId, orderByComparator, true);
+
+			array[1] = cardBox;
+
+			array[2] = getByForeignAndShared_PrevAndNext(session, cardBox,
+					userId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected CardBox getByForeignAndShared_PrevAndNext(Session session,
+		CardBox cardBox, long userId,
+		OrderByComparator<CardBox> orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(4 +
+					(orderByComparator.getOrderByConditionFields().length * 3) +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_CARDBOX_WHERE);
+
+		query.append(_FINDER_COLUMN_FOREIGNANDSHARED_USERID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(CardBoxModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(userId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(cardBox);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<CardBox> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the card boxs where userId &ne; &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 */
+	@Override
+	public void removeByForeignAndShared(long userId) {
+		for (CardBox cardBox : findByForeignAndShared(userId,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(cardBox);
+		}
+	}
+
+	/**
+	 * Returns the number of card boxs where userId &ne; &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching card boxs
+	 */
+	@Override
+	public int countByForeignAndShared(long userId) {
+		FinderPath finderPath = FINDER_PATH_WITH_PAGINATION_COUNT_BY_FOREIGNANDSHARED;
+
+		Object[] finderArgs = new Object[] { userId };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_CARDBOX_WHERE);
+
+			query.append(_FINDER_COLUMN_FOREIGNANDSHARED_USERID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FOREIGNANDSHARED_USERID_2 = "cardBox.userId != ? AND cardBox.shared=true";
 
 	public CardBoxPersistenceImpl() {
 		setModelClass(CardBox.class);
@@ -1306,8 +1798,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 			CardBox cardBox = (CardBox)session.get(CardBoxImpl.class, primaryKey);
 
 			if (cardBox == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isDebugEnabled()) {
+					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchCardBoxException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -1483,8 +1975,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		CardBox cardBox = fetchByPrimaryKey(primaryKey);
 
 		if (cardBox == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isDebugEnabled()) {
+				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchCardBoxException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

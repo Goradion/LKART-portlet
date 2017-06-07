@@ -32,6 +32,38 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 		_cardBoxLocalService = cardBoxLocalService;
 	}
 
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _cardBoxLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _cardBoxLocalService.dynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return _cardBoxLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _cardBoxLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _cardBoxLocalService.getPersistedModel(primaryKeyObj);
+	}
+
 	/**
 	* Adds the card box to the database. Also notifies the appropriate model listeners.
 	*
@@ -86,19 +118,72 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 		return _cardBoxLocalService.deleteCardBox(id);
 	}
 
-	/**
-	* @throws PortalException
-	*/
 	@Override
-	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cardBoxLocalService.deletePersistedModel(persistedModel);
+	public de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
+		return _cardBoxLocalService.fetchCardBox(id);
 	}
 
 	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return _cardBoxLocalService.dynamicQuery();
+	public de.ki.sbamdc.model.CardBox findByNameAndUser(java.lang.String name,
+		long userId) {
+		return _cardBoxLocalService.findByNameAndUser(name, userId);
+	}
+
+	/**
+	* Returns the card box with the primary key.
+	*
+	* @param id the primary key of the card box
+	* @return the card box
+	* @throws PortalException if a card box with the primary key could not be found
+	*/
+	@Override
+	public de.ki.sbamdc.model.CardBox getCardBox(long id)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _cardBoxLocalService.getCardBox(id);
+	}
+
+	/**
+	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param cardBox the card box
+	* @return the card box that was updated
+	*/
+	@Override
+	public de.ki.sbamdc.model.CardBox updateCardBox(
+		de.ki.sbamdc.model.CardBox cardBox) {
+		return _cardBoxLocalService.updateCardBox(cardBox);
+	}
+
+	@Override
+	public int getCardBoxesCountOfUser(long userId) {
+		return _cardBoxLocalService.getCardBoxesCountOfUser(userId);
+	}
+
+	/**
+	* Returns the number of card boxs.
+	*
+	* @return the number of card boxs
+	*/
+	@Override
+	public int getCardBoxsCount() {
+		return _cardBoxLocalService.getCardBoxsCount();
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _cardBoxLocalService.invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		return _cardBoxLocalService.getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -154,64 +239,10 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 			orderByComparator);
 	}
 
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows matching the dynamic query
-	*/
 	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return _cardBoxLocalService.dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows matching the dynamic query
-	*/
-	@Override
-	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return _cardBoxLocalService.dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
-		return _cardBoxLocalService.fetchCardBox(id);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.CardBox findByNameAndUser(java.lang.String name,
+	public java.util.List<de.ki.sbamdc.model.CardBox> findLearnableCardBoxes(
 		long userId) {
-		return _cardBoxLocalService.findByNameAndUser(name, userId);
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return _cardBoxLocalService.getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the card box with the primary key.
-	*
-	* @param id the primary key of the card box
-	* @return the card box
-	* @throws PortalException if a card box with the primary key could not be found
-	*/
-	@Override
-	public de.ki.sbamdc.model.CardBox getCardBox(long id)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cardBoxLocalService.getCardBox(id);
-	}
-
-	@Override
-	public int getCardBoxesCountOfUser(long userId) {
-		return _cardBoxLocalService.getCardBoxesCountOfUser(userId);
+		return _cardBoxLocalService.findLearnableCardBoxes(userId);
 	}
 
 	@Override
@@ -238,54 +269,29 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	/**
-	* Returns the number of card boxs.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of card boxs
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public int getCardBoxsCount() {
-		return _cardBoxLocalService.getCardBoxsCount();
-	}
-
-	@Override
-	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		return _cardBoxLocalService.getIndexableActionableDynamicQuery();
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return _cardBoxLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the OSGi service identifier
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
 	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
-		return _cardBoxLocalService.getOSGiServiceIdentifier();
-	}
-
-	@Override
-	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return _cardBoxLocalService.getPersistedModel(primaryKeyObj);
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _cardBoxLocalService.invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param cardBox the card box
-	* @return the card box that was updated
-	*/
-	@Override
-	public de.ki.sbamdc.model.CardBox updateCardBox(
-		de.ki.sbamdc.model.CardBox cardBox) {
-		return _cardBoxLocalService.updateCardBox(cardBox);
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return _cardBoxLocalService.dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	@Override

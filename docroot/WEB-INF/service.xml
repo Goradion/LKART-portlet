@@ -51,6 +51,11 @@
 			<finder-column name="name" />
 			<finder-column name="userId" />
 		</finder>
+		
+		<finder name="ForeignAndShared" return-type="Collection" where="shared=1">
+			<finder-column name="userId" comparator="!="/>
+		</finder>
+		
 	</entity>
 	
 	<entity name="Flashcard" remote-service="true" local-service="true">
