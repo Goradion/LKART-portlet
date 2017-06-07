@@ -64,7 +64,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{id=");
 		sb.append(id);
@@ -72,6 +72,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		sb.append(content);
 		sb.append(", cardBoxId_fk=");
 		sb.append(cardBoxId_fk);
+		sb.append(", title=");
+		sb.append(title);
 		sb.append("}");
 
 		return sb.toString();
@@ -92,6 +94,13 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 		flashcardImpl.setCardBoxId_fk(cardBoxId_fk);
 
+		if (title == null) {
+			flashcardImpl.setTitle(StringPool.BLANK);
+		}
+		else {
+			flashcardImpl.setTitle(title);
+		}
+
 		flashcardImpl.resetOriginalValues();
 
 		return flashcardImpl;
@@ -103,6 +112,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		content = objectInput.readUTF();
 
 		cardBoxId_fk = objectInput.readLong();
+		title = objectInput.readUTF();
 	}
 
 	@Override
@@ -118,9 +128,17 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		}
 
 		objectOutput.writeLong(cardBoxId_fk);
+
+		if (title == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(title);
+		}
 	}
 
 	public long id;
 	public String content;
 	public long cardBoxId_fk;
+	public String title;
 }

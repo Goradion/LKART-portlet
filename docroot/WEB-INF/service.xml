@@ -66,6 +66,7 @@
 		<column name="answer_txt" type="String"></column>
 		<column name="answer_pct" type="String"></column> -->
 		<column name="cardBoxId_fk" type="long"></column>
+		<column name="title" type="String"></column>
 		
 		<order by="desc">
 			<order-column name="id"></order-column>

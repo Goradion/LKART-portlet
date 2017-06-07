@@ -103,6 +103,21 @@ public interface FlashcardModel extends BaseModel<Flashcard> {
 	 */
 	public void setCardBoxId_fk(long cardBoxId_fk);
 
+	/**
+	 * Returns the title of this flashcard.
+	 *
+	 * @return the title of this flashcard
+	 */
+	@AutoEscape
+	public String getTitle();
+
+	/**
+	 * Sets the title of this flashcard.
+	 *
+	 * @param title the title of this flashcard
+	 */
+	public void setTitle(String title);
+
 	@Override
 	public boolean isNew();
 

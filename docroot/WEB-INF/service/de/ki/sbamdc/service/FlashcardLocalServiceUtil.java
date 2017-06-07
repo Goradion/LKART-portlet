@@ -80,8 +80,8 @@ public class FlashcardLocalServiceUtil {
 	}
 
 	public static de.ki.sbamdc.model.Flashcard addFlashcard(
-		java.lang.String content, long cardBoxId) {
-		return getService().addFlashcard(content, cardBoxId);
+		java.lang.String content, java.lang.String title, long cardBoxId) {
+		return getService().addFlashcard(content, title, cardBoxId);
 	}
 
 	/**
@@ -142,6 +142,12 @@ public class FlashcardLocalServiceUtil {
 	public static de.ki.sbamdc.model.Flashcard updateFlashcard(
 		de.ki.sbamdc.model.Flashcard flashcard) {
 		return getService().updateFlashcard(flashcard);
+	}
+
+	public static de.ki.sbamdc.model.Flashcard updateFlashcard(
+		java.lang.String content, java.lang.String title, long fcId,
+		long cardBoxId) {
+		return getService().updateFlashcard(content, title, fcId, cardBoxId);
 	}
 
 	/**

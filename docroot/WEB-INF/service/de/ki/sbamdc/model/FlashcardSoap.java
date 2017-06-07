@@ -36,6 +36,7 @@ public class FlashcardSoap implements Serializable {
 		soapModel.setId(model.getId());
 		soapModel.setContent(model.getContent());
 		soapModel.setCardBoxId_fk(model.getCardBoxId_fk());
+		soapModel.setTitle(model.getTitle());
 
 		return soapModel;
 	}
@@ -112,7 +113,16 @@ public class FlashcardSoap implements Serializable {
 		_cardBoxId_fk = cardBoxId_fk;
 	}
 
+	public String getTitle() {
+		return _title;
+	}
+
+	public void setTitle(String title) {
+		_title = title;
+	}
+
 	private long _id;
 	private String _content;
 	private long _cardBoxId_fk;
+	private String _title;
 }

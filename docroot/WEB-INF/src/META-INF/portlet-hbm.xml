@@ -24,5 +24,6 @@
 		</id>
 		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

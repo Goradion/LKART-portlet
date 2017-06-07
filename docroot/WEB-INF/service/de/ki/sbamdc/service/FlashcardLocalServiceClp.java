@@ -55,7 +55,9 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodName6 = "addFlashcard";
 
-		_methodParameterTypes6 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes6 = new String[] {
+				"java.lang.String", "java.lang.String", "long"
+			};
 
 		_methodName7 = "createFlashcard";
 
@@ -81,50 +83,56 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodParameterTypes12 = new String[] { "de.ki.sbamdc.model.Flashcard" };
 
-		_methodName13 = "getFlashcardsCount";
+		_methodName13 = "updateFlashcard";
 
-		_methodParameterTypes13 = new String[] {  };
-
-		_methodName15 = "getOSGiServiceIdentifier";
-
-		_methodParameterTypes15 = new String[] {  };
-
-		_methodName16 = "dynamicQuery";
-
-		_methodParameterTypes16 = new String[] {
-				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
+		_methodParameterTypes13 = new String[] {
+				"java.lang.String", "java.lang.String", "long", "long"
 			};
+
+		_methodName14 = "getFlashcardsCount";
+
+		_methodParameterTypes14 = new String[] {  };
+
+		_methodName16 = "getOSGiServiceIdentifier";
+
+		_methodParameterTypes16 = new String[] {  };
 
 		_methodName17 = "dynamicQuery";
 
 		_methodParameterTypes17 = new String[] {
-				"com.liferay.portal.kernel.dao.orm.DynamicQuery", "int", "int"
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
 		_methodName18 = "dynamicQuery";
 
 		_methodParameterTypes18 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery", "int", "int"
+			};
+
+		_methodName19 = "dynamicQuery";
+
+		_methodParameterTypes19 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName19 = "findByCardBoxId";
+		_methodName20 = "findByCardBoxId";
 
-		_methodParameterTypes19 = new String[] { "long" };
+		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName20 = "getFlashcards";
+		_methodName21 = "getFlashcards";
 
-		_methodParameterTypes20 = new String[] { "int", "int" };
-
-		_methodName21 = "dynamicQueryCount";
-
-		_methodParameterTypes21 = new String[] {
-				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
-			};
+		_methodParameterTypes21 = new String[] { "int", "int" };
 
 		_methodName22 = "dynamicQueryCount";
 
 		_methodParameterTypes22 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
+			};
+
+		_methodName23 = "dynamicQueryCount";
+
+		_methodParameterTypes23 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
@@ -286,7 +294,7 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 	@Override
 	public de.ki.sbamdc.model.Flashcard addFlashcard(java.lang.String content,
-		long cardBoxId) {
+		java.lang.String title, long cardBoxId) {
 		Object returnObj = null;
 
 		try {
@@ -294,6 +302,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 					_methodParameterTypes6,
 					new Object[] {
 						ClpSerializer.translateInput(content),
+						
+					ClpSerializer.translateInput(title),
 						
 					cardBoxId
 					});
@@ -466,12 +476,46 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	}
 
 	@Override
-	public int getFlashcardsCount() {
+	public de.ki.sbamdc.model.Flashcard updateFlashcard(
+		java.lang.String content, java.lang.String title, long fcId,
+		long cardBoxId) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+					_methodParameterTypes13,
+					new Object[] {
+						ClpSerializer.translateInput(content),
+						
+					ClpSerializer.translateInput(title),
+						
+					fcId,
+						
+					cardBoxId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.Flashcard)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public int getFlashcardsCount() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -500,8 +544,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -524,8 +568,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName16,
-					_methodParameterTypes16,
+			returnObj = _invokableLocalService.invokeMethod(_methodName17,
+					_methodParameterTypes17,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -550,8 +594,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName17,
-					_methodParameterTypes17,
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -583,8 +627,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -616,8 +660,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19, new Object[] { cardBoxId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { cardBoxId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -640,8 +684,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -664,8 +708,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -690,8 +734,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -742,8 +786,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	private String[] _methodParameterTypes12;
 	private String _methodName13;
 	private String[] _methodParameterTypes13;
-	private String _methodName15;
-	private String[] _methodParameterTypes15;
+	private String _methodName14;
+	private String[] _methodParameterTypes14;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
@@ -758,4 +802,6 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	private String[] _methodParameterTypes21;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

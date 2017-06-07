@@ -1583,7 +1583,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_FOREIGNANDSHARED_USERID_2 = "cardBox.userId != ? AND cardBox.shared=true";
+	private static final String _FINDER_COLUMN_FOREIGNANDSHARED_USERID_2 = "cardBox.userId != ? AND cardBox.shared=1";
 
 	public CardBoxPersistenceImpl() {
 		setModelClass(CardBox.class);

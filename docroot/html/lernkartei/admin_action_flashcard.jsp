@@ -16,7 +16,7 @@
 	<portlet:actionURL name="deleteFlashcard" var="deleteFlashcard">
 		<portlet:param name="flashcardId" value='<%=""+flashcardId %>'/>
 	</portlet:actionURL>
-	<liferay-ui:icon-delete url='<%=editFlashcard %>'/>
+	<liferay-ui:icon-delete url='<%=deleteFlashcard %>'/>
 	
 	
 </liferay-ui:icon-menu>
