@@ -4,6 +4,7 @@
 <%
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	Flashcard flashcard = (Flashcard)row.getObject();
+	String flashcardTitle = flashcard.getTitle();
 	long flashcardId = flashcard.getPrimaryKey();
 %>
 

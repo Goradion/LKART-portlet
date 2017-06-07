@@ -36,8 +36,7 @@
 
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.Flashcard"
 		modelVar="flashcard" keyProperty="id">
-		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_overview_link.jsp" ></liferay-ui:search-container-column-jsp>
-		<liferay-ui:search-container-column-text name="Bezeichnung" property="title"/>
+		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_preview_link.jsp" name="Bezeichnung"/>
 		<liferay-ui:search-container-column-text name="Lernkartei">
 			<%=CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk()).getName() %>
 		</liferay-ui:search-container-column-text>

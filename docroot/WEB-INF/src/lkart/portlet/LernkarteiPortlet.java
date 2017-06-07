@@ -61,11 +61,13 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
 
-	public void toLearnMenue(ActionRequest actionRequest, ActionResponse actionResponse){
-		List<CardBox> learnableBoxes = CardBoxLocalServiceUtil.findLearnableCardBoxes(getThemeDisplay(actionRequest).getUserId());
+	public void toLearnMenue(ActionRequest actionRequest, ActionResponse actionResponse) {
+		List<CardBox> learnableBoxes = CardBoxLocalServiceUtil
+				.findLearnableCardBoxes(getThemeDisplay(actionRequest).getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", learnableBoxes, PortletSession.APPLICATION_SCOPE);
 		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_MENU_JSP, PortletSession.PORTLET_SCOPE);
 	}
+
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
 	}
@@ -169,18 +171,24 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
-
-		List<CardBox> cardBoxList = CardBoxLocalServiceUtil.getCardBoxs(0, CardBoxLocalServiceUtil.getCardBoxsCount());
+		ThemeDisplay td = getThemeDisplay(actionRequest);
+		
+		List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.PORTLET_SCOPE);
-
+		
 		long fcId = Long.parseLong(actionRequest.getParameter("flashcardId"));
 		actionRequest.getPortletSession().setAttribute("flashcardId", "" + fcId, PortletSession.PORTLET_SCOPE);
-
+		
 		try {
 			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
-			String content = fc.getContent();
-			System.out.println(content);
-			actionRequest.getPortletSession().setAttribute(content, "flashcardContent", PortletSession.PORTLET_SCOPE);
+//			String content = fc.getContent();
+//			String fcTitle = fc.getTitle();
+//			System.out.println(content);
+			actionRequest.getPortletSession().setAttribute("flashcard", fc);
+			actionRequest.getPortletSession().setAttribute("cardBoxName", 
+					CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
+//			actionRequest.getPortletSession().setAttribute("flashcardTitle", fcTitle);
+//			actionRequest.getPortletSession().setAttribute("flashcardContent", content, PortletSession.PORTLET_SCOPE);
 
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
@@ -198,7 +206,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		long uid = themeDisplay.getUserId();
 		CardBox cardbox = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid);
 		long cardBoxId = -1;
-		if(cardbox != null)
+		if (cardbox != null)
 			cardBoxId = cardbox.getId();
 		// Debug
 		System.out.println(fcContent);
@@ -209,7 +217,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			try {
 				if (!fcContent.isEmpty()) {
 					// create and store flashcard in database
-					FlashcardLocalServiceUtil.addFlashcard(fcContent,flashcardTitle, cardBoxId);
+					FlashcardLocalServiceUtil.addFlashcard(fcContent, flashcardTitle, cardBoxId);
 				}
 
 			} catch (NumberFormatException nfe) {
@@ -223,19 +231,23 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void updateFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
 				PortletSession.PORTLET_SCOPE);
-		String fcContent = actionRequest.getParameter("flashcardEditor");
-		String cardBoxName = actionRequest.getParameter("kartei");
-		String flashcardTitle = actionRequest.getParameter("flashcardTitle");
-		long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
-		
-		ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-		// now read your parameters, e.g. like this:
-		// long someParameter = ParamUtil.getLong(request, "someParameter");
-		long uid = themeDisplay.getUserId();
-
-		long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
-
-		FlashcardLocalServiceUtil.updateFlashcard(fcContent, flashcardTitle, fcId, cardBoxId);
+		try {
+			String fcContent = actionRequest.getParameter("flashcardEditor");
+			String cardBoxName = actionRequest.getParameter("kartei");
+			String flashcardTitle = actionRequest.getParameter("flashcardTitle");
+			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
+			
+			ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			// now read your parameters, e.g. like this:
+			// long someParameter = ParamUtil.getLong(request, "someParameter");
+			long uid = themeDisplay.getUserId();
+	
+			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
+	
+			FlashcardLocalServiceUtil.updateFlashcard(fcContent, flashcardTitle, fcId, cardBoxId);
+		}catch(NumberFormatException nfe) {
+			nfe.printStackTrace();
+		}
 	}
 
 	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -285,13 +297,13 @@ public class LernkarteiPortlet extends MVCPortlet {
 			e.printStackTrace();
 		}
 	}
-	
-	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse){
-		
+
+	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
+
 		try {
 			long flashcardId = Long.parseLong(actionRequest.getParameter("flashcardId"));
 			FlashcardLocalServiceUtil.deleteFlashcard(flashcardId);
-		}catch(NumberFormatException nfe){
+		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
