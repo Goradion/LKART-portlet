@@ -75,19 +75,34 @@ public interface FlashcardModel extends BaseModel<Flashcard> {
 	public void setId(long id);
 
 	/**
-	 * Returns the content of this flashcard.
+	 * Returns the front side of this flashcard.
 	 *
-	 * @return the content of this flashcard
+	 * @return the front side of this flashcard
 	 */
 	@AutoEscape
-	public String getContent();
+	public String getFrontSide();
 
 	/**
-	 * Sets the content of this flashcard.
+	 * Sets the front side of this flashcard.
 	 *
-	 * @param content the content of this flashcard
+	 * @param frontSide the front side of this flashcard
 	 */
-	public void setContent(String content);
+	public void setFrontSide(String frontSide);
+
+	/**
+	 * Returns the back side of this flashcard.
+	 *
+	 * @return the back side of this flashcard
+	 */
+	@AutoEscape
+	public String getBackSide();
+
+	/**
+	 * Sets the back side of this flashcard.
+	 *
+	 * @param backSide the back side of this flashcard
+	 */
+	public void setBackSide(String backSide);
 
 	/**
 	 * Returns the card box id_fk of this flashcard.

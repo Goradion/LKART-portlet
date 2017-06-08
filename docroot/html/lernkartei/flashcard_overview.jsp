@@ -9,6 +9,7 @@
 <portlet:actionURL name="toEditMode" var="editMode"></portlet:actionURL>
 <portlet:actionURL name="toNewFlashcard" var="newFlashcard"></portlet:actionURL>
 
+
 <!-- SearchContainer START -->
 <%
 	List<Flashcard> flashcards = FlashcardLocalServiceUtil.getFlashcards(0,

@@ -64,12 +64,14 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{id=");
 		sb.append(id);
-		sb.append(", content=");
-		sb.append(content);
+		sb.append(", frontSide=");
+		sb.append(frontSide);
+		sb.append(", backSide=");
+		sb.append(backSide);
 		sb.append(", cardBoxId_fk=");
 		sb.append(cardBoxId_fk);
 		sb.append(", title=");
@@ -85,11 +87,18 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 		flashcardImpl.setId(id);
 
-		if (content == null) {
-			flashcardImpl.setContent(StringPool.BLANK);
+		if (frontSide == null) {
+			flashcardImpl.setFrontSide(StringPool.BLANK);
 		}
 		else {
-			flashcardImpl.setContent(content);
+			flashcardImpl.setFrontSide(frontSide);
+		}
+
+		if (backSide == null) {
+			flashcardImpl.setBackSide(StringPool.BLANK);
+		}
+		else {
+			flashcardImpl.setBackSide(backSide);
 		}
 
 		flashcardImpl.setCardBoxId_fk(cardBoxId_fk);
@@ -109,7 +118,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		id = objectInput.readLong();
-		content = objectInput.readUTF();
+		frontSide = objectInput.readUTF();
+		backSide = objectInput.readUTF();
 
 		cardBoxId_fk = objectInput.readLong();
 		title = objectInput.readUTF();
@@ -120,11 +130,18 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		throws IOException {
 		objectOutput.writeLong(id);
 
-		if (content == null) {
+		if (frontSide == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(content);
+			objectOutput.writeUTF(frontSide);
+		}
+
+		if (backSide == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(backSide);
 		}
 
 		objectOutput.writeLong(cardBoxId_fk);
@@ -138,7 +155,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	}
 
 	public long id;
-	public String content;
+	public String frontSide;
+	public String backSide;
 	public long cardBoxId_fk;
 	public String title;
 }

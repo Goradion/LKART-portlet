@@ -67,7 +67,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public static final String TABLE_NAME = "sbamdc_Flashcard";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "id_", Types.BIGINT },
-			{ "content", Types.VARCHAR },
+			{ "frontSide", Types.VARCHAR },
+			{ "backSide", Types.VARCHAR },
 			{ "cardBoxId_fk", Types.BIGINT },
 			{ "title", Types.VARCHAR }
 		};
@@ -75,12 +76,13 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	static {
 		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("content", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("frontSide", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("backSide", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("cardBoxId_fk", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,content STRING null,cardBoxId_fk LONG,title VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,frontSide STRING null,backSide STRING null,cardBoxId_fk LONG,title VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
 	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
@@ -113,7 +115,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Flashcard model = new FlashcardImpl();
 
 		model.setId(soapModel.getId());
-		model.setContent(soapModel.getContent());
+		model.setFrontSide(soapModel.getFrontSide());
+		model.setBackSide(soapModel.getBackSide());
 		model.setCardBoxId_fk(soapModel.getCardBoxId_fk());
 		model.setTitle(soapModel.getTitle());
 
@@ -181,7 +184,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
-		attributes.put("content", getContent());
+		attributes.put("frontSide", getFrontSide());
+		attributes.put("backSide", getBackSide());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 		attributes.put("title", getTitle());
 
@@ -199,10 +203,16 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			setId(id);
 		}
 
-		String content = (String)attributes.get("content");
+		String frontSide = (String)attributes.get("frontSide");
 
-		if (content != null) {
-			setContent(content);
+		if (frontSide != null) {
+			setFrontSide(frontSide);
+		}
+
+		String backSide = (String)attributes.get("backSide");
+
+		if (backSide != null) {
+			setBackSide(backSide);
 		}
 
 		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
@@ -233,18 +243,34 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@JSON
 	@Override
-	public String getContent() {
-		if (_content == null) {
+	public String getFrontSide() {
+		if (_frontSide == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _content;
+			return _frontSide;
 		}
 	}
 
 	@Override
-	public void setContent(String content) {
-		_content = content;
+	public void setFrontSide(String frontSide) {
+		_frontSide = frontSide;
+	}
+
+	@JSON
+	@Override
+	public String getBackSide() {
+		if (_backSide == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _backSide;
+		}
+	}
+
+	@Override
+	public void setBackSide(String backSide) {
+		_backSide = backSide;
 	}
 
 	@JSON
@@ -318,7 +344,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		FlashcardImpl flashcardImpl = new FlashcardImpl();
 
 		flashcardImpl.setId(getId());
-		flashcardImpl.setContent(getContent());
+		flashcardImpl.setFrontSide(getFrontSide());
+		flashcardImpl.setBackSide(getBackSide());
 		flashcardImpl.setCardBoxId_fk(getCardBoxId_fk());
 		flashcardImpl.setTitle(getTitle());
 
@@ -404,12 +431,20 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 		flashcardCacheModel.id = getId();
 
-		flashcardCacheModel.content = getContent();
+		flashcardCacheModel.frontSide = getFrontSide();
 
-		String content = flashcardCacheModel.content;
+		String frontSide = flashcardCacheModel.frontSide;
 
-		if ((content != null) && (content.length() == 0)) {
-			flashcardCacheModel.content = null;
+		if ((frontSide != null) && (frontSide.length() == 0)) {
+			flashcardCacheModel.frontSide = null;
+		}
+
+		flashcardCacheModel.backSide = getBackSide();
+
+		String backSide = flashcardCacheModel.backSide;
+
+		if ((backSide != null) && (backSide.length() == 0)) {
+			flashcardCacheModel.backSide = null;
 		}
 
 		flashcardCacheModel.cardBoxId_fk = getCardBoxId_fk();
@@ -427,12 +462,14 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{id=");
 		sb.append(getId());
-		sb.append(", content=");
-		sb.append(getContent());
+		sb.append(", frontSide=");
+		sb.append(getFrontSide());
+		sb.append(", backSide=");
+		sb.append(getBackSide());
 		sb.append(", cardBoxId_fk=");
 		sb.append(getCardBoxId_fk());
 		sb.append(", title=");
@@ -444,7 +481,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(16);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -455,8 +492,12 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		sb.append(getId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>content</column-name><column-value><![CDATA[");
-		sb.append(getContent());
+			"<column><column-name>frontSide</column-name><column-value><![CDATA[");
+		sb.append(getFrontSide());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>backSide</column-name><column-value><![CDATA[");
+		sb.append(getBackSide());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>cardBoxId_fk</column-name><column-value><![CDATA[");
@@ -477,7 +518,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			Flashcard.class
 		};
 	private long _id;
-	private String _content;
+	private String _frontSide;
+	private String _backSide;
 	private long _cardBoxId_fk;
 	private long _originalCardBoxId_fk;
 	private boolean _setOriginalCardBoxId_fk;

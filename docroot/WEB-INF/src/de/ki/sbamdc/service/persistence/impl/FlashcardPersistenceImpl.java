@@ -719,8 +719,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 					primaryKey);
 
 			if (flashcard == null) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -845,7 +845,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		flashcardImpl.setPrimaryKey(flashcard.getPrimaryKey());
 
 		flashcardImpl.setId(flashcard.getId());
-		flashcardImpl.setContent(flashcard.getContent());
+		flashcardImpl.setFrontSide(flashcard.getFrontSide());
+		flashcardImpl.setBackSide(flashcard.getBackSide());
 		flashcardImpl.setCardBoxId_fk(flashcard.getCardBoxId_fk());
 		flashcardImpl.setTitle(flashcard.getTitle());
 
@@ -865,8 +866,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		Flashcard flashcard = fetchByPrimaryKey(primaryKey);
 
 		if (flashcard == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

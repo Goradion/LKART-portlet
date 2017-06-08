@@ -6,5 +6,5 @@
 	<bean class="de.ki.sbamdc.service.persistence.impl.CardBoxPersistenceImpl" id="de.ki.sbamdc.service.persistence.CardBoxPersistence" parent="basePersistence" />
 	<bean class="de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl" id="de.ki.sbamdc.service.FlashcardLocalService" />
 	<bean class="de.ki.sbamdc.service.impl.FlashcardServiceImpl" id="de.ki.sbamdc.service.FlashcardService" />
-	<bean class="de.ki.sbamdc.service.persistence.impl.FlashcardPersistenceImpl" id="de.ki.sbamdc.service.persistence.FlashcardPersistence" parent="basePersistence" />
+	<bean class="de.ki.sbamdc.service.persistence.impl.FlashcardPersistenceImpl" id="de.ki.sbamdc.service.persistence.FlashcardPersistence" parent="basePersistence" />	
 </beans>

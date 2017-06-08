@@ -5,7 +5,7 @@
 	<import class="de.ki.sbamdc.model.CardBox" />
 	<import class="de.ki.sbamdc.model.Flashcard" />
 	<class name="de.ki.sbamdc.model.impl.CardBoxImpl" table="sbamdc_CardBox">
-		<id column="id_" name="id" type="long">
+		<id name="id" column="id_" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -19,10 +19,11 @@
 		<property name="shared" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="de.ki.sbamdc.model.impl.FlashcardImpl" table="sbamdc_Flashcard">
-		<id column="id_" name="id" type="long">
+		<id name="id" column="id_" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="content" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="frontSide" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="backSide" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

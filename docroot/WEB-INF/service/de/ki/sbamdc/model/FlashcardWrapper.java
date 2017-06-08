@@ -20,12 +20,12 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>
@@ -57,7 +57,8 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
-		attributes.put("content", getContent());
+		attributes.put("frontSide", getFrontSide());
+		attributes.put("backSide", getBackSide());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
 		attributes.put("title", getTitle());
 
@@ -72,10 +73,16 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 			setId(id);
 		}
 
-		String content = (String)attributes.get("content");
+		String frontSide = (String)attributes.get("frontSide");
 
-		if (content != null) {
-			setContent(content);
+		if (frontSide != null) {
+			setFrontSide(frontSide);
+		}
+
+		String backSide = (String)attributes.get("backSide");
+
+		if (backSide != null) {
+			setBackSide(backSide);
 		}
 
 		Long cardBoxId_fk = (Long)attributes.get("cardBoxId_fk");
@@ -92,38 +99,8 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _flashcard.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _flashcard.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _flashcard.isNew();
-	}
-
-	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return _flashcard.getExpandoBridge();
-	}
-
-	@Override
-	public com.liferay.portal.kernel.model.CacheModel<de.ki.sbamdc.model.Flashcard> toCacheModel() {
-		return _flashcard.toCacheModel();
-	}
-
-	@Override
-	public de.ki.sbamdc.model.Flashcard toEscapedModel() {
-		return new FlashcardWrapper(_flashcard.toEscapedModel());
-	}
-
-	@Override
-	public de.ki.sbamdc.model.Flashcard toUnescapedModel() {
-		return new FlashcardWrapper(_flashcard.toUnescapedModel());
+	public java.lang.Object clone() {
+		return new FlashcardWrapper((Flashcard)_flashcard.clone());
 	}
 
 	@Override
@@ -131,49 +108,14 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		return _flashcard.compareTo(flashcard);
 	}
 
-	@Override
-	public int hashCode() {
-		return _flashcard.hashCode();
-	}
-
-	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _flashcard.getPrimaryKeyObj();
-	}
-
-	@Override
-	public java.lang.Object clone() {
-		return new FlashcardWrapper((Flashcard)_flashcard.clone());
-	}
-
 	/**
-	* Returns the content of this flashcard.
+	* Returns the back side of this flashcard.
 	*
-	* @return the content of this flashcard
+	* @return the back side of this flashcard
 	*/
 	@Override
-	public java.lang.String getContent() {
-		return _flashcard.getContent();
-	}
-
-	/**
-	* Returns the title of this flashcard.
-	*
-	* @return the title of this flashcard
-	*/
-	@Override
-	public java.lang.String getTitle() {
-		return _flashcard.getTitle();
-	}
-
-	@Override
-	public java.lang.String toString() {
-		return _flashcard.toString();
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _flashcard.toXmlString();
+	public java.lang.String getBackSide() {
+		return _flashcard.getBackSide();
 	}
 
 	/**
@@ -184,6 +126,21 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public long getCardBoxId_fk() {
 		return _flashcard.getCardBoxId_fk();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _flashcard.getExpandoBridge();
+	}
+
+	/**
+	* Returns the front side of this flashcard.
+	*
+	* @return the front side of this flashcard
+	*/
+	@Override
+	public java.lang.String getFrontSide() {
+		return _flashcard.getFrontSide();
 	}
 
 	/**
@@ -207,8 +164,53 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _flashcard.getPrimaryKeyObj();
+	}
+
+	/**
+	* Returns the title of this flashcard.
+	*
+	* @return the title of this flashcard
+	*/
+	@Override
+	public java.lang.String getTitle() {
+		return _flashcard.getTitle();
+	}
+
+	@Override
+	public int hashCode() {
+		return _flashcard.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _flashcard.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _flashcard.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _flashcard.isNew();
+	}
+
+	@Override
 	public void persist() {
 		_flashcard.persist();
+	}
+
+	/**
+	* Sets the back side of this flashcard.
+	*
+	* @param backSide the back side of this flashcard
+	*/
+	@Override
+	public void setBackSide(java.lang.String backSide) {
+		_flashcard.setBackSide(backSide);
 	}
 
 	@Override
@@ -226,14 +228,10 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		_flashcard.setCardBoxId_fk(cardBoxId_fk);
 	}
 
-	/**
-	* Sets the content of this flashcard.
-	*
-	* @param content the content of this flashcard
-	*/
 	@Override
-	public void setContent(java.lang.String content) {
-		_flashcard.setContent(content);
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
+		_flashcard.setExpandoBridgeAttributes(baseModel);
 	}
 
 	@Override
@@ -242,14 +240,18 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(
-		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
-		_flashcard.setExpandoBridgeAttributes(baseModel);
-	}
-
-	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 		_flashcard.setExpandoBridgeAttributes(serviceContext);
+	}
+
+	/**
+	* Sets the front side of this flashcard.
+	*
+	* @param frontSide the front side of this flashcard
+	*/
+	@Override
+	public void setFrontSide(java.lang.String frontSide) {
+		_flashcard.setFrontSide(frontSide);
 	}
 
 	/**
@@ -293,6 +295,31 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	}
 
 	@Override
+	public com.liferay.portal.kernel.model.CacheModel<de.ki.sbamdc.model.Flashcard> toCacheModel() {
+		return _flashcard.toCacheModel();
+	}
+
+	@Override
+	public de.ki.sbamdc.model.Flashcard toEscapedModel() {
+		return new FlashcardWrapper(_flashcard.toEscapedModel());
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return _flashcard.toString();
+	}
+
+	@Override
+	public de.ki.sbamdc.model.Flashcard toUnescapedModel() {
+		return new FlashcardWrapper(_flashcard.toUnescapedModel());
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _flashcard.toXmlString();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -304,7 +331,7 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 
 		FlashcardWrapper flashcardWrapper = (FlashcardWrapper)obj;
 
-		if (Objects.equals(_flashcard, flashcardWrapper._flashcard)) {
+		if (Validator.equals(_flashcard, flashcardWrapper._flashcard)) {
 			return true;
 		}
 

@@ -14,7 +14,8 @@
 <%
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	Flashcard flashcard = (Flashcard)row.getObject();
-	String flashcardContent = flashcard.getContent();
+	String flashcardFrontSide = flashcard.getFrontSide();
+	String flashcardBackSide = flashcard.getBackSide();
 	String flashcardTitle = flashcard.getTitle();
 	long flashcardId = flashcard.getPrimaryKey();
 %>
@@ -22,7 +23,8 @@
 
 <portlet:renderURL var="DialogIframe" windowState="<%=LiferayWindowState.POP_UP.toString()%>">
 	<portlet:param name="mvcPath" value="/html/lernkartei/flashcard_preview.jsp"/>
-	<portlet:param name="fcContent" value="<%=flashcardContent %>"></portlet:param>
+	<portlet:param name="fcFrontSide" value="<%=flashcardFrontSide %>"/>
+	<portlet:param name="fcBackSide" value="<%=flashcardBackSide %>"/>
 </portlet:renderURL>
 <div>
 	<aui:button name='<%=""+flashcardId %>' value="<%=flashcardTitle %>"/>

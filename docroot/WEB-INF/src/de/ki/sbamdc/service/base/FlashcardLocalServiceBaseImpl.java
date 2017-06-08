@@ -226,7 +226,7 @@ public abstract class FlashcardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public ActionableDynamicQuery getActionableDynamicQuery() {
 		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(flashcardLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.FlashcardLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(Flashcard.class);
 
@@ -239,7 +239,7 @@ public abstract class FlashcardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
 
-		indexableActionableDynamicQuery.setBaseLocalService(flashcardLocalService);
+		indexableActionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.FlashcardLocalServiceUtil.getService());
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(Flashcard.class);
 
@@ -250,7 +250,7 @@ public abstract class FlashcardLocalServiceBaseImpl extends BaseLocalServiceImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(flashcardLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.FlashcardLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(Flashcard.class);
 
@@ -579,7 +579,7 @@ public abstract class FlashcardLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected de.ki.sbamdc.service.CardBoxLocalService cardBoxLocalService;
 	@BeanReference(type = CardBoxPersistence.class)
 	protected CardBoxPersistence cardBoxPersistence;
-	@BeanReference(type = FlashcardLocalService.class)
+	@BeanReference(type = de.ki.sbamdc.service.FlashcardLocalService.class)
 	protected FlashcardLocalService flashcardLocalService;
 	@BeanReference(type = FlashcardPersistence.class)
 	protected FlashcardPersistence flashcardPersistence;
