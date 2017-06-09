@@ -15,6 +15,7 @@
 	</model>
 	<model name="de.ki.sbamdc.model.Flashcard">
 		<field name="id" type="long" />
+		<field name="userId" type="long" />
 		<field name="frontSide" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>

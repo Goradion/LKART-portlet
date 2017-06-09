@@ -23,6 +23,7 @@
 		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
 		</id>
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="frontSide" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="backSide" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />

@@ -13,6 +13,7 @@ create table sbamdc_CardBox (
 
 create table sbamdc_Flashcard (
 	id_ LONG not null primary key,
+	userId LONG,
 	frontSide STRING null,
 	backSide STRING null,
 	cardBoxId_fk LONG,

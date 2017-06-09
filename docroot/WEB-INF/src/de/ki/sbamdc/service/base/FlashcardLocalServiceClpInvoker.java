@@ -125,7 +125,7 @@ public class FlashcardLocalServiceClpInvoker {
 
 		_methodParameterTypes51 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long"
+				"long", "long"
 			};
 
 		_methodName52 = "updateFlashcard";
@@ -135,13 +135,17 @@ public class FlashcardLocalServiceClpInvoker {
 				"long", "long"
 			};
 
-		_methodName53 = "findByCardBoxId";
+		_methodName53 = "findByUserId";
 
 		_methodParameterTypes53 = new String[] { "long" };
 
-		_methodName54 = "removeByCardBoxId";
+		_methodName54 = "findByCardBoxId";
 
 		_methodParameterTypes54 = new String[] { "long" };
+
+		_methodName55 = "removeByCardBoxId";
+
+		_methodParameterTypes55 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -257,7 +261,8 @@ public class FlashcardLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return FlashcardLocalServiceUtil.addFlashcard((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
-				((Long)arguments[3]).longValue());
+				((Long)arguments[3]).longValue(),
+				((Long)arguments[4]).longValue());
 		}
 
 		if (_methodName52.equals(name) &&
@@ -270,11 +275,16 @@ public class FlashcardLocalServiceClpInvoker {
 
 		if (_methodName53.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
-			return FlashcardLocalServiceUtil.findByCardBoxId(((Long)arguments[0]).longValue());
+			return FlashcardLocalServiceUtil.findByUserId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName54.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+			return FlashcardLocalServiceUtil.findByCardBoxId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
 			FlashcardLocalServiceUtil.removeByCardBoxId(((Long)arguments[0]).longValue());
 
 			return null;
@@ -331,4 +341,6 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes53;
 	private String _methodName54;
 	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
 }

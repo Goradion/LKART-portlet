@@ -57,7 +57,7 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodParameterTypes6 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long"
+				"long", "long"
 			};
 
 		_methodName7 = "createFlashcard";
@@ -122,26 +122,30 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 
 		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "getFlashcards";
+		_methodName21 = "findByUserId";
 
-		_methodParameterTypes21 = new String[] { "int", "int" };
+		_methodParameterTypes21 = new String[] { "long" };
 
-		_methodName22 = "dynamicQueryCount";
+		_methodName22 = "getFlashcards";
 
-		_methodParameterTypes22 = new String[] {
-				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
-			};
+		_methodParameterTypes22 = new String[] { "int", "int" };
 
 		_methodName23 = "dynamicQueryCount";
 
 		_methodParameterTypes23 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
+			};
+
+		_methodName24 = "dynamicQueryCount";
+
+		_methodParameterTypes24 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
 
-		_methodName24 = "removeByCardBoxId";
+		_methodName25 = "removeByCardBoxId";
 
-		_methodParameterTypes24 = new String[] { "long" };
+		_methodParameterTypes25 = new String[] { "long" };
 	}
 
 	@Override
@@ -301,7 +305,7 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	@Override
 	public de.ki.sbamdc.model.Flashcard addFlashcard(
 		java.lang.String frontSide, java.lang.String backSide,
-		java.lang.String title, long cardBoxId) {
+		java.lang.String title, long cardBoxId, long userId) {
 		Object returnObj = null;
 
 		try {
@@ -314,7 +318,9 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 						
 					ClpSerializer.translateInput(title),
 						
-					cardBoxId
+					cardBoxId,
+						
+					userId
 					});
 		}
 		catch (Throwable t) {
@@ -690,13 +696,37 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	}
 
 	@Override
+	public java.util.List<de.ki.sbamdc.model.Flashcard> findByUserId(
+		long userId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { userId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<de.ki.sbamdc.model.Flashcard>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public java.util.List<de.ki.sbamdc.model.Flashcard> getFlashcards(
 		int start, int end) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -719,8 +749,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -745,8 +775,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -771,8 +801,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	@Override
 	public void removeByCardBoxId(long id) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName24,
-				_methodParameterTypes24, new Object[] { id });
+			_invokableLocalService.invokeMethod(_methodName25,
+				_methodParameterTypes25, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -836,4 +866,6 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

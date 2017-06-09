@@ -8,7 +8,9 @@
 
 <portlet:actionURL name="toEditMode" var="editMode"></portlet:actionURL>
 <portlet:actionURL name="toNewFlashcard" var="newFlashcard"></portlet:actionURL>
-
+<%
+	long userId = themeDisplay.getUserId();
+%>
 
 <!-- SearchContainer START -->
 <%
@@ -26,9 +28,8 @@
 	iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 		<%
-			results = FlashcardLocalServiceUtil.getFlashcards(searchContainer.getStart(),
-							searchContainer.getEnd());
-					total = FlashcardLocalServiceUtil.getFlashcardsCount();
+			results = FlashcardLocalServiceUtil.findByUserId(userId);
+					total = FlashcardLocalServiceUtil.findByUserId(userId).size();
 					searchContainer.setTotal(total);
 					searchContainer.setResults(results);
 		%>

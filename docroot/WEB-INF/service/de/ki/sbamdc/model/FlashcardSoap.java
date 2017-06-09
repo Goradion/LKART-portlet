@@ -34,6 +34,7 @@ public class FlashcardSoap implements Serializable {
 		FlashcardSoap soapModel = new FlashcardSoap();
 
 		soapModel.setId(model.getId());
+		soapModel.setUserId(model.getUserId());
 		soapModel.setFrontSide(model.getFrontSide());
 		soapModel.setBackSide(model.getBackSide());
 		soapModel.setCardBoxId_fk(model.getCardBoxId_fk());
@@ -98,6 +99,14 @@ public class FlashcardSoap implements Serializable {
 		_id = id;
 	}
 
+	public long getUserId() {
+		return _userId;
+	}
+
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
 	public String getFrontSide() {
 		return _frontSide;
 	}
@@ -131,6 +140,7 @@ public class FlashcardSoap implements Serializable {
 	}
 
 	private long _id;
+	private long _userId;
 	private String _frontSide;
 	private String _backSide;
 	private long _cardBoxId_fk;

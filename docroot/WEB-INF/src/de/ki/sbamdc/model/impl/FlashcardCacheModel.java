@@ -64,10 +64,12 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{id=");
 		sb.append(id);
+		sb.append(", userId=");
+		sb.append(userId);
 		sb.append(", frontSide=");
 		sb.append(frontSide);
 		sb.append(", backSide=");
@@ -86,6 +88,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 		FlashcardImpl flashcardImpl = new FlashcardImpl();
 
 		flashcardImpl.setId(id);
+		flashcardImpl.setUserId(userId);
 
 		if (frontSide == null) {
 			flashcardImpl.setFrontSide(StringPool.BLANK);
@@ -118,6 +121,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		id = objectInput.readLong();
+
+		userId = objectInput.readLong();
 		frontSide = objectInput.readUTF();
 		backSide = objectInput.readUTF();
 
@@ -129,6 +134,8 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(id);
+
+		objectOutput.writeLong(userId);
 
 		if (frontSide == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -155,6 +162,7 @@ public class FlashcardCacheModel implements CacheModel<Flashcard>,
 	}
 
 	public long id;
+	public long userId;
 	public String frontSide;
 	public String backSide;
 	public long cardBoxId_fk;
