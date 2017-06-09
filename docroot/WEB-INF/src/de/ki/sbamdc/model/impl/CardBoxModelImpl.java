@@ -114,6 +114,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 			true);
 	public static final long NAME_COLUMN_BITMASK = 1L;
 	public static final long USERID_COLUMN_BITMASK = 2L;
+	public static final long USERNAME_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -367,7 +368,17 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setUserName(String userName) {
+		_columnBitmask |= USERNAME_COLUMN_BITMASK;
+
+		if (_originalUserName == null) {
+			_originalUserName = _userName;
+		}
+
 		_userName = userName;
+	}
+
+	public String getOriginalUserName() {
+		return GetterUtil.getString(_originalUserName);
 	}
 
 	@JSON
@@ -563,6 +574,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 		cardBoxModelImpl._setOriginalUserId = false;
 
+		cardBoxModelImpl._originalUserName = cardBoxModelImpl._userName;
+
 		cardBoxModelImpl._setModifiedDate = false;
 
 		cardBoxModelImpl._originalName = cardBoxModelImpl._name;
@@ -723,6 +736,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	private long _originalUserId;
 	private boolean _setOriginalUserId;
 	private String _userName;
+	private String _originalUserName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;

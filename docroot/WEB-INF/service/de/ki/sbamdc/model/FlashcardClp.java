@@ -439,7 +439,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 	private long _cardBoxId_fk;
 	private String _title;
 	private BaseModel<?> _flashcardRemoteModel;
-	private Class<?> _clpSerializerClass = de.ki.sbamdc.service.ClpSerializer.class;
+	private Class<?> _clpSerializerClass = ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

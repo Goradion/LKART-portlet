@@ -719,8 +719,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 					primaryKey);
 
 			if (flashcard == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isDebugEnabled()) {
+					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -866,8 +866,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		Flashcard flashcard = fetchByPrimaryKey(primaryKey);
 
 		if (flashcard == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isDebugEnabled()) {
+				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

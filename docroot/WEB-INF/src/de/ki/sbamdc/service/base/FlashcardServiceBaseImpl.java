@@ -396,7 +396,7 @@ public abstract class FlashcardServiceBaseImpl extends BaseServiceImpl
 	protected CardBoxPersistence cardBoxPersistence;
 	@BeanReference(type = de.ki.sbamdc.service.FlashcardLocalService.class)
 	protected de.ki.sbamdc.service.FlashcardLocalService flashcardLocalService;
-	@BeanReference(type = de.ki.sbamdc.service.FlashcardService.class)
+	@BeanReference(type = FlashcardService.class)
 	protected FlashcardService flashcardService;
 	@BeanReference(type = FlashcardPersistence.class)
 	protected FlashcardPersistence flashcardPersistence;

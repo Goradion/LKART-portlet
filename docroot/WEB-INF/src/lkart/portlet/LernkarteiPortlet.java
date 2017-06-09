@@ -26,6 +26,7 @@ import javax.portlet.RenderResponse;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.servlet.PortalMessages;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -72,7 +73,24 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
-		actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
+		String cardBoxIdString = actionRequest.getParameter("cardBoxId");
+		String[] split = cardBoxIdString.split(".");
+		try {
+			CardBox chosenCardBox = null; 
+			if (split.length == 2){
+				chosenCardBox = CardBoxLocalServiceUtil.findByNameAndUserName(split[0], split[1]);
+			}
+			if (chosenCardBox != null){
+				List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByCardBoxId(chosenCardBox.getId());
+				actionRequest.getPortletSession().setAttribute("flashcards", flashcards,
+						PortletSession.APPLICATION_SCOPE);
+				actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
+			} else {
+				actionRequest.getPortletSession().setAttribute("currentPage", VIEW_JSP, PortletSession.PORTLET_SCOPE);
+			}
+		} catch (NumberFormatException nfe) {
+//			nfe.printStackTrace();//TODO
+		}
 	}
 
 	/**
@@ -168,23 +186,25 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 		ThemeDisplay td = getThemeDisplay(actionRequest);
-		
+
 		List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.PORTLET_SCOPE);
-		
+
 		long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
 		actionRequest.getPortletSession().setAttribute("fcId", "" + fcId, PortletSession.PORTLET_SCOPE);
-		
+
 		try {
 			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
-//			String content = fc.getContent();
-//			String fcTitle = fc.getTitle();
-//			System.out.println(content);
+			// String content = fc.getContent();
+			// String fcTitle = fc.getTitle();
+			// System.out.println(content);
 			actionRequest.getPortletSession().setAttribute("flashcard", fc);
-			actionRequest.getPortletSession().setAttribute("cardBoxName", 
+			actionRequest.getPortletSession().setAttribute("cardBoxName",
 					CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
-//			actionRequest.getPortletSession().setAttribute("flashcardTitle", fcTitle);
-//			actionRequest.getPortletSession().setAttribute("flashcardContent", content, PortletSession.PORTLET_SCOPE);
+			// actionRequest.getPortletSession().setAttribute("flashcardTitle",
+			// fcTitle);
+			// actionRequest.getPortletSession().setAttribute("flashcardContent",
+			// content, PortletSession.PORTLET_SCOPE);
 
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
@@ -201,7 +221,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		// now read your parameters, e.g. like this:
 		// long someParameter = ParamUtil.getLong(request, "someParameter");
 		long uid = td.getUserId();
-		CardBox cardbox = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid);
+		CardBox cardbox = CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, uid);
 		long cardBoxId = -1;
 		if (cardbox != null)
 			cardBoxId = cardbox.getId();
@@ -210,7 +230,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			try {
 				if (!fcFrontSide.isEmpty()) {
 					// create and store flashcard in database
-					FlashcardLocalServiceUtil.addFlashcard(fcFrontSide,fcBackSide, flashcardTitle, cardBoxId);
+					FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide, flashcardTitle, cardBoxId);
 				}
 				SessionMessages.add(actionRequest, "success");
 
@@ -224,26 +244,27 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void updateFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
-//		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
-//				PortletSession.PORTLET_SCOPE);
+		// actionRequest.getPortletSession().setAttribute("currentPage",
+		// FLASHCARD_OVERVIEW_JSP,
+		// PortletSession.PORTLET_SCOPE);
 		try {
 			String fcFrontSide = actionRequest.getParameter("fcFrontSide");
 			String fcBackSide = actionRequest.getParameter("fcBackSide");
 			String cardBoxName = actionRequest.getParameter("kartei");
 			String flashcardTitle = actionRequest.getParameter("flashcardTitle");
 			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
-			
+
 			ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 			// now read your parameters, e.g. like this:
 			// long someParameter = ParamUtil.getLong(request, "someParameter");
 			long uid = themeDisplay.getUserId();
-	
-			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
-	
+
+			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, uid).getId();
+
 			FlashcardLocalServiceUtil.updateFlashcard(fcFrontSide, fcBackSide, flashcardTitle, fcId, cardBoxId);
 			PortalMessages.add(actionRequest, "success");
-			toEditFlashcard(actionRequest,actionResponse);
-		}catch(NumberFormatException nfe) {
+			toEditFlashcard(actionRequest, actionResponse);
+		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
 			PortalMessages.add(actionRequest, "error");
 		}
@@ -258,7 +279,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		User user = td.getUser();
 		try {
 			if (cardBoxIdString == null) {
-				if (CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, user.getUserId()) != null) {
+				if (CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, user.getUserId()) != null) {
 					actionRequest.setAttribute("error", "Name " + cardBoxName + " bereits vorhanden!");
 					toNewCardBox(actionRequest, actionResponse);
 				} else {
