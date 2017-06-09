@@ -8,10 +8,11 @@
 <aui:form action="<%=createFlashcard %>">
 <aui:field-wrapper label="Hier neue Karteikarte erstellen">
 	
-    <liferay-ui:input-editor name="fcFrontSide" toolbarSet="simple" contents="Front side of your flashcard" width="200" />
-    <liferay-ui:input-editor name="fcBackSide" toolbarSet="simple" contents="Back side of your flashcard" width="200"/>
+    <liferay-ui:input-editor name="fcFrontSide" toolbarSet="email" contents="Front side of your flashcard" width="200" />
+    <liferay-ui:input-editor name="fcBackSide" toolbarSet="email" contents="Back side of your flashcard" width="200"/>
+   
     Kartenbezeichnung: <input type="text" name="<portlet:namespace/>flashcardTitle" required="true"/> </br>
-    Kartei: <br />
+    Kartei:
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">
 			<option value="${c.getName()}">${c.getName()}</option>

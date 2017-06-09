@@ -75,6 +75,34 @@ public interface FlashcardModel extends BaseModel<Flashcard> {
 	public void setId(long id);
 
 	/**
+	 * Returns the user ID of this flashcard.
+	 *
+	 * @return the user ID of this flashcard
+	 */
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this flashcard.
+	 *
+	 * @param userId the user ID of this flashcard
+	 */
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this flashcard.
+	 *
+	 * @return the user uuid of this flashcard
+	 */
+	public String getUserUuid();
+
+	/**
+	 * Sets the user uuid of this flashcard.
+	 *
+	 * @param userUuid the user uuid of this flashcard
+	 */
+	public void setUserUuid(String userUuid);
+
+	/**
 	 * Returns the front side of this flashcard.
 	 *
 	 * @return the front side of this flashcard

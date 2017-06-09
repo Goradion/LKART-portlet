@@ -42,9 +42,10 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.FlashcardLocalServiceUtil} to access the flashcard local service.
 	 */	
 	
-	public Flashcard addFlashcard(String frontSide,String backSide, String title, long cardBoxId){
+	public Flashcard addFlashcard(String frontSide, String backSide, String title, long cardBoxId, long userId){
 		long fcId = counterLocalService.increment();
 		Flashcard fc = flashcardPersistence.create(fcId);
+		fc.setUserId(userId);
 		fc.setFrontSide(frontSide);
 		fc.setBackSide(backSide);
 		fc.setCardBoxId_fk(cardBoxId);
@@ -63,6 +64,10 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 			flashcardPersistence.update(fc);
 		}
 		return fc;
+	}
+	
+	public List<Flashcard> findByUserId(long userId){
+		return flashcardPersistence.findByUserId(userId);
 	}
 	
 	public List<Flashcard> findByCardBoxId(long cardBoxId){

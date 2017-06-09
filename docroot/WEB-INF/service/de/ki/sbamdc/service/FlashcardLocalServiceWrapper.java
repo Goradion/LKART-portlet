@@ -48,9 +48,9 @@ public class FlashcardLocalServiceWrapper implements FlashcardLocalService,
 	@Override
 	public de.ki.sbamdc.model.Flashcard addFlashcard(
 		java.lang.String frontSide, java.lang.String backSide,
-		java.lang.String title, long cardBoxId) {
+		java.lang.String title, long cardBoxId, long userId) {
 		return _flashcardLocalService.addFlashcard(frontSide, backSide, title,
-			cardBoxId);
+			cardBoxId, userId);
 	}
 
 	/**
@@ -192,6 +192,12 @@ public class FlashcardLocalServiceWrapper implements FlashcardLocalService,
 	public java.util.List<de.ki.sbamdc.model.Flashcard> findByCardBoxId(
 		long cardBoxId) {
 		return _flashcardLocalService.findByCardBoxId(cardBoxId);
+	}
+
+	@Override
+	public java.util.List<de.ki.sbamdc.model.Flashcard> findByUserId(
+		long userId) {
+		return _flashcardLocalService.findByUserId(userId);
 	}
 
 	@Override

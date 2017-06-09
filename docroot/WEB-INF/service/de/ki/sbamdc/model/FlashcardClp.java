@@ -17,11 +17,15 @@ package de.ki.sbamdc.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 
 import de.ki.sbamdc.service.ClpSerializer;
 import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
@@ -76,6 +80,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
+		attributes.put("userId", getUserId());
 		attributes.put("frontSide", getFrontSide());
 		attributes.put("backSide", getBackSide());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
@@ -93,6 +98,12 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 		if (id != null) {
 			setId(id);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 
 		String frontSide = (String)attributes.get("frontSide");
@@ -144,6 +155,45 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 				throw new UnsupportedOperationException(e);
 			}
 		}
+	}
+
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+
+		if (_flashcardRemoteModel != null) {
+			try {
+				Class<?> clazz = _flashcardRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_flashcardRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException pe) {
+			return StringPool.BLANK;
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
 	}
 
 	@Override
@@ -308,6 +358,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		FlashcardClp clone = new FlashcardClp();
 
 		clone.setId(getId());
+		clone.setUserId(getUserId());
 		clone.setFrontSide(getFrontSide());
 		clone.setBackSide(getBackSide());
 		clone.setCardBoxId_fk(getCardBoxId_fk());
@@ -382,10 +433,12 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{id=");
 		sb.append(getId());
+		sb.append(", userId=");
+		sb.append(getUserId());
 		sb.append(", frontSide=");
 		sb.append(getFrontSide());
 		sb.append(", backSide=");
@@ -401,7 +454,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -410,6 +463,10 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 		sb.append(
 			"<column><column-name>id</column-name><column-value><![CDATA[");
 		sb.append(getId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>frontSide</column-name><column-value><![CDATA[");
@@ -434,6 +491,7 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 	}
 
 	private long _id;
+	private long _userId;
 	private String _frontSide;
 	private String _backSide;
 	private long _cardBoxId_fk;

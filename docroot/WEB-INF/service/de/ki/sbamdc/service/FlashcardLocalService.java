@@ -72,7 +72,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 	public Flashcard addFlashcard(Flashcard flashcard);
 
 	public Flashcard addFlashcard(java.lang.String frontSide,
-		java.lang.String backSide, java.lang.String title, long cardBoxId);
+		java.lang.String backSide, java.lang.String title, long cardBoxId,
+		long userId);
 
 	/**
 	* Creates a new flashcard with the primary key. Does not add the flashcard to the database.
@@ -171,6 +172,8 @@ public interface FlashcardLocalService extends BaseLocalService,
 	public Flashcard fetchFlashcard(long id);
 
 	public List<Flashcard> findByCardBoxId(long cardBoxId);
+
+	public List<Flashcard> findByUserId(long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();

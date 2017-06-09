@@ -57,6 +57,7 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
+		attributes.put("userId", getUserId());
 		attributes.put("frontSide", getFrontSide());
 		attributes.put("backSide", getBackSide());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
@@ -71,6 +72,12 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 
 		if (id != null) {
 			setId(id);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 
 		String frontSide = (String)attributes.get("frontSide");
@@ -176,6 +183,26 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public java.lang.String getTitle() {
 		return _flashcard.getTitle();
+	}
+
+	/**
+	* Returns the user ID of this flashcard.
+	*
+	* @return the user ID of this flashcard
+	*/
+	@Override
+	public long getUserId() {
+		return _flashcard.getUserId();
+	}
+
+	/**
+	* Returns the user uuid of this flashcard.
+	*
+	* @return the user uuid of this flashcard
+	*/
+	@Override
+	public java.lang.String getUserUuid() {
+		return _flashcard.getUserUuid();
 	}
 
 	@Override
@@ -292,6 +319,26 @@ public class FlashcardWrapper implements Flashcard, ModelWrapper<Flashcard> {
 	@Override
 	public void setTitle(java.lang.String title) {
 		_flashcard.setTitle(title);
+	}
+
+	/**
+	* Sets the user ID of this flashcard.
+	*
+	* @param userId the user ID of this flashcard
+	*/
+	@Override
+	public void setUserId(long userId) {
+		_flashcard.setUserId(userId);
+	}
+
+	/**
+	* Sets the user uuid of this flashcard.
+	*
+	* @param userUuid the user uuid of this flashcard
+	*/
+	@Override
+	public void setUserUuid(java.lang.String userUuid) {
+		_flashcard.setUserUuid(userUuid);
 	}
 
 	@Override

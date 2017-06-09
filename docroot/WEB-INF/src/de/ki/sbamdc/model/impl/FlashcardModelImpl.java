@@ -20,10 +20,13 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -67,6 +70,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public static final String TABLE_NAME = "sbamdc_Flashcard";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "id_", Types.BIGINT },
+			{ "userId", Types.BIGINT },
 			{ "frontSide", Types.VARCHAR },
 			{ "backSide", Types.VARCHAR },
 			{ "cardBoxId_fk", Types.BIGINT },
@@ -76,13 +80,14 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	static {
 		TABLE_COLUMNS_MAP.put("id_", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("frontSide", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("backSide", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("cardBoxId_fk", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,frontSide STRING null,backSide STRING null,cardBoxId_fk LONG,title VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,userId LONG,frontSide STRING null,backSide STRING null,cardBoxId_fk LONG,title VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
 	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
@@ -99,7 +104,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 				"value.object.column.bitmask.enabled.de.ki.sbamdc.model.Flashcard"),
 			true);
 	public static final long CARDBOXID_FK_COLUMN_BITMASK = 1L;
-	public static final long ID_COLUMN_BITMASK = 2L;
+	public static final long USERID_COLUMN_BITMASK = 2L;
+	public static final long ID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -115,6 +121,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Flashcard model = new FlashcardImpl();
 
 		model.setId(soapModel.getId());
+		model.setUserId(soapModel.getUserId());
 		model.setFrontSide(soapModel.getFrontSide());
 		model.setBackSide(soapModel.getBackSide());
 		model.setCardBoxId_fk(soapModel.getCardBoxId_fk());
@@ -184,6 +191,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("id", getId());
+		attributes.put("userId", getUserId());
 		attributes.put("frontSide", getFrontSide());
 		attributes.put("backSide", getBackSide());
 		attributes.put("cardBoxId_fk", getCardBoxId_fk());
@@ -201,6 +209,12 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 		if (id != null) {
 			setId(id);
+		}
+
+		Long userId = (Long)attributes.get("userId");
+
+		if (userId != null) {
+			setUserId(userId);
 		}
 
 		String frontSide = (String)attributes.get("frontSide");
@@ -239,6 +253,45 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		_columnBitmask = -1L;
 
 		_id = id;
+	}
+
+	@JSON
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_columnBitmask |= USERID_COLUMN_BITMASK;
+
+		if (!_setOriginalUserId) {
+			_setOriginalUserId = true;
+
+			_originalUserId = _userId;
+		}
+
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() {
+		try {
+			User user = UserLocalServiceUtil.getUserById(getUserId());
+
+			return user.getUuid();
+		}
+		catch (PortalException pe) {
+			return StringPool.BLANK;
+		}
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+	}
+
+	public long getOriginalUserId() {
+		return _originalUserId;
 	}
 
 	@JSON
@@ -344,6 +397,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		FlashcardImpl flashcardImpl = new FlashcardImpl();
 
 		flashcardImpl.setId(getId());
+		flashcardImpl.setUserId(getUserId());
 		flashcardImpl.setFrontSide(getFrontSide());
 		flashcardImpl.setBackSide(getBackSide());
 		flashcardImpl.setCardBoxId_fk(getCardBoxId_fk());
@@ -418,6 +472,10 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	public void resetOriginalValues() {
 		FlashcardModelImpl flashcardModelImpl = this;
 
+		flashcardModelImpl._originalUserId = flashcardModelImpl._userId;
+
+		flashcardModelImpl._setOriginalUserId = false;
+
 		flashcardModelImpl._originalCardBoxId_fk = flashcardModelImpl._cardBoxId_fk;
 
 		flashcardModelImpl._setOriginalCardBoxId_fk = false;
@@ -430,6 +488,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		FlashcardCacheModel flashcardCacheModel = new FlashcardCacheModel();
 
 		flashcardCacheModel.id = getId();
+
+		flashcardCacheModel.userId = getUserId();
 
 		flashcardCacheModel.frontSide = getFrontSide();
 
@@ -462,10 +522,12 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(11);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{id=");
 		sb.append(getId());
+		sb.append(", userId=");
+		sb.append(getUserId());
 		sb.append(", frontSide=");
 		sb.append(getFrontSide());
 		sb.append(", backSide=");
@@ -481,7 +543,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.Flashcard");
@@ -490,6 +552,10 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		sb.append(
 			"<column><column-name>id</column-name><column-value><![CDATA[");
 		sb.append(getId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userId</column-name><column-value><![CDATA[");
+		sb.append(getUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>frontSide</column-name><column-value><![CDATA[");
@@ -518,6 +584,9 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 			Flashcard.class
 		};
 	private long _id;
+	private long _userId;
+	private long _originalUserId;
+	private boolean _setOriginalUserId;
 	private String _frontSide;
 	private String _backSide;
 	private long _cardBoxId_fk;

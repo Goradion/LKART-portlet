@@ -55,8 +55,9 @@ public class FlashcardLocalServiceUtil {
 
 	public static de.ki.sbamdc.model.Flashcard addFlashcard(
 		java.lang.String frontSide, java.lang.String backSide,
-		java.lang.String title, long cardBoxId) {
-		return getService().addFlashcard(frontSide, backSide, title, cardBoxId);
+		java.lang.String title, long cardBoxId, long userId) {
+		return getService()
+				   .addFlashcard(frontSide, backSide, title, cardBoxId, userId);
 	}
 
 	/**
@@ -186,6 +187,11 @@ public class FlashcardLocalServiceUtil {
 	public static java.util.List<de.ki.sbamdc.model.Flashcard> findByCardBoxId(
 		long cardBoxId) {
 		return getService().findByCardBoxId(cardBoxId);
+	}
+
+	public static java.util.List<de.ki.sbamdc.model.Flashcard> findByUserId(
+		long userId) {
+		return getService().findByUserId(userId);
 	}
 
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {

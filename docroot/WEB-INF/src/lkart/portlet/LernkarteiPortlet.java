@@ -147,6 +147,13 @@ public class LernkarteiPortlet extends MVCPortlet {
 				PortletSession.PORTLET_SCOPE);
 	}
 
+	/**
+	 * Sets the next view to NEW_FLASHCARD_JSP and passes the card boxes of the
+	 * current user to it
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void toNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 
@@ -165,27 +172,39 @@ public class LernkarteiPortlet extends MVCPortlet {
 		return CardBoxLocalServiceUtil.getCardBoxesOfUser(userId, 0, end);
 	}
 
+	/**
+	 * Sets the next view to EDIT_FLASHCARD_JSP and passes the flashcard and
+	 * cardboxes of current user to it
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void toEditFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 		ThemeDisplay td = getThemeDisplay(actionRequest);
-		
+
 		List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.PORTLET_SCOPE);
-		
-		long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
-		actionRequest.getPortletSession().setAttribute("fcId", "" + fcId, PortletSession.PORTLET_SCOPE);
-		
-		try {
-			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
-//			String content = fc.getContent();
-//			String fcTitle = fc.getTitle();
-//			System.out.println(content);
-			actionRequest.getPortletSession().setAttribute("flashcard", fc);
-			actionRequest.getPortletSession().setAttribute("cardBoxName", 
-					CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
-//			actionRequest.getPortletSession().setAttribute("flashcardTitle", fcTitle);
-//			actionRequest.getPortletSession().setAttribute("flashcardContent", content, PortletSession.PORTLET_SCOPE);
 
+		// actionRequest.getPortletSession().setAttribute("fcId", "" + fcId,
+		// PortletSession.PORTLET_SCOPE);
+
+		try {
+			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
+			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
+			// String content = fc.getContent();
+			// String fcTitle = fc.getTitle();
+			// System.out.println(content);
+			actionRequest.getPortletSession().setAttribute("flashcard", fc);
+			actionRequest.getPortletSession().setAttribute("cardBoxName",
+					CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
+			// actionRequest.getPortletSession().setAttribute("flashcardTitle",
+			// fcTitle);
+			// actionRequest.getPortletSession().setAttribute("flashcardContent",
+			// content, PortletSession.PORTLET_SCOPE);
+
+		} catch (NumberFormatException nfe) {
+			nfe.printStackTrace();
 		} catch (PortalException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,7 +229,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			try {
 				if (!fcFrontSide.isEmpty()) {
 					// create and store flashcard in database
-					FlashcardLocalServiceUtil.addFlashcard(fcFrontSide,fcBackSide, flashcardTitle, cardBoxId);
+					FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide, flashcardTitle, cardBoxId, uid);
 				}
 				SessionMessages.add(actionRequest, "success");
 
@@ -223,29 +242,36 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	}
 
+	/**
+	 * Updates a flashcard
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void updateFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
-//		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
-//				PortletSession.PORTLET_SCOPE);
+		// actionRequest.getPortletSession().setAttribute("currentPage",
+		// FLASHCARD_OVERVIEW_JSP,
+		// PortletSession.PORTLET_SCOPE);
 		try {
 			String fcFrontSide = actionRequest.getParameter("fcFrontSide");
 			String fcBackSide = actionRequest.getParameter("fcBackSide");
 			String cardBoxName = actionRequest.getParameter("kartei");
 			String flashcardTitle = actionRequest.getParameter("flashcardTitle");
 			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
-			
+
 			ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 			// now read your parameters, e.g. like this:
 			// long someParameter = ParamUtil.getLong(request, "someParameter");
 			long uid = themeDisplay.getUserId();
-	
+
 			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUser(cardBoxName, uid).getId();
-	
+
 			FlashcardLocalServiceUtil.updateFlashcard(fcFrontSide, fcBackSide, flashcardTitle, fcId, cardBoxId);
-			PortalMessages.add(actionRequest, "success");
-			toEditFlashcard(actionRequest,actionResponse);
-		}catch(NumberFormatException nfe) {
+			SessionMessages.add(actionRequest, "success");
+			toEditFlashcard(actionRequest, actionResponse);
+		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
-			PortalMessages.add(actionRequest, "error");
+			SessionErrors.add(actionRequest, "error");
 		}
 	}
 
