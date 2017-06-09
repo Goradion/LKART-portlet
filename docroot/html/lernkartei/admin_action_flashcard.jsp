@@ -10,14 +10,14 @@
 
 <liferay-ui:icon-menu>
 	<portlet:actionURL name="toEditFlashcard" var="editFlashcard">
-		<portlet:param name="fcId" value='<%=""+flashcardId%>'/>
+		<portlet:param name="flashcardId" value='<%=""+flashcardId%>'/>
 	</portlet:actionURL>
 	<liferay-ui:icon image="edit" message="Edit" url='<%=editFlashcard %>'/>
 	
 	<portlet:actionURL name="deleteFlashcard" var="deleteFlashcard">
 		<portlet:param name="flashcardId" value='<%=""+flashcardId %>'/>
 	</portlet:actionURL>
-	<liferay-ui:icon-delete url='<%=deleteFlashcard %>'/>
+	<liferay-ui:icon-delete image="remove" url='<%=deleteFlashcard %>'/>
 	
 	
 </liferay-ui:icon-menu>

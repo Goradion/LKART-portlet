@@ -238,4 +238,6 @@ public interface FlashcardLocalService extends BaseLocalService,
 	*/
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
+
+	public void removeByCardBoxId(long id);
 }

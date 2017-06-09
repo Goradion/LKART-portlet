@@ -301,6 +301,16 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
+	public void removeAll() {
+		_cardBoxLocalService.removeAll();
+	}
+
+	@Override
+	public void removeByUserId(long userId) {
+		_cardBoxLocalService.removeByUserId(userId);
+	}
+
+	@Override
 	public CardBoxLocalService getWrappedService() {
 		return _cardBoxLocalService;
 	}

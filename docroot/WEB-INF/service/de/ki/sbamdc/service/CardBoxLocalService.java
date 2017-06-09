@@ -245,4 +245,8 @@ public interface CardBoxLocalService extends BaseLocalService,
 	*/
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
 		Projection projection);
+
+	public void removeAll();
+
+	public void removeByUserId(long userId);
 }

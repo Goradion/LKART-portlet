@@ -290,6 +290,11 @@ public class FlashcardLocalServiceWrapper implements FlashcardLocalService,
 	}
 
 	@Override
+	public void removeByCardBoxId(long id) {
+		_flashcardLocalService.removeByCardBoxId(id);
+	}
+
+	@Override
 	public FlashcardLocalService getWrappedService() {
 		return _flashcardLocalService;
 	}

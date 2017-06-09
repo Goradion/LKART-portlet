@@ -138,6 +138,10 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
+
+		_methodName24 = "removeByCardBoxId";
+
+		_methodParameterTypes24 = new String[] { "long" };
 	}
 
 	@Override
@@ -764,6 +768,25 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
+	public void removeByCardBoxId(long id) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName24,
+				_methodParameterTypes24, new Object[] { id });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -811,4 +834,6 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

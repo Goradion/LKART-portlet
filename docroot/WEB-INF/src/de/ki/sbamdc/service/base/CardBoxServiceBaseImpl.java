@@ -30,6 +30,7 @@ import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.CardBoxService;
 import de.ki.sbamdc.service.persistence.CardBoxPersistence;
 import de.ki.sbamdc.service.persistence.FlashcardPersistence;
+import de.ki.sbamdc.service.persistence.LearnProgressPersistence;
 
 import javax.sql.DataSource;
 
@@ -163,6 +164,63 @@ public abstract class CardBoxServiceBaseImpl extends BaseServiceImpl
 	public void setFlashcardPersistence(
 		FlashcardPersistence flashcardPersistence) {
 		this.flashcardPersistence = flashcardPersistence;
+	}
+
+	/**
+	 * Returns the learn progress local service.
+	 *
+	 * @return the learn progress local service
+	 */
+	public de.ki.sbamdc.service.LearnProgressLocalService getLearnProgressLocalService() {
+		return learnProgressLocalService;
+	}
+
+	/**
+	 * Sets the learn progress local service.
+	 *
+	 * @param learnProgressLocalService the learn progress local service
+	 */
+	public void setLearnProgressLocalService(
+		de.ki.sbamdc.service.LearnProgressLocalService learnProgressLocalService) {
+		this.learnProgressLocalService = learnProgressLocalService;
+	}
+
+	/**
+	 * Returns the learn progress remote service.
+	 *
+	 * @return the learn progress remote service
+	 */
+	public de.ki.sbamdc.service.LearnProgressService getLearnProgressService() {
+		return learnProgressService;
+	}
+
+	/**
+	 * Sets the learn progress remote service.
+	 *
+	 * @param learnProgressService the learn progress remote service
+	 */
+	public void setLearnProgressService(
+		de.ki.sbamdc.service.LearnProgressService learnProgressService) {
+		this.learnProgressService = learnProgressService;
+	}
+
+	/**
+	 * Returns the learn progress persistence.
+	 *
+	 * @return the learn progress persistence
+	 */
+	public LearnProgressPersistence getLearnProgressPersistence() {
+		return learnProgressPersistence;
+	}
+
+	/**
+	 * Sets the learn progress persistence.
+	 *
+	 * @param learnProgressPersistence the learn progress persistence
+	 */
+	public void setLearnProgressPersistence(
+		LearnProgressPersistence learnProgressPersistence) {
+		this.learnProgressPersistence = learnProgressPersistence;
 	}
 
 	/**
@@ -400,6 +458,12 @@ public abstract class CardBoxServiceBaseImpl extends BaseServiceImpl
 	protected de.ki.sbamdc.service.FlashcardService flashcardService;
 	@BeanReference(type = FlashcardPersistence.class)
 	protected FlashcardPersistence flashcardPersistence;
+	@BeanReference(type = de.ki.sbamdc.service.LearnProgressLocalService.class)
+	protected de.ki.sbamdc.service.LearnProgressLocalService learnProgressLocalService;
+	@BeanReference(type = de.ki.sbamdc.service.LearnProgressService.class)
+	protected de.ki.sbamdc.service.LearnProgressService learnProgressService;
+	@BeanReference(type = LearnProgressPersistence.class)
+	protected LearnProgressPersistence learnProgressPersistence;
 	@BeanReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)

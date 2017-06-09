@@ -4,6 +4,7 @@
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="de.ki.sbamdc.model.CardBox" />
 	<import class="de.ki.sbamdc.model.Flashcard" />
+	<import class="de.ki.sbamdc.model.LearnProgress" />
 	<class name="de.ki.sbamdc.model.impl.CardBoxImpl" table="sbamdc_CardBox">
 		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
@@ -26,5 +27,14 @@
 		<property name="backSide" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="de.ki.sbamdc.model.impl.LearnProgressImpl" table="sbamdc_LearnProgress">
+		<id column="id_" name="id" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="userId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="cardBoxId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="flashcardId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="progress" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 </hibernate-mapping>

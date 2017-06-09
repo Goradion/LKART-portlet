@@ -18,8 +18,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.maven.artifact.repository.layout.LegacyRepositoryLayout;
+
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.service.persistence.UserUtil;
 
@@ -86,4 +90,12 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	}
 	
 	
+	public void removeByUserId(long userId){
+		cardBoxPersistence.removeByUserId(userId);
+	}
+	
+	public void removeAll(){
+		flashcardPersistence.removeAll();
+		cardBoxPersistence.removeAll();
+	}
 }

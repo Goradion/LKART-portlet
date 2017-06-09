@@ -16,6 +16,8 @@
 	<portlet:actionURL name="deleteCardBox" var="deleteCardBox">
 		<portlet:param name="cardBoxId" value='<%=""+cardBoxId %>'/>
 	</portlet:actionURL>
-	<liferay-ui:icon-delete image="remove" message="Löschen" url='<%=deleteCardBox %>'/>
+	<liferay-ui:icon-delete image="remove" message="Löschen" url='<%=deleteCardBox %>' 
+		confirmation="Möchten Sie diese Lernkartei wirklich löschen? 
+		Alle zugehörigen Karteikarten werden ebenfalls gelöscht!"/>
 	
 </liferay-ui:icon-menu>

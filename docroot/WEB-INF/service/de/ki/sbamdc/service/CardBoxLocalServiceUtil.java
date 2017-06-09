@@ -282,6 +282,14 @@ public class CardBoxLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static void removeAll() {
+		getService().removeAll();
+	}
+
+	public static void removeByUserId(long userId) {
+		getService().removeByUserId(userId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

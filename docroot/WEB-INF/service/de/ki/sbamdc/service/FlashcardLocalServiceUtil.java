@@ -271,6 +271,10 @@ public class FlashcardLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static void removeByCardBoxId(long id) {
+		getService().removeByCardBoxId(id);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

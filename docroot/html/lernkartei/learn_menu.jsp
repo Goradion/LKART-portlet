@@ -8,7 +8,8 @@
     Kartei: <br />
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">
-			<option value="${c.getId()}">${c.getUserName()}.${c.getName()}</option>
+<%-- 		${c.getUserName()}.${c.getName()} --%>
+			<option value="${c.getId()}">${c.getName()}</option>
 		</c:forEach>
 	</select>
     

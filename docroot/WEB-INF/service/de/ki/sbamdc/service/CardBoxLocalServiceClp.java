@@ -146,6 +146,14 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
+
+		_methodName27 = "removeAll";
+
+		_methodParameterTypes27 = new String[] {  };
+
+		_methodName28 = "removeByUserId";
+
+		_methodParameterTypes28 = new String[] { "long" };
 	}
 
 	@Override
@@ -832,6 +840,44 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
+	public void removeAll() {
+		try {
+			_invokableLocalService.invokeMethod(_methodName27,
+				_methodParameterTypes27, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public void removeByUserId(long userId) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName28,
+				_methodParameterTypes28, new Object[] { userId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -885,4 +931,8 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	private String[] _methodParameterTypes25;
 	private String _methodName26;
 	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
 }

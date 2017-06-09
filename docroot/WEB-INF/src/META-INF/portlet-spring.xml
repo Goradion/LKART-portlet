@@ -7,4 +7,7 @@
 	<bean class="de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl" id="de.ki.sbamdc.service.FlashcardLocalService" />
 	<bean class="de.ki.sbamdc.service.impl.FlashcardServiceImpl" id="de.ki.sbamdc.service.FlashcardService" />
 	<bean class="de.ki.sbamdc.service.persistence.impl.FlashcardPersistenceImpl" id="de.ki.sbamdc.service.persistence.FlashcardPersistence" parent="basePersistence" />
+	<bean class="de.ki.sbamdc.service.impl.LearnProgressLocalServiceImpl" id="de.ki.sbamdc.service.LearnProgressLocalService" />
+	<bean class="de.ki.sbamdc.service.impl.LearnProgressServiceImpl" id="de.ki.sbamdc.service.LearnProgressService" />
+	<bean class="de.ki.sbamdc.service.persistence.impl.LearnProgressPersistenceImpl" id="de.ki.sbamdc.service.persistence.LearnProgressPersistence" parent="basePersistence" />
 </beans>

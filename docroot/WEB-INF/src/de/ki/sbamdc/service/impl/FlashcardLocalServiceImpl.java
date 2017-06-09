@@ -68,5 +68,9 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	public List<Flashcard> findByCardBoxId(long cardBoxId){
 		return flashcardPersistence.findByCardBoxId(cardBoxId);
 	}
+	
+	public void removeByCardBoxId(long id) {
+		flashcardPersistence.removeByCardBoxId(id);
+	}
 
 }

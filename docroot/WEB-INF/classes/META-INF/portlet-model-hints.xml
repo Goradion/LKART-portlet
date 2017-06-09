@@ -24,4 +24,11 @@
 		<field name="cardBoxId_fk" type="long" />
 		<field name="title" type="String" />
 	</model>
+	<model name="de.ki.sbamdc.model.LearnProgress">
+		<field name="id" type="long" />
+		<field name="userId_fk" type="long" />
+		<field name="cardBoxId_fk" type="long" />
+		<field name="flashcardId_fk" type="long" />
+		<field name="progress" type="int" />
+	</model>
 </model-hints>

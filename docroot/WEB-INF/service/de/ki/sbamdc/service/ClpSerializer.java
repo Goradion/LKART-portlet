@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import de.ki.sbamdc.model.CardBoxClp;
 import de.ki.sbamdc.model.FlashcardClp;
+import de.ki.sbamdc.model.LearnProgressClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -112,6 +113,10 @@ public class ClpSerializer {
 			return translateInputFlashcard(oldModel);
 		}
 
+		if (oldModelClassName.equals(LearnProgressClp.class.getName())) {
+			return translateInputLearnProgress(oldModel);
+		}
+
 		return oldModel;
 	}
 
@@ -141,6 +146,16 @@ public class ClpSerializer {
 		FlashcardClp oldClpModel = (FlashcardClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getFlashcardRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputLearnProgress(BaseModel<?> oldModel) {
+		LearnProgressClp oldClpModel = (LearnProgressClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLearnProgressRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -202,6 +217,43 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals("de.ki.sbamdc.model.impl.FlashcardImpl")) {
 			return translateOutputFlashcard(oldModel);
+		}
+		else if (oldModelClassName.endsWith("Clp")) {
+			try {
+				ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+				Method getClpSerializerClassMethod = oldModelClass.getMethod(
+						"getClpSerializerClass");
+
+				Class<?> oldClpSerializerClass = (Class<?>)getClpSerializerClassMethod.invoke(oldModel);
+
+				Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+				Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+						BaseModel.class);
+
+				Class<?> oldModelModelClass = oldModel.getModelClass();
+
+				Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+						oldModelModelClass.getSimpleName() + "RemoteModel");
+
+				Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+				BaseModel<?> newModel = (BaseModel<?>)translateOutputMethod.invoke(null,
+						oldRemoteModel);
+
+				return newModel;
+			}
+			catch (Throwable t) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to translate " + oldModelClassName, t);
+				}
+			}
+		}
+
+		if (oldModelClassName.equals(
+					"de.ki.sbamdc.model.impl.LearnProgressImpl")) {
+			return translateOutputLearnProgress(oldModel);
 		}
 		else if (oldModelClassName.endsWith("Clp")) {
 			try {
@@ -325,6 +377,12 @@ public class ClpSerializer {
 				throwable.getCause());
 		}
 
+		if (className.equals(
+					"de.ki.sbamdc.exception.NoSuchLearnProgressException")) {
+			return new de.ki.sbamdc.exception.NoSuchLearnProgressException(throwable.getMessage(),
+				throwable.getCause());
+		}
+
 		return throwable;
 	}
 
@@ -344,6 +402,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setFlashcardRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputLearnProgress(BaseModel<?> oldModel) {
+		LearnProgressClp newModel = new LearnProgressClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLearnProgressRemoteModel(oldModel);
 
 		return newModel;
 	}
