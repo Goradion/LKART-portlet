@@ -378,6 +378,71 @@ public class CardBoxUtil {
 	}
 
 	/**
+	* Returns the card box where name = &#63; and userName = &#63; or throws a {@link NoSuchCardBoxException} if it could not be found.
+	*
+	* @param name the name
+	* @param userName the user name
+	* @return the matching card box
+	* @throws NoSuchCardBoxException if a matching card box could not be found
+	*/
+	public static CardBox findByNameAndUserName(java.lang.String name,
+		java.lang.String userName)
+		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence().findByNameAndUserName(name, userName);
+	}
+
+	/**
+	* Returns the card box where name = &#63; and userName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param name the name
+	* @param userName the user name
+	* @return the matching card box, or <code>null</code> if a matching card box could not be found
+	*/
+	public static CardBox fetchByNameAndUserName(java.lang.String name,
+		java.lang.String userName) {
+		return getPersistence().fetchByNameAndUserName(name, userName);
+	}
+
+	/**
+	* Returns the card box where name = &#63; and userName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param name the name
+	* @param userName the user name
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching card box, or <code>null</code> if a matching card box could not be found
+	*/
+	public static CardBox fetchByNameAndUserName(java.lang.String name,
+		java.lang.String userName, boolean retrieveFromCache) {
+		return getPersistence()
+				   .fetchByNameAndUserName(name, userName, retrieveFromCache);
+	}
+
+	/**
+	* Removes the card box where name = &#63; and userName = &#63; from the database.
+	*
+	* @param name the name
+	* @param userName the user name
+	* @return the card box that was removed
+	*/
+	public static CardBox removeByNameAndUserName(java.lang.String name,
+		java.lang.String userName)
+		throws de.ki.sbamdc.exception.NoSuchCardBoxException {
+		return getPersistence().removeByNameAndUserName(name, userName);
+	}
+
+	/**
+	* Returns the number of card boxs where name = &#63; and userName = &#63;.
+	*
+	* @param name the name
+	* @param userName the user name
+	* @return the number of matching card boxs
+	*/
+	public static int countByNameAndUserName(java.lang.String name,
+		java.lang.String userName) {
+		return getPersistence().countByNameAndUserName(name, userName);
+	}
+
+	/**
 	* Returns all the card boxs where userId &ne; &#63;.
 	*
 	* @param userId the user ID

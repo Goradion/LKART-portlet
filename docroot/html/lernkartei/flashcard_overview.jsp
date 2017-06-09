@@ -17,7 +17,7 @@
 	List<Flashcard> flashcards = FlashcardLocalServiceUtil.getFlashcards(0,
 			FlashcardLocalServiceUtil.getFlashcardsCount());
 %>
-<portlet:actionURL name="gotoMainMenu" var="mainMenu"></portlet:actionURL>
+<portlet:actionURL name="toMainMenu" var="mainMenu"></portlet:actionURL>
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="<%=Constants.FLASHCARD_OVERVIEW_JSP%>" />
 </liferay-portlet:renderURL>

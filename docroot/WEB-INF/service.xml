@@ -52,6 +52,10 @@
 			<finder-column name="userId" />
 		</finder>
 		
+		<finder name="NameAndUserName" return-type="CardBox">
+			<finder-column name="name" />
+			<finder-column name="userName" />
+		</finder>
 		<finder name="ForeignAndShared" return-type="Collection" where="shared=1">
 			<finder-column name="userId" comparator="!="/>
 		</finder>

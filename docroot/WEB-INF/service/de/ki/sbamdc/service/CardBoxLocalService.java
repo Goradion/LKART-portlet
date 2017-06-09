@@ -71,7 +71,8 @@ public interface CardBoxLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public CardBox addCardBox(CardBox cardBox);
 
-	public CardBox addCardBox(java.lang.String name, long userId);
+	public CardBox addCardBox(java.lang.String name, long userId)
+		throws PortalException;
 
 	/**
 	* Creates a new card box with the primary key. Does not add the card box to the database.
@@ -169,7 +170,10 @@ public interface CardBoxLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CardBox fetchCardBox(long id);
 
-	public CardBox findByNameAndUser(java.lang.String name, long userId);
+	public CardBox findByNameAndUserId(java.lang.String name, long userId);
+
+	public CardBox findByNameAndUserName(java.lang.String name,
+		java.lang.String userName);
 
 	public List<CardBox> findLearnableCardBoxes(long userId);
 

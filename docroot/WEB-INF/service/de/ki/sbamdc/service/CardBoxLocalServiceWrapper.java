@@ -46,7 +46,7 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 
 	@Override
 	public de.ki.sbamdc.model.CardBox addCardBox(java.lang.String name,
-		long userId) {
+		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return _cardBoxLocalService.addCardBox(name, userId);
 	}
 
@@ -186,9 +186,15 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
-	public de.ki.sbamdc.model.CardBox findByNameAndUser(java.lang.String name,
-		long userId) {
-		return _cardBoxLocalService.findByNameAndUser(name, userId);
+	public de.ki.sbamdc.model.CardBox findByNameAndUserId(
+		java.lang.String name, long userId) {
+		return _cardBoxLocalService.findByNameAndUserId(name, userId);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.CardBox findByNameAndUserName(
+		java.lang.String name, java.lang.String userName) {
+		return _cardBoxLocalService.findByNameAndUserName(name, userName);
 	}
 
 	@Override

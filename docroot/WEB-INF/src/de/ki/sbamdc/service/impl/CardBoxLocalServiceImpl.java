@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.liferay.portal.kernel.exception.NoSuchUserException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.UserUtil;
+
 import aQute.bnd.annotation.ProviderType;
 import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.base.CardBoxLocalServiceBaseImpl;
@@ -44,8 +49,12 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.CardBoxLocalServiceUtil} to access the card box local service.
 	 */
 		
-	public CardBox findByNameAndUser(String name, long userId){
+	public CardBox findByNameAndUserId(String name, long userId){
 		return cardBoxPersistence.fetchByNameAndUserId(name, userId);
+	}
+	
+	public CardBox findByNameAndUserName(String name, String userName){
+		return cardBoxPersistence.fetchByNameAndUserName(name, userName);
 	}
 	public List<CardBox> findLearnableCardBoxes(long userId){
 		List<CardBox> cardBoxes = new ArrayList<>();
@@ -63,13 +72,14 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	public int getCardBoxesCountOfUser(long userId){
 		return cardBoxPersistence.countByUserId(userId);
 	}
-	public CardBox addCardBox(String name, long userId) {
+	public CardBox addCardBox(String name, long userId) throws PortalException {
 		CardBox cardBox = cardBoxPersistence.fetchByNameAndUserId(name, userId);
 		if (cardBox == null) {
 			long cardBoxId = counterLocalService.increment();
 			cardBox = cardBoxPersistence.create(cardBoxId);
 			cardBox.setName(name);
 			cardBox.setUserId(userId);
+			cardBox.setUserName(UserLocalServiceUtil.getUser(userId).getScreenName());
 			addCardBox(cardBox);
 		}
 		return cardBox;

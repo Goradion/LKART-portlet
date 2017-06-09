@@ -54,7 +54,7 @@ public class CardBoxLocalServiceUtil {
 	}
 
 	public static de.ki.sbamdc.model.CardBox addCardBox(java.lang.String name,
-		long userId) {
+		long userId) throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().addCardBox(name, userId);
 	}
 
@@ -182,9 +182,14 @@ public class CardBoxLocalServiceUtil {
 		return getService().fetchCardBox(id);
 	}
 
-	public static de.ki.sbamdc.model.CardBox findByNameAndUser(
+	public static de.ki.sbamdc.model.CardBox findByNameAndUserId(
 		java.lang.String name, long userId) {
-		return getService().findByNameAndUser(name, userId);
+		return getService().findByNameAndUserId(name, userId);
+	}
+
+	public static de.ki.sbamdc.model.CardBox findByNameAndUserName(
+		java.lang.String name, java.lang.String userName) {
+		return getService().findByNameAndUserName(name, userName);
 	}
 
 	public static java.util.List<de.ki.sbamdc.model.CardBox> findLearnableCardBoxes(

@@ -1092,6 +1092,300 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_NAME_2 = "cardBox.name = ? AND ";
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_NAME_3 = "(cardBox.name IS NULL OR cardBox.name = '') AND ";
 	private static final String _FINDER_COLUMN_NAMEANDUSERID_USERID_2 = "cardBox.userId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_NAMEANDUSERNAME = new FinderPath(CardBoxModelImpl.ENTITY_CACHE_ENABLED,
+			CardBoxModelImpl.FINDER_CACHE_ENABLED, CardBoxImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByNameAndUserName",
+			new String[] { String.class.getName(), String.class.getName() },
+			CardBoxModelImpl.NAME_COLUMN_BITMASK |
+			CardBoxModelImpl.USERNAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_NAMEANDUSERNAME = new FinderPath(CardBoxModelImpl.ENTITY_CACHE_ENABLED,
+			CardBoxModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByNameAndUserName",
+			new String[] { String.class.getName(), String.class.getName() });
+
+	/**
+	 * Returns the card box where name = &#63; and userName = &#63; or throws a {@link NoSuchCardBoxException} if it could not be found.
+	 *
+	 * @param name the name
+	 * @param userName the user name
+	 * @return the matching card box
+	 * @throws NoSuchCardBoxException if a matching card box could not be found
+	 */
+	@Override
+	public CardBox findByNameAndUserName(String name, String userName)
+		throws NoSuchCardBoxException {
+		CardBox cardBox = fetchByNameAndUserName(name, userName);
+
+		if (cardBox == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("name=");
+			msg.append(name);
+
+			msg.append(", userName=");
+			msg.append(userName);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchCardBoxException(msg.toString());
+		}
+
+		return cardBox;
+	}
+
+	/**
+	 * Returns the card box where name = &#63; and userName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param name the name
+	 * @param userName the user name
+	 * @return the matching card box, or <code>null</code> if a matching card box could not be found
+	 */
+	@Override
+	public CardBox fetchByNameAndUserName(String name, String userName) {
+		return fetchByNameAndUserName(name, userName, true);
+	}
+
+	/**
+	 * Returns the card box where name = &#63; and userName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param name the name
+	 * @param userName the user name
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching card box, or <code>null</code> if a matching card box could not be found
+	 */
+	@Override
+	public CardBox fetchByNameAndUserName(String name, String userName,
+		boolean retrieveFromCache) {
+		Object[] finderArgs = new Object[] { name, userName };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+					finderArgs, this);
+		}
+
+		if (result instanceof CardBox) {
+			CardBox cardBox = (CardBox)result;
+
+			if (!Validator.equals(name, cardBox.getName()) ||
+					!Validator.equals(userName, cardBox.getUserName())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_CARDBOX_WHERE);
+
+			boolean bindName = false;
+
+			if (name == null) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_1);
+			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_2);
+			}
+
+			boolean bindUserName = false;
+
+			if (userName == null) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_1);
+			}
+			else if (userName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_3);
+			}
+			else {
+				bindUserName = true;
+
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				if (bindUserName) {
+					qPos.add(userName);
+				}
+
+				List<CardBox> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"CardBoxPersistenceImpl.fetchByNameAndUserName(String, String, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					CardBox cardBox = list.get(0);
+
+					result = cardBox;
+
+					cacheResult(cardBox);
+
+					if ((cardBox.getName() == null) ||
+							!cardBox.getName().equals(name) ||
+							(cardBox.getUserName() == null) ||
+							!cardBox.getUserName().equals(userName)) {
+						finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+							finderArgs, cardBox);
+					}
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (CardBox)result;
+		}
+	}
+
+	/**
+	 * Removes the card box where name = &#63; and userName = &#63; from the database.
+	 *
+	 * @param name the name
+	 * @param userName the user name
+	 * @return the card box that was removed
+	 */
+	@Override
+	public CardBox removeByNameAndUserName(String name, String userName)
+		throws NoSuchCardBoxException {
+		CardBox cardBox = findByNameAndUserName(name, userName);
+
+		return remove(cardBox);
+	}
+
+	/**
+	 * Returns the number of card boxs where name = &#63; and userName = &#63;.
+	 *
+	 * @param name the name
+	 * @param userName the user name
+	 * @return the number of matching card boxs
+	 */
+	@Override
+	public int countByNameAndUserName(String name, String userName) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_NAMEANDUSERNAME;
+
+		Object[] finderArgs = new Object[] { name, userName };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_CARDBOX_WHERE);
+
+			boolean bindName = false;
+
+			if (name == null) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_1);
+			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_3);
+			}
+			else {
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_NAME_2);
+			}
+
+			boolean bindUserName = false;
+
+			if (userName == null) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_1);
+			}
+			else if (userName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_3);
+			}
+			else {
+				bindUserName = true;
+
+				query.append(_FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindName) {
+					qPos.add(name);
+				}
+
+				if (bindUserName) {
+					qPos.add(userName);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_NAME_1 = "cardBox.name IS NULL AND ";
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_NAME_2 = "cardBox.name = ? AND ";
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_NAME_3 = "(cardBox.name IS NULL OR cardBox.name = '') AND ";
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_1 = "cardBox.userName IS NULL";
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_2 = "cardBox.userName = ?";
+	private static final String _FINDER_COLUMN_NAMEANDUSERNAME_USERNAME_3 = "(cardBox.userName IS NULL OR cardBox.userName = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_FOREIGNANDSHARED =
 		new FinderPath(CardBoxModelImpl.ENTITY_CACHE_ENABLED,
 			CardBoxModelImpl.FINDER_CACHE_ENABLED, CardBoxImpl.class,
@@ -1605,6 +1899,9 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERID,
 			new Object[] { cardBox.getName(), cardBox.getUserId() }, cardBox);
 
+		finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+			new Object[] { cardBox.getName(), cardBox.getUserName() }, cardBox);
+
 		cardBox.resetOriginalValues();
 	}
 
@@ -1691,6 +1988,15 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 				Long.valueOf(1));
 			finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERID, args,
 				cardBoxModelImpl);
+
+			args = new Object[] {
+					cardBoxModelImpl.getName(), cardBoxModelImpl.getUserName()
+				};
+
+			finderCache.putResult(FINDER_PATH_COUNT_BY_NAMEANDUSERNAME, args,
+				Long.valueOf(1));
+			finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME, args,
+				cardBoxModelImpl);
 		}
 		else {
 			if ((cardBoxModelImpl.getColumnBitmask() &
@@ -1713,6 +2019,19 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 					Long.valueOf(1));
 				finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERID, args,
 					cardBoxModelImpl);
+			}
+
+			if ((cardBoxModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_NAMEANDUSERNAME.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						cardBoxModelImpl.getName(),
+						cardBoxModelImpl.getUserName()
+					};
+
+				finderCache.putResult(FINDER_PATH_COUNT_BY_NAMEANDUSERNAME,
+					args, Long.valueOf(1));
+				finderCache.putResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME,
+					args, cardBoxModelImpl);
 			}
 		}
 	}
@@ -1747,6 +2066,24 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			finderCache.removeResult(FINDER_PATH_COUNT_BY_NAMEANDUSERID, args);
 			finderCache.removeResult(FINDER_PATH_FETCH_BY_NAMEANDUSERID, args);
+		}
+
+		args = new Object[] {
+				cardBoxModelImpl.getName(), cardBoxModelImpl.getUserName()
+			};
+
+		finderCache.removeResult(FINDER_PATH_COUNT_BY_NAMEANDUSERNAME, args);
+		finderCache.removeResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME, args);
+
+		if ((cardBoxModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_NAMEANDUSERNAME.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					cardBoxModelImpl.getOriginalName(),
+					cardBoxModelImpl.getOriginalUserName()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_NAMEANDUSERNAME, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_NAMEANDUSERNAME, args);
 		}
 	}
 
