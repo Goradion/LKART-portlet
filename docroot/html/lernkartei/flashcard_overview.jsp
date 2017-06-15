@@ -40,7 +40,7 @@
 		modelVar="flashcard" keyProperty="id">
 		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_preview_link.jsp" name="Bezeichnung"/>
 		<liferay-ui:search-container-column-text name="Lernkartei">
-			<%=CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk()).getName() %>
+			<%=(CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk())!=null)?CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk()).getName() : ""%>
 		</liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-jsp path="<%=Constants.ADMIN_ACTION_FLASHCARD %>"></liferay-ui:search-container-column-jsp>
 	</liferay-ui:search-container-row>
