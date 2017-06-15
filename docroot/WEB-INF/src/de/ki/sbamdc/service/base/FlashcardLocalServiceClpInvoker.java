@@ -117,31 +117,35 @@ public class FlashcardLocalServiceClpInvoker {
 
 		_methodParameterTypes19 = new String[] { "de.ki.sbamdc.model.Flashcard" };
 
-		_methodName42 = "getOSGiServiceIdentifier";
+		_methodName46 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes42 = new String[] {  };
+		_methodParameterTypes46 = new String[] {  };
 
-		_methodName47 = "addFlashcard";
+		_methodName51 = "addFlashcard";
 
-		_methodParameterTypes47 = new String[] {
+		_methodParameterTypes51 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long"
 			};
 
-		_methodName48 = "updateFlashcard";
+		_methodName52 = "updateFlashcard";
 
-		_methodParameterTypes48 = new String[] {
+		_methodParameterTypes52 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "long"
 			};
 
-		_methodName49 = "findByUserId";
+		_methodName53 = "findByUserId";
 
-		_methodParameterTypes49 = new String[] { "long" };
+		_methodParameterTypes53 = new String[] { "long" };
 
-		_methodName50 = "findByCardBoxId";
+		_methodName54 = "findByCardBoxId";
 
-		_methodParameterTypes50 = new String[] { "long" };
+		_methodParameterTypes54 = new String[] { "long" };
+
+		_methodName55 = "removeByCardBoxId";
+
+		_methodParameterTypes55 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -248,35 +252,42 @@ public class FlashcardLocalServiceClpInvoker {
 			return FlashcardLocalServiceUtil.updateFlashcard((de.ki.sbamdc.model.Flashcard)arguments[0]);
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
 			return FlashcardLocalServiceUtil.getOSGiServiceIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return FlashcardLocalServiceUtil.addFlashcard((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Long)arguments[3]).longValue(),
 				((Long)arguments[4]).longValue());
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return FlashcardLocalServiceUtil.updateFlashcard((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Long)arguments[3]).longValue(),
 				((Long)arguments[4]).longValue());
 		}
 
-		if (_methodName49.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			return FlashcardLocalServiceUtil.findByUserId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName50.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+		if (_methodName54.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
 			return FlashcardLocalServiceUtil.findByCardBoxId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			FlashcardLocalServiceUtil.removeByCardBoxId(((Long)arguments[0]).longValue());
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();
@@ -320,14 +331,16 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes18;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
-	private String _methodName49;
-	private String[] _methodParameterTypes49;
-	private String _methodName50;
-	private String[] _methodParameterTypes50;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
+	private String _methodName54;
+	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
 }

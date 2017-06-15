@@ -24,6 +24,8 @@ import de.ki.sbamdc.service.CardBoxServiceUtil;
 import de.ki.sbamdc.service.ClpSerializer;
 import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 import de.ki.sbamdc.service.FlashcardServiceUtil;
+import de.ki.sbamdc.service.LearnProgressLocalServiceUtil;
+import de.ki.sbamdc.service.LearnProgressServiceUtil;
 
 /**
  * @author Simon Bastian, Alexander Mueller, Diego Castellanos
@@ -47,6 +49,9 @@ public class ClpMessageListener extends BaseMessageListener {
 			FlashcardLocalServiceUtil.clearService();
 
 			FlashcardServiceUtil.clearService();
+			LearnProgressLocalServiceUtil.clearService();
+
+			LearnProgressServiceUtil.clearService();
 		}
 	}
 }

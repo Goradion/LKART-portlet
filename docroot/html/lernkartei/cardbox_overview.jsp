@@ -22,8 +22,8 @@
 
 <h1>Lernkarteien</h1>
 
-<liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Karteien wurden gefunden."
-	compactEmptyResultsMessage="Keine Kartei gefunden." deltaConfigurable="true"
+<liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Lernkarteien wurden gefunden."
+	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true"
 	iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 		<%
@@ -48,6 +48,10 @@
 </liferay-ui:search-container>
 <!-- SearchContainer END -->
 
+<p>
+	<portlet:actionURL name="clearCardBoxes" var="clear"/>
+	<a href=<%=clear%>>Alles löschen</a>
+</p>
 <p>
 	<a href=<%=newCardBox%>>Neue Kartei</a>
 </p>

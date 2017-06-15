@@ -6,3 +6,5 @@
 *.ear
 
 /.tern-project
+docroot/WEB-INF/classes/service.properties
+docroot/WEB-INF/src/service.properties

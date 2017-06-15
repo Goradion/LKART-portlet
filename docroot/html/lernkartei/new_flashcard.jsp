@@ -1,12 +1,16 @@
 <%@ include file="/init.jsp"%>
 
 <portlet:actionURL name="toFlashcardOverview" var="back"></portlet:actionURL>
+<portlet:actionURL name="toNewCardBox" var="newCardBox"></portlet:actionURL>
 <portlet:actionURL name="createNewFlashcard" var="createFlashcard"></portlet:actionURL>
 <liferay-ui:success key="success" message="You've successfully created a new flashcard"/>
 <liferay-ui:error key="error" message="Your new flashcard could not be saved! May you left the input field empty."/>
 
-<aui:form action="<%=createFlashcard %>">
-<aui:field-wrapper label="Hier neue Karteikarte erstellen">
+
+<c:choose>
+<c:when test="${! empty sessionScope.cardBoxList}">
+	<aui:form action="<%=createFlashcard %>">
+	<aui:field-wrapper label="Hier neue Karteikarte erstellen">
 	
     <liferay-ui:input-editor name="fcFrontSide" toolbarSet="email" contents="Front side of your flashcard" width="200" />
     <liferay-ui:input-editor name="fcBackSide" toolbarSet="email" contents="Back side of your flashcard" width="200"/>
@@ -21,6 +25,12 @@
     
     <aui:button type="submit" value="Create"></aui:button>
   
-</aui:field-wrapper>
+	</aui:field-wrapper>
 </aui:form>
-<a href=<%=back %>>Zurück</a>
+</c:when>
+<c:otherwise>
+	<p>Sie haben noch keine Lernkarteien! Klicken Sie <a href="<%=newCardBox%>">hier</a> um eine neue zu erstellen.</p>
+</c:otherwise>
+</c:choose>
+<a href=<%=back%>>Zurück</a>
+

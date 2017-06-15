@@ -19,3 +19,18 @@ create table sbamdc_Flashcard (
 	cardBoxId_fk LONG,
 	title VARCHAR(75) null
 );
+
+create table sbamdc_LearnProgress (
+	id_ LONG not null primary key,
+	userId_fk LONG,
+	cardBoxId_fk LONG,
+	flashcardId_fk LONG,
+	progress INTEGER
+);
+
+create table sbamdc_learnProgress (
+	id_ LONG not null primary key,
+	userId_fk LONG,
+	flashCardId_fk LONG,
+	slot INTEGER
+);

@@ -117,35 +117,43 @@ public class CardBoxLocalServiceClpInvoker {
 
 		_methodParameterTypes19 = new String[] { "de.ki.sbamdc.model.CardBox" };
 
-		_methodName42 = "getOSGiServiceIdentifier";
+		_methodName46 = "getOSGiServiceIdentifier";
 
-		_methodParameterTypes42 = new String[] {  };
+		_methodParameterTypes46 = new String[] {  };
 
-		_methodName47 = "findByNameAndUserId";
+		_methodName51 = "findByNameAndUserId";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes51 = new String[] { "java.lang.String", "long" };
 
-		_methodName48 = "findByNameAndUserName";
+		_methodName52 = "findByNameAndUserName";
 
-		_methodParameterTypes48 = new String[] {
+		_methodParameterTypes52 = new String[] {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName49 = "findLearnableCardBoxes";
+		_methodName53 = "findLearnableCardBoxes";
 
-		_methodParameterTypes49 = new String[] { "long" };
+		_methodParameterTypes53 = new String[] { "long" };
 
-		_methodName50 = "getCardBoxesOfUser";
+		_methodName54 = "getCardBoxesOfUser";
 
-		_methodParameterTypes50 = new String[] { "long", "int", "int" };
+		_methodParameterTypes54 = new String[] { "long", "int", "int" };
 
-		_methodName51 = "getCardBoxesCountOfUser";
+		_methodName55 = "getCardBoxesCountOfUser";
 
-		_methodParameterTypes51 = new String[] { "long" };
+		_methodParameterTypes55 = new String[] { "long" };
 
-		_methodName52 = "addCardBox";
+		_methodName56 = "addCardBox";
 
-		_methodParameterTypes52 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes56 = new String[] { "java.lang.String", "long" };
+
+		_methodName57 = "removeByUserId";
+
+		_methodParameterTypes57 = new String[] { "long" };
+
+		_methodName58 = "removeAll";
+
+		_methodParameterTypes58 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -252,44 +260,58 @@ public class CardBoxLocalServiceClpInvoker {
 			return CardBoxLocalServiceUtil.updateCardBox((de.ki.sbamdc.model.CardBox)arguments[0]);
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
 			return CardBoxLocalServiceUtil.getOSGiServiceIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			return CardBoxLocalServiceUtil.findByNameAndUserId((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return CardBoxLocalServiceUtil.findByNameAndUserName((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName49.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			return CardBoxLocalServiceUtil.findLearnableCardBoxes(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName50.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+		if (_methodName54.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
 			return CardBoxLocalServiceUtil.getCardBoxesOfUser(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName51.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
 			return CardBoxLocalServiceUtil.getCardBoxesCountOfUser(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return CardBoxLocalServiceUtil.addCardBox((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			CardBoxLocalServiceUtil.removeByUserId(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			CardBoxLocalServiceUtil.removeAll();
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();
@@ -333,18 +355,22 @@ public class CardBoxLocalServiceClpInvoker {
 	private String[] _methodParameterTypes18;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
-	private String _methodName49;
-	private String[] _methodParameterTypes49;
-	private String _methodName50;
-	private String[] _methodParameterTypes50;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
 	private String _methodName51;
 	private String[] _methodParameterTypes51;
 	private String _methodName52;
 	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
+	private String _methodName54;
+	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
 }

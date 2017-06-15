@@ -44,6 +44,7 @@ import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.service.CardBoxLocalService;
 import de.ki.sbamdc.service.persistence.CardBoxPersistence;
 import de.ki.sbamdc.service.persistence.FlashcardPersistence;
+import de.ki.sbamdc.service.persistence.LearnProgressPersistence;
 
 import java.io.Serializable;
 
@@ -224,7 +225,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public ActionableDynamicQuery getActionableDynamicQuery() {
 		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
+		actionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -237,7 +238,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
 
-		indexableActionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
+		indexableActionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -248,7 +249,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
+		actionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -380,6 +381,44 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public void setFlashcardPersistence(
 		FlashcardPersistence flashcardPersistence) {
 		this.flashcardPersistence = flashcardPersistence;
+	}
+
+	/**
+	 * Returns the learn progress local service.
+	 *
+	 * @return the learn progress local service
+	 */
+	public de.ki.sbamdc.service.LearnProgressLocalService getLearnProgressLocalService() {
+		return learnProgressLocalService;
+	}
+
+	/**
+	 * Sets the learn progress local service.
+	 *
+	 * @param learnProgressLocalService the learn progress local service
+	 */
+	public void setLearnProgressLocalService(
+		de.ki.sbamdc.service.LearnProgressLocalService learnProgressLocalService) {
+		this.learnProgressLocalService = learnProgressLocalService;
+	}
+
+	/**
+	 * Returns the learn progress persistence.
+	 *
+	 * @return the learn progress persistence
+	 */
+	public LearnProgressPersistence getLearnProgressPersistence() {
+		return learnProgressPersistence;
+	}
+
+	/**
+	 * Sets the learn progress persistence.
+	 *
+	 * @param learnProgressPersistence the learn progress persistence
+	 */
+	public void setLearnProgressPersistence(
+		LearnProgressPersistence learnProgressPersistence) {
+		this.learnProgressPersistence = learnProgressPersistence;
 	}
 
 	/**
@@ -572,7 +611,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
-	@BeanReference(type = de.ki.sbamdc.service.CardBoxLocalService.class)
+	@BeanReference(type = CardBoxLocalService.class)
 	protected CardBoxLocalService cardBoxLocalService;
 	@BeanReference(type = CardBoxPersistence.class)
 	protected CardBoxPersistence cardBoxPersistence;
@@ -580,6 +619,10 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected de.ki.sbamdc.service.FlashcardLocalService flashcardLocalService;
 	@BeanReference(type = FlashcardPersistence.class)
 	protected FlashcardPersistence flashcardPersistence;
+	@BeanReference(type = de.ki.sbamdc.service.LearnProgressLocalService.class)
+	protected de.ki.sbamdc.service.LearnProgressLocalService learnProgressLocalService;
+	@BeanReference(type = LearnProgressPersistence.class)
+	protected LearnProgressPersistence learnProgressPersistence;
 	@BeanReference(type = com.liferay.counter.kernel.service.CounterLocalService.class)
 	protected com.liferay.counter.kernel.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.kernel.service.ClassNameLocalService.class)
