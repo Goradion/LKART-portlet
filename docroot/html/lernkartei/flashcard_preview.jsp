@@ -10,12 +10,18 @@
 <div id="backSide" hidden="true">
 	<% out.print(backSide); %>
 </div>
-
+<footer>
+<div align="center">
+	<hr>
+	<button id="flipTheCard" style="">Karte umdrehen</button>
+</div>
+</footer>
 
 
 
 <script type="text/javascript">
-	document.onclick = function(){
+	// flips the card each time the button is clicked
+	document.getElementById("flipTheCard").onclick = function(){
 		var frontSideHidden = document.getElementById("frontSide").getAttribute("hidden");
 		var backSideHidden = document.getElementById("backSide").getAttribute("hidden");
 		console.log("frontSideHidden = "+frontSideHidden);

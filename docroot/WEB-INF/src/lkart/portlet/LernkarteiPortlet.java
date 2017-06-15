@@ -272,6 +272,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 					LearnProgressLocalServiceUtil.addLearnProgress(userId, newFlashcard);
 				}
 				SessionMessages.add(actionRequest, "success");
+				
 
 			} catch (NumberFormatException nfe) {
 				// hier eventuell ein Feedback an User
@@ -364,7 +365,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
-			long flashcardId = Long.parseLong(actionRequest.getParameter("flashcardId"));
+			long flashcardId = Long.parseLong(actionRequest.getParameter("fcId"));
 			FlashcardLocalServiceUtil.deleteFlashcard(flashcardId);
 			// TODO delte learnProgress
 		} catch (NumberFormatException nfe) {

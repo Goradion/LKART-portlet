@@ -50,7 +50,7 @@
 
 
 <p>
-	<a href=<%=newFlashcard%>>Neue Lernkartei</a>
+	<a href=<%=newFlashcard%>>Neue Lernkarte</a>
 </p>
 <p>
 	<a href=<%=editMode%>>Zurück</a>

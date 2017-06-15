@@ -54,7 +54,7 @@ AUI().use('aui-base',
 							uri:'<%=DialogIframe.toString()%>',
 						}).render();
 				popUpWindow.show();
-				popUpWindow.titleNode.html("Flashcard preview");
+				popUpWindow.titleNode.html("<%=flashcardTitle %>");
 				popUpWindow.io.start();
 					
 				});

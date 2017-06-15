@@ -32,5 +32,6 @@
 	<p>Sie haben noch keine Lernkarteien! Klicken Sie <a href="<%=newCardBox%>">hier</a> um eine neue zu erstellen.</p>
 </c:otherwise>
 </c:choose>
+
 <a href=<%=back%>>Zurück</a>
 
