@@ -10,4 +10,13 @@
 	<bean class="de.ki.sbamdc.service.impl.LearnProgressLocalServiceImpl" id="de.ki.sbamdc.service.LearnProgressLocalService" />
 	<bean class="de.ki.sbamdc.service.impl.LearnProgressServiceImpl" id="de.ki.sbamdc.service.LearnProgressService" />
 	<bean class="de.ki.sbamdc.service.persistence.impl.LearnProgressPersistenceImpl" id="de.ki.sbamdc.service.persistence.LearnProgressPersistence" parent="basePersistence" />
+	<bean id="de.ki.sbamdc.service.CardBoxLocalService" class="de.ki.sbamdc.service.impl.CardBoxLocalServiceImpl" />
+	<bean id="de.ki.sbamdc.service.CardBoxService" class="de.ki.sbamdc.service.impl.CardBoxServiceImpl" />
+	<bean id="de.ki.sbamdc.service.persistence.CardBoxPersistence" class="de.ki.sbamdc.service.persistence.impl.CardBoxPersistenceImpl" parent="basePersistence" />
+	<bean id="de.ki.sbamdc.service.FlashcardLocalService" class="de.ki.sbamdc.service.impl.FlashcardLocalServiceImpl" />
+	<bean id="de.ki.sbamdc.service.FlashcardService" class="de.ki.sbamdc.service.impl.FlashcardServiceImpl" />
+	<bean id="de.ki.sbamdc.service.persistence.FlashcardPersistence" class="de.ki.sbamdc.service.persistence.impl.FlashcardPersistenceImpl" parent="basePersistence" />
+	<bean id="de.ki.sbamdc.service.LearnProgressLocalService" class="de.ki.sbamdc.service.impl.LearnProgressLocalServiceImpl" />
+	<bean id="de.ki.sbamdc.service.LearnProgressService" class="de.ki.sbamdc.service.impl.LearnProgressServiceImpl" />
+	<bean id="de.ki.sbamdc.service.persistence.LearnProgressPersistence" class="de.ki.sbamdc.service.persistence.impl.LearnProgressPersistenceImpl" parent="basePersistence" />
 </beans>

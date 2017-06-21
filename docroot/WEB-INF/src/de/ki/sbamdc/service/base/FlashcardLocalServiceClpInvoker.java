@@ -146,6 +146,10 @@ public class FlashcardLocalServiceClpInvoker {
 		_methodName55 = "removeByCardBoxId";
 
 		_methodParameterTypes55 = new String[] { "long" };
+
+		_methodName56 = "findByCardBoxIdAndTitle";
+
+		_methodParameterTypes56 = new String[] { "long", "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -290,6 +294,12 @@ public class FlashcardLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return FlashcardLocalServiceUtil.findByCardBoxIdAndTitle(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -343,4 +353,6 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
 }

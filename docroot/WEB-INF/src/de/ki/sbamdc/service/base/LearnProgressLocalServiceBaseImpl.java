@@ -228,7 +228,7 @@ public abstract class LearnProgressLocalServiceBaseImpl
 	public ActionableDynamicQuery getActionableDynamicQuery() {
 		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(learnProgressLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.LearnProgressLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(LearnProgress.class);
 
@@ -241,7 +241,7 @@ public abstract class LearnProgressLocalServiceBaseImpl
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
 
-		indexableActionableDynamicQuery.setBaseLocalService(learnProgressLocalService);
+		indexableActionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.LearnProgressLocalServiceUtil.getService());
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(LearnProgress.class);
 
@@ -252,7 +252,7 @@ public abstract class LearnProgressLocalServiceBaseImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(learnProgressLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.LearnProgressLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(LearnProgress.class);
 
@@ -623,7 +623,7 @@ public abstract class LearnProgressLocalServiceBaseImpl
 	protected de.ki.sbamdc.service.FlashcardLocalService flashcardLocalService;
 	@BeanReference(type = FlashcardPersistence.class)
 	protected FlashcardPersistence flashcardPersistence;
-	@BeanReference(type = LearnProgressLocalService.class)
+	@BeanReference(type = de.ki.sbamdc.service.LearnProgressLocalService.class)
 	protected LearnProgressLocalService learnProgressLocalService;
 	@BeanReference(type = LearnProgressPersistence.class)
 	protected LearnProgressPersistence learnProgressPersistence;

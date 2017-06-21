@@ -81,6 +81,11 @@
 		<finder return-type="Collection" name="CardBoxId">
 			<finder-column name="cardBoxId_fk">
 		</finder-column></finder>
+		
+		<finder return-type="Flashcard" name="CardBoxIdAndTitle">
+			<finder-column name="cardBoxId_fk"></finder-column>
+			<finder-column name="title"></finder-column>
+		</finder>
 	</entity>
 	
 	<entity name="LearnProgress" remote-service="true" local-service="true">

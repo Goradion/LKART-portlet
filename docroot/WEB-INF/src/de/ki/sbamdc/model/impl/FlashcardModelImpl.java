@@ -104,8 +104,9 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 				"value.object.column.bitmask.enabled.de.ki.sbamdc.model.Flashcard"),
 			true);
 	public static final long CARDBOXID_FK_COLUMN_BITMASK = 1L;
-	public static final long USERID_COLUMN_BITMASK = 2L;
-	public static final long ID_COLUMN_BITMASK = 4L;
+	public static final long TITLE_COLUMN_BITMASK = 2L;
+	public static final long USERID_COLUMN_BITMASK = 4L;
+	public static final long ID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -362,7 +363,17 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	@Override
 	public void setTitle(String title) {
+		_columnBitmask |= TITLE_COLUMN_BITMASK;
+
+		if (_originalTitle == null) {
+			_originalTitle = _title;
+		}
+
 		_title = title;
+	}
+
+	public String getOriginalTitle() {
+		return GetterUtil.getString(_originalTitle);
 	}
 
 	public long getColumnBitmask() {
@@ -480,6 +491,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 		flashcardModelImpl._setOriginalCardBoxId_fk = false;
 
+		flashcardModelImpl._originalTitle = flashcardModelImpl._title;
+
 		flashcardModelImpl._columnBitmask = 0;
 	}
 
@@ -593,6 +606,7 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 	private long _originalCardBoxId_fk;
 	private boolean _setOriginalCardBoxId_fk;
 	private String _title;
+	private String _originalTitle;
 	private long _columnBitmask;
 	private Flashcard _escapedModel;
 }

@@ -17,6 +17,7 @@ package de.ki.sbamdc.service.impl;
 import java.util.List;
 
 import aQute.bnd.annotation.ProviderType;
+import de.ki.sbamdc.exception.NoSuchFlashcardException;
 import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.service.base.FlashcardLocalServiceBaseImpl;
 
@@ -42,7 +43,7 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.FlashcardLocalServiceUtil} to access the flashcard local service.
 	 */	
 	
-	public Flashcard addFlashcard(String frontSide, String backSide, String title, long cardBoxId, long userId){
+	public Flashcard addFlashcard(String frontSide, String backSide, String title, long cardBoxId, long userId){		
 		long fcId = counterLocalService.increment();
 		Flashcard fc = flashcardPersistence.create(fcId);
 		fc.setUserId(userId);
@@ -76,6 +77,10 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	
 	public void removeByCardBoxId(long id) {
 		flashcardPersistence.removeByCardBoxId(id);
+	}
+
+	public Flashcard findByCardBoxIdAndTitle(long cardBoxId, String title) throws NoSuchFlashcardException{
+		return flashcardPersistence.findByCardBoxIdAndTitle(cardBoxId, title);
 	}
 
 }

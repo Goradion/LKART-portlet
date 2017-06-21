@@ -32,13 +32,6 @@ public class FlashcardServiceWrapper implements FlashcardService,
 		_flashcardService = flashcardService;
 	}
 
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _flashcardService.invokeMethod(name, parameterTypes, arguments);
-	}
-
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -47,6 +40,13 @@ public class FlashcardServiceWrapper implements FlashcardService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _flashcardService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _flashcardService.invokeMethod(name, parameterTypes, arguments);
 	}
 
 	@Override

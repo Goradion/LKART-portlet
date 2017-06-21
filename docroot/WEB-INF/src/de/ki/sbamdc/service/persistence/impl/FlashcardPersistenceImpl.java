@@ -33,6 +33,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import de.ki.sbamdc.exception.NoSuchFlashcardException;
 import de.ki.sbamdc.model.Flashcard;
@@ -1093,6 +1095,269 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	}
 
 	private static final String _FINDER_COLUMN_CARDBOXID_CARDBOXID_FK_2 = "flashcard.cardBoxId_fk = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE = new FinderPath(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
+			FlashcardModelImpl.FINDER_CACHE_ENABLED, FlashcardImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByCardBoxIdAndTitle",
+			new String[] { Long.class.getName(), String.class.getName() },
+			FlashcardModelImpl.CARDBOXID_FK_COLUMN_BITMASK |
+			FlashcardModelImpl.TITLE_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE = new FinderPath(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
+			FlashcardModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByCardBoxIdAndTitle",
+			new String[] { Long.class.getName(), String.class.getName() });
+
+	/**
+	 * Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or throws a {@link NoSuchFlashcardException} if it could not be found.
+	 *
+	 * @param cardBoxId_fk the card box id_fk
+	 * @param title the title
+	 * @return the matching flashcard
+	 * @throws NoSuchFlashcardException if a matching flashcard could not be found
+	 */
+	@Override
+	public Flashcard findByCardBoxIdAndTitle(long cardBoxId_fk, String title)
+		throws NoSuchFlashcardException {
+		Flashcard flashcard = fetchByCardBoxIdAndTitle(cardBoxId_fk, title);
+
+		if (flashcard == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("cardBoxId_fk=");
+			msg.append(cardBoxId_fk);
+
+			msg.append(", title=");
+			msg.append(title);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchFlashcardException(msg.toString());
+		}
+
+		return flashcard;
+	}
+
+	/**
+	 * Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param cardBoxId_fk the card box id_fk
+	 * @param title the title
+	 * @return the matching flashcard, or <code>null</code> if a matching flashcard could not be found
+	 */
+	@Override
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId_fk, String title) {
+		return fetchByCardBoxIdAndTitle(cardBoxId_fk, title, true);
+	}
+
+	/**
+	 * Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param cardBoxId_fk the card box id_fk
+	 * @param title the title
+	 * @param retrieveFromCache whether to retrieve from the finder cache
+	 * @return the matching flashcard, or <code>null</code> if a matching flashcard could not be found
+	 */
+	@Override
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId_fk, String title,
+		boolean retrieveFromCache) {
+		Object[] finderArgs = new Object[] { cardBoxId_fk, title };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = finderCache.getResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+					finderArgs, this);
+		}
+
+		if (result instanceof Flashcard) {
+			Flashcard flashcard = (Flashcard)result;
+
+			if ((cardBoxId_fk != flashcard.getCardBoxId_fk()) ||
+					!Validator.equals(title, flashcard.getTitle())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_FLASHCARD_WHERE);
+
+			query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_CARDBOXID_FK_2);
+
+			boolean bindTitle = false;
+
+			if (title == null) {
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_1);
+			}
+			else if (title.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_3);
+			}
+			else {
+				bindTitle = true;
+
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(cardBoxId_fk);
+
+				if (bindTitle) {
+					qPos.add(title);
+				}
+
+				List<Flashcard> list = q.list();
+
+				if (list.isEmpty()) {
+					finderCache.putResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"FlashcardPersistenceImpl.fetchByCardBoxIdAndTitle(long, String, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					Flashcard flashcard = list.get(0);
+
+					result = flashcard;
+
+					cacheResult(flashcard);
+
+					if ((flashcard.getCardBoxId_fk() != cardBoxId_fk) ||
+							(flashcard.getTitle() == null) ||
+							!flashcard.getTitle().equals(title)) {
+						finderCache.putResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+							finderArgs, flashcard);
+					}
+				}
+			}
+			catch (Exception e) {
+				finderCache.removeResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Flashcard)result;
+		}
+	}
+
+	/**
+	 * Removes the flashcard where cardBoxId_fk = &#63; and title = &#63; from the database.
+	 *
+	 * @param cardBoxId_fk the card box id_fk
+	 * @param title the title
+	 * @return the flashcard that was removed
+	 */
+	@Override
+	public Flashcard removeByCardBoxIdAndTitle(long cardBoxId_fk, String title)
+		throws NoSuchFlashcardException {
+		Flashcard flashcard = findByCardBoxIdAndTitle(cardBoxId_fk, title);
+
+		return remove(flashcard);
+	}
+
+	/**
+	 * Returns the number of flashcards where cardBoxId_fk = &#63; and title = &#63;.
+	 *
+	 * @param cardBoxId_fk the card box id_fk
+	 * @param title the title
+	 * @return the number of matching flashcards
+	 */
+	@Override
+	public int countByCardBoxIdAndTitle(long cardBoxId_fk, String title) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE;
+
+		Object[] finderArgs = new Object[] { cardBoxId_fk, title };
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_FLASHCARD_WHERE);
+
+			query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_CARDBOXID_FK_2);
+
+			boolean bindTitle = false;
+
+			if (title == null) {
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_1);
+			}
+			else if (title.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_3);
+			}
+			else {
+				bindTitle = true;
+
+				query.append(_FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(cardBoxId_fk);
+
+				if (bindTitle) {
+					qPos.add(title);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CARDBOXIDANDTITLE_CARDBOXID_FK_2 = "flashcard.cardBoxId_fk = ? AND ";
+	private static final String _FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_1 = "flashcard.title IS NULL";
+	private static final String _FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_2 = "flashcard.title = ?";
+	private static final String _FINDER_COLUMN_CARDBOXIDANDTITLE_TITLE_3 = "(flashcard.title IS NULL OR flashcard.title = '')";
 
 	public FlashcardPersistenceImpl() {
 		setModelClass(Flashcard.class);
@@ -1107,6 +1372,10 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 	public void cacheResult(Flashcard flashcard) {
 		entityCache.putResult(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
 			FlashcardImpl.class, flashcard.getPrimaryKey(), flashcard);
+
+		finderCache.putResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+			new Object[] { flashcard.getCardBoxId_fk(), flashcard.getTitle() },
+			flashcard);
 
 		flashcard.resetOriginalValues();
 	}
@@ -1159,6 +1428,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache((FlashcardModelImpl)flashcard);
 	}
 
 	@Override
@@ -1169,6 +1440,61 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		for (Flashcard flashcard : flashcards) {
 			entityCache.removeResult(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
 				FlashcardImpl.class, flashcard.getPrimaryKey());
+
+			clearUniqueFindersCache((FlashcardModelImpl)flashcard);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		FlashcardModelImpl flashcardModelImpl, boolean isNew) {
+		if (isNew) {
+			Object[] args = new Object[] {
+					flashcardModelImpl.getCardBoxId_fk(),
+					flashcardModelImpl.getTitle()
+				};
+
+			finderCache.putResult(FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE, args,
+				Long.valueOf(1));
+			finderCache.putResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE, args,
+				flashcardModelImpl);
+		}
+		else {
+			if ((flashcardModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						flashcardModelImpl.getCardBoxId_fk(),
+						flashcardModelImpl.getTitle()
+					};
+
+				finderCache.putResult(FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE,
+					args, Long.valueOf(1));
+				finderCache.putResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+					args, flashcardModelImpl);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(
+		FlashcardModelImpl flashcardModelImpl) {
+		Object[] args = new Object[] {
+				flashcardModelImpl.getCardBoxId_fk(),
+				flashcardModelImpl.getTitle()
+			};
+
+		finderCache.removeResult(FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE, args);
+		finderCache.removeResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE, args);
+
+		if ((flashcardModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					flashcardModelImpl.getOriginalCardBoxId_fk(),
+					flashcardModelImpl.getOriginalTitle()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_CARDBOXIDANDTITLE,
+				args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_CARDBOXIDANDTITLE,
+				args);
 		}
 	}
 
@@ -1219,8 +1545,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 					primaryKey);
 
 			if (flashcard == null) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -1346,6 +1672,9 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		entityCache.putResult(FlashcardModelImpl.ENTITY_CACHE_ENABLED,
 			FlashcardImpl.class, flashcard.getPrimaryKey(), flashcard, false);
 
+		clearUniqueFindersCache(flashcardModelImpl);
+		cacheUniqueFindersCache(flashcardModelImpl, isNew);
+
 		flashcard.resetOriginalValues();
 
 		return flashcard;
@@ -1384,8 +1713,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		Flashcard flashcard = fetchByPrimaryKey(primaryKey);
 
 		if (flashcard == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

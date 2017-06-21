@@ -33,14 +33,6 @@ public class LearnProgressServiceWrapper implements LearnProgressService,
 		_learnProgressService = learnProgressService;
 	}
 
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return _learnProgressService.invokeMethod(name, parameterTypes,
-			arguments);
-	}
-
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -49,6 +41,14 @@ public class LearnProgressServiceWrapper implements LearnProgressService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _learnProgressService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return _learnProgressService.invokeMethod(name, parameterTypes,
+			arguments);
 	}
 
 	@Override

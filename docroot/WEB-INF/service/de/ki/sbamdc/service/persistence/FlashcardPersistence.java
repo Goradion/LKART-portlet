@@ -304,6 +304,58 @@ public interface FlashcardPersistence extends BasePersistence<Flashcard> {
 	public int countByCardBoxId(long cardBoxId_fk);
 
 	/**
+	* Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or throws a {@link NoSuchFlashcardException} if it could not be found.
+	*
+	* @param cardBoxId_fk the card box id_fk
+	* @param title the title
+	* @return the matching flashcard
+	* @throws NoSuchFlashcardException if a matching flashcard could not be found
+	*/
+	public Flashcard findByCardBoxIdAndTitle(long cardBoxId_fk,
+		java.lang.String title) throws NoSuchFlashcardException;
+
+	/**
+	* Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param cardBoxId_fk the card box id_fk
+	* @param title the title
+	* @return the matching flashcard, or <code>null</code> if a matching flashcard could not be found
+	*/
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId_fk,
+		java.lang.String title);
+
+	/**
+	* Returns the flashcard where cardBoxId_fk = &#63; and title = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param cardBoxId_fk the card box id_fk
+	* @param title the title
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the matching flashcard, or <code>null</code> if a matching flashcard could not be found
+	*/
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId_fk,
+		java.lang.String title, boolean retrieveFromCache);
+
+	/**
+	* Removes the flashcard where cardBoxId_fk = &#63; and title = &#63; from the database.
+	*
+	* @param cardBoxId_fk the card box id_fk
+	* @param title the title
+	* @return the flashcard that was removed
+	*/
+	public Flashcard removeByCardBoxIdAndTitle(long cardBoxId_fk,
+		java.lang.String title) throws NoSuchFlashcardException;
+
+	/**
+	* Returns the number of flashcards where cardBoxId_fk = &#63; and title = &#63;.
+	*
+	* @param cardBoxId_fk the card box id_fk
+	* @param title the title
+	* @return the number of matching flashcards
+	*/
+	public int countByCardBoxIdAndTitle(long cardBoxId_fk,
+		java.lang.String title);
+
+	/**
 	* Caches the flashcard in the entity cache if it is enabled.
 	*
 	* @param flashcard the flashcard

@@ -6,9 +6,17 @@
 <portlet:actionURL name="toMainMenu" var="back"></portlet:actionURL>
 <portlet:actionURL name="toLearn" var="startLearning"></portlet:actionURL>
 <h1>Hier Karteikarten lernen</h1>
+
+<aui:container>
+<div style="display:inline-block">
 <aui:row>
-hier sollen 5 fächer mit der anzahl hin
+	<aui:col >1</aui:col>
+	<aui:col >2</aui:col>
+	<aui:col >3</aui:col>
+	<aui:col >4</aui:col>
+	<aui:col >5</aui:col>
 </aui:row>
+</div>
 <aui:row>
 ${sessionScope.flashcards.get(0).getFrontSide()}
 </aui:row>
@@ -17,7 +25,7 @@ ${sessionScope.flashcards.get(0).getFrontSide()}
 <aui:col span="6"><aui:button >Richtig</aui:button></aui:col>
 
 </aui:row>
-
+</aui:container>
 
 <a href=<%=back %>>Zurück</a>
 
