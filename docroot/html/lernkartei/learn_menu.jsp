@@ -5,14 +5,15 @@
 <aui:form action="<%=startLearning %>">
 <aui:field-wrapper label="Was soll gelernt werden?">
     
-    Kartei: <br />
+    <p>
+    Kartei: 
 	<select name= "<portlet:namespace />kartei" required="true">
 		<c:forEach items="${sessionScope.cardBoxList}" var="c">
 <%-- 		${c.getUserName()}.${c.getName()} --%>
 			<option value="${c.getId()}">${c.getName()}</option>
 		</c:forEach>
 	</select>
-    
+    </p>
     <aui:button type="submit" value="Los gehts"></aui:button>
   
 </aui:field-wrapper>
