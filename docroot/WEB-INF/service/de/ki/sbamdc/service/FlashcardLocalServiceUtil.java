@@ -180,6 +180,11 @@ public class FlashcardLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
+	public static de.ki.sbamdc.model.Flashcard fetchByCardBoxIdAndTitle(
+		long cardBoxId, java.lang.String title) {
+		return getService().fetchByCardBoxIdAndTitle(cardBoxId, title);
+	}
+
 	public static de.ki.sbamdc.model.Flashcard fetchFlashcard(long id) {
 		return getService().fetchFlashcard(id);
 	}
@@ -187,12 +192,6 @@ public class FlashcardLocalServiceUtil {
 	public static java.util.List<de.ki.sbamdc.model.Flashcard> findByCardBoxId(
 		long cardBoxId) {
 		return getService().findByCardBoxId(cardBoxId);
-	}
-
-	public static de.ki.sbamdc.model.Flashcard findByCardBoxIdAndTitle(
-		long cardBoxId_fk, java.lang.String title)
-		throws de.ki.sbamdc.exception.NoSuchFlashcardException {
-		return getService().findByCardBoxIdAndTitle(cardBoxId_fk, title);
 	}
 
 	public static java.util.List<de.ki.sbamdc.model.Flashcard> findByUserId(

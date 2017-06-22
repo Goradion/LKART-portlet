@@ -249,7 +249,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Creates a new flashcard.
+	 * On submit if the flashcard cannot be created the filled out fields keep their content.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void createNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String fcFrontSide = actionRequest.getParameter("fcFrontSide");
 		String fcBackSide = actionRequest.getParameter("fcBackSide");
@@ -265,13 +270,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		if (!(cardBoxId < 0)) {
 			try {
 				if (!fcFrontSide.isEmpty()) {
-					Flashcard fc = null;
-					try {
-						fc = FlashcardLocalServiceUtil.findByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
-					} catch (NoSuchFlashcardException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					Flashcard fc = FlashcardLocalServiceUtil.fetchByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
 					if(fc==null){
 						Flashcard newFlashcard = FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide,
 								flashcardTitle, cardBoxId, userId);
@@ -287,8 +286,6 @@ public class LernkarteiPortlet extends MVCPortlet {
 						SessionErrors.add(actionRequest, "titleExistsError");
 					}
 				}
-				
-
 			} catch (NumberFormatException nfe) {
 				nfe.printStackTrace();
 				SessionErrors.add(actionRequest, "error");
@@ -298,8 +295,8 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	/**
-	 * Updates a flashcard
-	 * 
+	 * Updates a flashcard.
+	 * On submit if the flashcard cannot be updated the filled out fields keep their content.
 	 * @param actionRequest
 	 * @param actionResponse
 	 */
@@ -318,14 +315,9 @@ public class LernkarteiPortlet extends MVCPortlet {
 			long uid = td.getUserId();
 
 			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, uid).getId();
+
+			Flashcard fc = FlashcardLocalServiceUtil.fetchByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
 			
-			Flashcard fc = null;
-			try {
-				fc = FlashcardLocalServiceUtil.findByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
-			} catch (NoSuchFlashcardException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			// noch keine karte oder die karte ist die die gerade bearbeitet wird
 			if(fc==null || fc.getId()==fcId){
 				FlashcardLocalServiceUtil.updateFlashcard(fcFrontSide, fcBackSide, flashcardTitle, fcId, cardBoxId);
@@ -337,12 +329,9 @@ public class LernkarteiPortlet extends MVCPortlet {
 				actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide, PortletSession.PORTLET_SCOPE);
 				actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide, PortletSession.PORTLET_SCOPE);
 				actionRequest.getPortletSession().setAttribute("fcTitle", flashcardTitle, PortletSession.PORTLET_SCOPE);
-				actionRequest.getPortletSession().setAttribute("fcId", ""+fcId, PortletSession.PORTLET_SCOPE);
-				
+				actionRequest.getPortletSession().setAttribute("fcId", ""+fcId, PortletSession.PORTLET_SCOPE);	
 				SessionErrors.add(actionRequest, "titleExistsError");
-			}
-			
-			
+			}	
 		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
 			SessionErrors.add(actionRequest, "error");

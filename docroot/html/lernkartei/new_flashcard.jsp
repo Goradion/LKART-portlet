@@ -31,8 +31,9 @@
 <liferay-ui:error key="titleExistsError"
 	message="Could not create new flashcard. The name of the flashcard is already assigned!" />
 
-<%-- <c:choose>
-<c:when test="${! empty sessionScope.cardBoxList}"> --%>
+<%
+	if (!cbList.isEmpty() && cbList != null){
+%>
 <aui:form action="<%=createFlashcard%>">
 	<aui:field-wrapper label="Hier neue Karteikarte erstellen">
 
@@ -67,11 +68,9 @@
 
 	</aui:field-wrapper>
 </aui:form>
-<%-- </c:when>
-<c:otherwise>
+<%} else { %>
 	<p>Sie haben noch keine Lernkarteien! Klicken Sie <a href="<%=newCardBox%>">hier</a> um eine neue zu erstellen.</p>
-</c:otherwise>
-</c:choose> --%>
+<%} %>
 
 <a href=<%=back%>>Zurück</a>
 

@@ -33,7 +33,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import de.ki.sbamdc.exception.NoSuchFlashcardException;
 import de.ki.sbamdc.model.Flashcard;
 
 import java.io.Serializable;
@@ -170,12 +169,13 @@ public interface FlashcardLocalService extends BaseLocalService,
 		Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId,
+		java.lang.String title);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Flashcard fetchFlashcard(long id);
 
 	public List<Flashcard> findByCardBoxId(long cardBoxId);
-
-	public Flashcard findByCardBoxIdAndTitle(long cardBoxId_fk,
-		java.lang.String title) throws NoSuchFlashcardException;
 
 	public List<Flashcard> findByUserId(long userId);
 

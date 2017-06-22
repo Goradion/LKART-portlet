@@ -92,17 +92,17 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
 
-		_methodName12 = "fetchFlashcard";
+		_methodName12 = "fetchByCardBoxIdAndTitle";
 
-		_methodParameterTypes12 = new String[] { "long" };
+		_methodParameterTypes12 = new String[] { "long", "java.lang.String" };
 
-		_methodName13 = "findByCardBoxId";
+		_methodName13 = "fetchFlashcard";
 
 		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "findByCardBoxIdAndTitle";
+		_methodName14 = "findByCardBoxId";
 
-		_methodParameterTypes14 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes14 = new String[] { "long" };
 
 		_methodName15 = "findByUserId";
 
@@ -490,12 +490,38 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.Flashcard fetchFlashcard(long id) {
+	public de.ki.sbamdc.model.Flashcard fetchByCardBoxIdAndTitle(
+		long cardBoxId, java.lang.String title) {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { id });
+					_methodParameterTypes12,
+					new Object[] { cardBoxId, ClpSerializer.translateInput(
+							title) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.Flashcard)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.Flashcard fetchFlashcard(long id) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -518,8 +544,8 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] { cardBoxId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] { cardBoxId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -534,40 +560,6 @@ public class FlashcardLocalServiceClp implements FlashcardLocalService {
 		}
 
 		return (java.util.List<de.ki.sbamdc.model.Flashcard>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.Flashcard findByCardBoxIdAndTitle(
-		long cardBoxId_fk, java.lang.String title)
-		throws de.ki.sbamdc.exception.NoSuchFlashcardException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
-					new Object[] {
-						cardBoxId_fk,
-						
-					ClpSerializer.translateInput(title)
-					});
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof de.ki.sbamdc.exception.NoSuchFlashcardException) {
-				throw (de.ki.sbamdc.exception.NoSuchFlashcardException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (de.ki.sbamdc.model.Flashcard)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override

@@ -79,8 +79,8 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 		flashcardPersistence.removeByCardBoxId(id);
 	}
 
-	public Flashcard findByCardBoxIdAndTitle(long cardBoxId, String title) throws NoSuchFlashcardException{
-		return flashcardPersistence.findByCardBoxIdAndTitle(cardBoxId, title);
+	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId, String title){
+		return flashcardPersistence.fetchByCardBoxIdAndTitle(cardBoxId, title);
 	}
 
 }
