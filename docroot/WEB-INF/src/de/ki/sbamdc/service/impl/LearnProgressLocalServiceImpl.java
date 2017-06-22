@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.NoSuchUserException;
 
 import aQute.bnd.annotation.ProviderType;
 import de.ki.sbamdc.exception.NoSuchFlashcardException;
+import de.ki.sbamdc.exception.NoSuchLearnProgressException;
 import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.model.LearnProgress;
 import de.ki.sbamdc.service.base.LearnProgressLocalServiceBaseImpl;

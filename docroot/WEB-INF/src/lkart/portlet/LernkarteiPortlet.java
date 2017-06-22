@@ -12,8 +12,12 @@ import static lkart.util.Constants.NEW_FLASHCARD_JSP;
 import static lkart.util.Constants.VIEW_JSP;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -25,9 +29,10 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.servlet.PortalMessages;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -44,6 +49,8 @@ import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 import de.ki.sbamdc.service.LearnProgressLocalServiceUtil;
 
 public class LernkarteiPortlet extends MVCPortlet {
+
+	private static Log log = LogFactoryUtil.getLog(LernkarteiPortlet.class);
 
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
@@ -92,20 +99,48 @@ public class LernkarteiPortlet extends MVCPortlet {
 				long userId = getThemeDisplay(actionRequest).getUserId();
 				HashMap<Long, LearnProgress> progressMap = LearnProgressLocalServiceUtil
 						.loadProgressByUserIdAndCardBoxId(userId, chosenCardBox.getId());
+				LeitnerProgress leitnerProgress = new LeitnerProgress(progressMap);
+				Queue<Flashcard> progress0Flashcards = new LinkedList<>();
+				Queue<Flashcard> progress1Flashcards = new LinkedList<>();
+				Queue<Flashcard> progress2Flashcards = new LinkedList<>();
+				Queue<Flashcard> progress3Flashcards = new LinkedList<>();
+				Queue<Flashcard> progress4Flashcards = new LinkedList<>();
+				leitnerProgress.add(progress0Flashcards);
+				leitnerProgress.add(progress1Flashcards);
+				leitnerProgress.add(progress2Flashcards);
+				leitnerProgress.add(progress3Flashcards);
+				leitnerProgress.add(progress4Flashcards);
 				// if the CardBox is shared by a different User, the current
 				// user might not have any learnProgress records for the
 				// flashcards
 				for (Flashcard flashcard : flashcards) {
-					if (!progressMap.keySet().contains(flashcard.getId())) {
+					if (!progressMap.containsKey(flashcard.getId())) {
 						LearnProgress newLearnProgress = LearnProgressLocalServiceUtil.addLearnProgress(userId,
 								flashcard);
 						progressMap.put(flashcard.getId(), newLearnProgress);
 					}
+					int progress = progressMap.get(flashcard.getId()).getProgress();
+					if (progress >= 0 && progress <= 4) {
+						leitnerProgress.get(progress).add(flashcard);
+					} else {
+						log.warn("Invalid progress for flashcard with id " + flashcard.getId() + "! was " + progress
+								+ " expected 0<=progress<=4");
+					}
 				}
-				actionRequest.getPortletSession().setAttribute("flashcards", flashcards,
-						PortletSession.APPLICATION_SCOPE);
-				actionRequest.getPortletSession().setAttribute("progressMap", progressMap,
-						PortletSession.APPLICATION_SCOPE);
+				int startProgress = 0;
+				for (Queue<Flashcard> q : leitnerProgress){
+					if (q.size() != 0){
+						break;
+					} else {
+						startProgress++;
+					}
+				}
+//				actionRequest.getPortletSession().setAttribute("flashcards", flashcards,
+//						PortletSession.APPLICATION_SCOPE);
+				actionRequest.getPortletSession().setAttribute("progressQueues", leitnerProgress,
+						PortletSession.PORTLET_SCOPE);
+				actionRequest.getPortletSession().setAttribute("progress", startProgress,
+						PortletSession.PORTLET_SCOPE);
 				actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
 			} else {
 				actionRequest.getPortletSession().setAttribute("currentPage", VIEW_JSP, PortletSession.PORTLET_SCOPE);
@@ -412,23 +447,36 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void submitLeitner(ActionRequest actionRequest, ActionResponse actionResponse) {
-		long flashcardId = ParamUtil.getLong(actionRequest, "flashcardId", -1);
+		int progress = (int) actionRequest.getPortletSession().getAttribute("progress");
 		boolean known = ParamUtil.getBoolean(actionRequest, "known");
 		long userId = getThemeDisplay(actionRequest).getUserId();
+		LeitnerProgress leitnerProgress = (LeitnerProgress) actionRequest.getPortletSession().getAttribute("progressQueues");
 
-		LearnProgress learnProgress = LearnProgressLocalServiceUtil.fetchByUserIdAndFlashcardId(userId, flashcardId);
-		if (learnProgress != null) {
-			int slot = learnProgress.getProgress();
-			if (known && slot < 5) {
-				slot++;
-			} else {
-				slot = 0;
+		if (leitnerProgress != null && progress >= 0 && progress < leitnerProgress.size()) {
+			Flashcard flashcard = leitnerProgress.get(progress).poll();
+			if (flashcard != null) {
+				LearnProgress learnProgress = leitnerProgress.getProgressMap().get(flashcard.getId());
+				if (learnProgress == null) {
+					learnProgress = LearnProgressLocalServiceUtil.addLearnProgress(userId, flashcard);
+					leitnerProgress.getProgressMap().put(flashcard.getId(), learnProgress);
+				}
+				if (known) {
+					if (progress < 4) {
+						progress++;
+					}
+				} else {
+					progress = 0;
+				}
+				Queue<Flashcard> queue = leitnerProgress.get(progress);
+				queue.add(flashcard);
+				learnProgress.setProgress(progress);
+				LearnProgressLocalServiceUtil.updateLearnProgress(learnProgress);
 			}
-			learnProgress.setProgress(0);
-			LearnProgressLocalServiceUtil.updateLearnProgress(learnProgress);
-			SessionMessages.add(actionRequest, "success");
-		} else {
-			SessionErrors.add(actionRequest, "error");
 		}
+	}
+	
+	public void chooseProgress(ActionRequest actionRequest, ActionResponse actionResponse) {
+		int newProgress = ParamUtil.getInteger(actionRequest, "progress",0);
+		actionRequest.getPortletSession().setAttribute("progress", newProgress);
 	}
 }
