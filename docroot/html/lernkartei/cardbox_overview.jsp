@@ -53,6 +53,6 @@
 	<a href=<%=clear%>>Alles löschen</a>
 </p>
 <p align="center">
-	<a href=<%=newCardBox%>>Neue Kartei</a>
-	<a href=<%=editMode%>>Back</a>
+	<a class="btn btn-primary" href=<%=newCardBox%>>Neue Kartei</a>
+	<a class="btn btn-primary" href=<%=editMode%>>Back</a>
 </p>
