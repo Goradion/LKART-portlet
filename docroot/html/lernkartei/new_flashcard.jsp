@@ -35,9 +35,11 @@
 <liferay-ui:error key="titleExistsError"
 	message="Could not create new flashcard. The name of the flashcard is already assigned!" />
 
+<aui:container align="center">
 <%
 	if (!cbList.isEmpty() && cbList != null){
 %>
+
 <aui:form action="<%=createFlashcard%>">
 	<aui:field-wrapper label="Hier neue Karteikarte erstellen">
 
@@ -48,11 +50,11 @@
 			contents="<%=fcBackSide%>"/>
 
    
-    Kartenbezeichnung: <input type="text"
+    <label for="flashcardTitle">Kartenbezeichnung</label> <input id="flashcardTitle" type="text"
 			name="<portlet:namespace/>flashcardTitle" required="true"
 			value="<%=flashcardTitle%>" />
-    Kartei:
-	<select name="<portlet:namespace />kartei" required="true">
+    <label for="kartei">Kartei</label>
+	<select id="kartei" name="<portlet:namespace />kartei" required="true">
 			<%
 				for (CardBox cb : cbList) {
 							if (cb.getName() == cbName) {
@@ -74,15 +76,17 @@
 
 	</aui:field-wrapper>
 </aui:form>
+
 <%} else { %>
 	<p>Sie haben noch keine Lernkarteien! Klicken Sie <a href="<%=newCardBox%>">hier</a> um eine neue zu erstellen.</p>
 <%} %>
 
 
-<p style="text-align:center">
-<a class="btn btn-warning" href=<%=back %>>Zurück</a>
-</p>
+<span>
+<a class="btn btn-warning" href=<%=back %>>Zurück</a> 
+</span>
+<span>
+<a class="btn btn-warning" href=<%=mainMenu%>>Hauptmenü</a>
+</span>
 
-<p style="text-align:center">
-	<a class="btn btn-warning" href=<%=mainMenu%>>Hauptmenü</a>
-</p>
+</aui:container>
