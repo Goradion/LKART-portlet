@@ -298,6 +298,11 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 		_cardBoxLocalService.removeByUserId(userId);
 	}
 
+	@Override
+	public void setShared(long id) {
+		_cardBoxLocalService.setShared(id);
+	}
+
 	/**
 	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

@@ -438,6 +438,15 @@ public class LernkarteiPortlet extends MVCPortlet {
 		// CardBoxLocalServiceUtil.fi
 	}
 
+	public void setShared(ActionRequest actionRequest, ActionResponse actionResponse){
+		try{
+			long id = Long.parseLong(actionRequest.getParameter("cardBoxId"));
+			CardBoxLocalServiceUtil.setShared(id);
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void clearCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse) {
 		CardBoxLocalServiceUtil.removeAll();
 	}

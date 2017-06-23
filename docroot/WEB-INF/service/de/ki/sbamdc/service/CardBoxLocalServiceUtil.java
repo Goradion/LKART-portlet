@@ -280,6 +280,10 @@ public class CardBoxLocalServiceUtil {
 		getService().removeByUserId(userId);
 	}
 
+	public static void setShared(long id) {
+		getService().setShared(id);
+	}
+
 	/**
 	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

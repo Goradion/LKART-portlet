@@ -242,6 +242,8 @@ public interface CardBoxLocalService extends BaseLocalService,
 
 	public void removeByUserId(long userId);
 
+	public void setShared(long id);
+
 	/**
 	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

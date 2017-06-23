@@ -151,9 +151,13 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 
 		_methodParameterTypes27 = new String[] { "long" };
 
-		_methodName28 = "updateCardBox";
+		_methodName28 = "setShared";
 
-		_methodParameterTypes28 = new String[] { "de.ki.sbamdc.model.CardBox" };
+		_methodParameterTypes28 = new String[] { "long" };
+
+		_methodName29 = "updateCardBox";
+
+		_methodParameterTypes29 = new String[] { "de.ki.sbamdc.model.CardBox" };
 	}
 
 	@Override
@@ -854,13 +858,32 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
+	public void setShared(long id) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName28,
+				_methodParameterTypes28, new Object[] { id });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
 	public de.ki.sbamdc.model.CardBox updateCardBox(
 		de.ki.sbamdc.model.CardBox cardBox) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28,
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] { ClpSerializer.translateInput(cardBox) });
 		}
 		catch (Throwable t) {
@@ -935,4 +958,6 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	private String[] _methodParameterTypes27;
 	private String _methodName28;
 	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
 }
