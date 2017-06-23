@@ -10,7 +10,6 @@
 <portlet:actionURL name="submitLeitner" var="wrong">
 	<portlet:param name="known" value="false"/>
 </portlet:actionURL>
-<h1>Hier Karteikarten lernen</h1>
 
 <aui:container>
 	<aui:row>
@@ -18,16 +17,21 @@
 			<portlet:actionURL name="chooseProgress" var="choose">
 				<portlet:param name="progress" value="${loop.index}"/>
 			</portlet:actionURL>
-			<span><a href= <%=choose %>>${q.size()}</a></span>
-		</c:forEach>		
-		
+			<span>
+				<a href= <%=choose %> style='color:${"cyan"}; ${loop.index == portletSessionScope.progress ? "background-color:gray;": ""}'  class="btn btn-default">
+	  				<span class="glyphicon glyphicon-folder-open" aria-hidden="true">
+	  					${q.size()}
+	  				</span>
+				</a>
+			</span>
+	</c:forEach>		
 	</aui:row>
 	<aui:row>
-${portletSessionScope.progressQueues.get(portletSessionScope.progress).peek().getFrontSide()}
-</aui:row>
+		${portletSessionScope.progressQueues.get(portletSessionScope.progress).peek().getFrontSide()}
+	</aui:row>
 	<aui:row>
-			<a href=<%=wrong%>>Falsch</a>
-			<a href=<%=correct%>>Richtig</a>
+		<a href=<%=wrong%>>Falsch</a>
+		<a href=<%=correct%>>Richtig</a>
 	</aui:row>
 </aui:container>
 

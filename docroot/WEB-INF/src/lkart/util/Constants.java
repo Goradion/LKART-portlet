@@ -15,5 +15,4 @@ public final class Constants {
 	public static final String EDIT_FLASHCARD_JSP = "/html/lernkartei/edit_flashcard.jsp";
 	public static final String ADMIN_ACTION_CARDBOX = "/html/lernkartei/admin_action_cardbox.jsp";
 	public static final String ADMIN_ACTION_FLASHCARD = "/html/lernkartei/admin_action_flashcard.jsp";
-	
 }

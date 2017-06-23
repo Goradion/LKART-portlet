@@ -8,16 +8,14 @@
 
 <portlet:actionURL name="test" var="testURL"></portlet:actionURL>
 
-<h1>Editor Modus</h1>
-
-<p>
-	<a href=<%=cardBoxOverview%>>Lernkarteien</a>
+<p style="text-align:center">
+	<a class="btn btn-primary" href=<%=cardBoxOverview%>>Lernkarteiverwaltung</a>
 </p>
-<p>
-	<a href=<%=flashcardOverview%>>Karteikarten</a>
+<p style="text-align:center">
+	<a class="btn btn-primary" href=<%=flashcardOverview%>>Karteikartenverwaltung</a>
 </p>
 
-<p>
-	<a href=<%=mainMenu%>>Back</a>
+<p style="text-align:center">
+	<a class="btn btn-warning" href=<%=mainMenu%>>Zurück</a>
 </p>
 

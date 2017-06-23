@@ -5,6 +5,7 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
 
+<%@ page import="lkart.util.Constants" %>
 <%@ page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@ page import="java.util.*" %>
 

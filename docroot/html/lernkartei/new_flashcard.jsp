@@ -2,6 +2,11 @@
 <%@ include file="/init.jsp"%>
 <%@page import="de.ki.sbamdc.model.CardBox"%>
 
+<portlet:actionURL name="toFlashcardOverview" var="back"></portlet:actionURL>
+<portlet:actionURL name="toNewCardBox" var="newCardBox"></portlet:actionURL>
+<portlet:actionURL name="createNewFlashcard" var="createFlashcard"></portlet:actionURL>
+<portlet:actionURL name="toMainMenu" var="mainMenu"></portlet:actionURL>
+
 <%
 	List<CardBox> cbList = null;
 	if (portletSession.getAttribute("cardBoxList", PortletSession.APPLICATION_SCOPE) != null) {
@@ -21,9 +26,8 @@
 	if (portletSession.getAttribute("flashcardTitle") != null)
 		flashcardTitle = (String) portletSession.getAttribute("flashcardTitle");
 %>
-<portlet:actionURL name="toFlashcardOverview" var="back"></portlet:actionURL>
-<portlet:actionURL name="toNewCardBox" var="newCardBox"></portlet:actionURL>
-<portlet:actionURL name="createNewFlashcard" var="createFlashcard"></portlet:actionURL>
+
+
 <liferay-ui:success key="success"
 	message="You've successfully created a new flashcard" />
 <liferay-ui:error key="error"
@@ -37,10 +41,12 @@
 <aui:form action="<%=createFlashcard%>">
 	<aui:field-wrapper label="Hier neue Karteikarte erstellen">
 
+			
 		<liferay-ui:input-editor name="fcFrontSide" toolbarSet="email"
-			contents="<%=fcFrontSide%>" width="200" />
+			contents="<%=fcFrontSide%>"/>
 		<liferay-ui:input-editor name="fcBackSide" toolbarSet="email"
-			contents="<%=fcBackSide%>" width="200" />
+			contents="<%=fcBackSide%>"/>
+
    
     Kartenbezeichnung: <input type="text"
 			name="<portlet:namespace/>flashcardTitle" required="true"
@@ -72,5 +78,11 @@
 	<p>Sie haben noch keine Lernkarteien! Klicken Sie <a href="<%=newCardBox%>">hier</a> um eine neue zu erstellen.</p>
 <%} %>
 
-<a href=<%=back%>>Zurück</a>
 
+<p style="text-align:center">
+<a class="btn btn-warning" href=<%=back %>>Zurück</a>
+</p>
+
+<p style="text-align:center">
+	<a class="btn btn-warning" href=<%=mainMenu%>>Hauptmenü</a>
+</p>
