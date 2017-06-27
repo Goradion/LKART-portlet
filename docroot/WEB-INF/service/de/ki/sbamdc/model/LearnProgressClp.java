@@ -433,7 +433,7 @@ public class LearnProgressClp extends BaseModelImpl<LearnProgress>
 	private long _flashcardId_fk;
 	private int _progress;
 	private BaseModel<?> _learnProgressRemoteModel;
-	private Class<?> _clpSerializerClass = de.ki.sbamdc.service.ClpSerializer.class;
+	private Class<?> _clpSerializerClass = ClpSerializer.class;
 	private boolean _entityCacheEnabled;
 	private boolean _finderCacheEnabled;
 }

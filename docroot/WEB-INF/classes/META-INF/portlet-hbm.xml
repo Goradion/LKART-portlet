@@ -6,7 +6,7 @@
 	<import class="de.ki.sbamdc.model.Flashcard" />
 	<import class="de.ki.sbamdc.model.LearnProgress" />
 	<class name="de.ki.sbamdc.model.impl.CardBoxImpl" table="sbamdc_CardBox">
-		<id name="id" column="id_" type="long">
+		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -20,7 +20,7 @@
 		<property name="shared" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="de.ki.sbamdc.model.impl.FlashcardImpl" table="sbamdc_Flashcard">
-		<id name="id" column="id_" type="long">
+		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -30,7 +30,7 @@
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="de.ki.sbamdc.model.impl.LearnProgressImpl" table="sbamdc_LearnProgress">
-		<id name="id" column="id_" type="long">
+		<id column="id_" name="id" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="userId_fk" type="com.liferay.portal.dao.orm.hibernate.LongType" />

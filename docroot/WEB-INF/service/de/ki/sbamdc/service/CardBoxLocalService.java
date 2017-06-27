@@ -61,6 +61,25 @@ public interface CardBoxLocalService extends BaseLocalService,
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CardBoxLocalServiceUtil} to access the card box local service. Add custom service methods to {@link de.ki.sbamdc.service.impl.CardBoxLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ActionableDynamicQuery getActionableDynamicQuery();
+
+	public DynamicQuery dynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException;
+
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException;
 
 	/**
 	* Adds the card box to the database. Also notifies the appropriate model listeners.
@@ -101,14 +120,55 @@ public interface CardBoxLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	public CardBox deleteCardBox(long id) throws PortalException;
 
-	/**
-	* @throws PortalException
-	*/
-	@Override
-	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
-		throws PortalException;
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CardBox fetchCardBox(long id);
 
-	public DynamicQuery dynamicQuery();
+	public CardBox findByNameAndUserId(java.lang.String name, long userId);
+
+	public CardBox findByNameAndUserName(java.lang.String name,
+		java.lang.String userName);
+
+	/**
+	* Returns the card box with the primary key.
+	*
+	* @param id the primary key of the card box
+	* @return the card box
+	* @throws PortalException if a card box with the primary key could not be found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CardBox getCardBox(long id) throws PortalException;
+
+	/**
+	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param cardBox the card box
+	* @return the card box that was updated
+	*/
+	@Indexable(type = IndexableType.REINDEX)
+	public CardBox updateCardBox(CardBox cardBox);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCardBoxesCountOfUser(long userId);
+
+	/**
+	* Returns the number of card boxs.
+	*
+	* @return the number of card boxs
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCardBoxsCount();
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable;
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public java.lang.String getOSGiServiceIdentifier();
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -149,49 +209,7 @@ public interface CardBoxLocalService extends BaseLocalService,
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
 
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows matching the dynamic query
-	*/
-	public long dynamicQueryCount(DynamicQuery dynamicQuery);
-
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows matching the dynamic query
-	*/
-	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CardBox fetchCardBox(long id);
-
-	public CardBox findByNameAndUserId(java.lang.String name, long userId);
-
-	public CardBox findByNameAndUserName(java.lang.String name,
-		java.lang.String userName);
-
 	public List<CardBox> findLearnableCardBoxes(long userId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public ActionableDynamicQuery getActionableDynamicQuery();
-
-	/**
-	* Returns the card box with the primary key.
-	*
-	* @param id the primary key of the card box
-	* @return the card box
-	* @throws PortalException if a card box with the primary key could not be found
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CardBox getCardBox(long id) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCardBoxesCountOfUser(long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end);
@@ -211,43 +229,24 @@ public interface CardBoxLocalService extends BaseLocalService,
 	public List<CardBox> getCardBoxs(int start, int end);
 
 	/**
-	* Returns the number of card boxs.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of card boxs
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCardBoxsCount();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+	public long dynamicQueryCount(DynamicQuery dynamicQuery);
 
 	/**
-	* Returns the OSGi service identifier.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the OSGi service identifier
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public java.lang.String getOSGiServiceIdentifier();
-
-	@Override
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
-		throws PortalException;
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable;
+	public long dynamicQueryCount(DynamicQuery dynamicQuery,
+		Projection projection);
 
 	public void removeAll();
 
 	public void removeByUserId(long userId);
-
-	/**
-	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param cardBox the card box
-	* @return the card box that was updated
-	*/
-	@Indexable(type = IndexableType.REINDEX)
-	public CardBox updateCardBox(CardBox cardBox);
 }

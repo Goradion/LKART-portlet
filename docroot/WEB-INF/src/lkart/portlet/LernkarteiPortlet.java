@@ -85,15 +85,8 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		long cardBoxId = ParamUtil.getLong(actionRequest, "kartei");
-		// String[] split = cardBoxIdString.split(".");
 		try {
 			CardBox chosenCardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
-			// if (split.length == 2) {
-			// System.out.println(cardBoxIdString);
-			// chosenCardBox =
-			// CardBoxLocalServiceUtil.findByNameAndUserName(split[0],
-			// split[1]);
-			// }
 			if (chosenCardBox != null) {
 				List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByCardBoxId(chosenCardBox.getId());
 				long userId = getThemeDisplay(actionRequest).getUserId();
@@ -135,8 +128,6 @@ public class LernkarteiPortlet extends MVCPortlet {
 						startProgress++;
 					}
 				}
-//				actionRequest.getPortletSession().setAttribute("flashcards", flashcards,
-//						PortletSession.APPLICATION_SCOPE);
 				actionRequest.getPortletSession().setAttribute("progressQueues", leitnerProgress,
 						PortletSession.PORTLET_SCOPE);
 				actionRequest.getPortletSession().setAttribute("progress", startProgress,
@@ -447,30 +438,37 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void submitLeitner(ActionRequest actionRequest, ActionResponse actionResponse) {
-		int progress = (int) actionRequest.getPortletSession().getAttribute("progress");
+		int oldProgress = (int) actionRequest.getPortletSession().getAttribute("progress");
+		int newProgress = 0;
 		boolean known = ParamUtil.getBoolean(actionRequest, "known");
 		long userId = getThemeDisplay(actionRequest).getUserId();
 		LeitnerProgress leitnerProgress = (LeitnerProgress) actionRequest.getPortletSession().getAttribute("progressQueues");
 
-		if (leitnerProgress != null && progress >= 0 && progress < leitnerProgress.size()) {
-			Flashcard flashcard = leitnerProgress.get(progress).poll();
+		if (leitnerProgress != null && oldProgress >= 0 && oldProgress < leitnerProgress.size()) {
+			Flashcard flashcard = leitnerProgress.get(oldProgress).poll();
 			if (flashcard != null) {
 				LearnProgress learnProgress = leitnerProgress.getProgressMap().get(flashcard.getId());
 				if (learnProgress == null) {
 					learnProgress = LearnProgressLocalServiceUtil.addLearnProgress(userId, flashcard);
 					leitnerProgress.getProgressMap().put(flashcard.getId(), learnProgress);
 				}
+				
 				if (known) {
-					if (progress < 4) {
-						progress++;
+					if (oldProgress < 4) {
+						newProgress = oldProgress + 1;
+					} else {
+						newProgress = oldProgress;
 					}
 				} else {
-					progress = 0;
+					newProgress = 0;
 				}
-				Queue<Flashcard> queue = leitnerProgress.get(progress);
-				queue.add(flashcard);
-				learnProgress.setProgress(progress);
+				Queue<Flashcard> nextQueue = leitnerProgress.get(newProgress);
+				nextQueue.add(flashcard);
+				learnProgress.setProgress(newProgress);
 				LearnProgressLocalServiceUtil.updateLearnProgress(learnProgress);
+				if (leitnerProgress.get(oldProgress).isEmpty()){
+					actionRequest.getPortletSession().setAttribute("progress", newProgress);
+				}
 			}
 		}
 	}

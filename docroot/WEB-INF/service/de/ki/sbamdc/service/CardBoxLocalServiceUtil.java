@@ -41,6 +41,32 @@ public class CardBoxLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link de.ki.sbamdc.service.impl.CardBoxLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
 
 	/**
 	* Adds the card box to the database. Also notifies the appropriate model listeners.
@@ -91,17 +117,69 @@ public class CardBoxLocalServiceUtil {
 		return getService().deleteCardBox(id);
 	}
 
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
+	public static de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
+		return getService().fetchCardBox(id);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
+	public static de.ki.sbamdc.model.CardBox findByNameAndUserId(
+		java.lang.String name, long userId) {
+		return getService().findByNameAndUserId(name, userId);
+	}
+
+	public static de.ki.sbamdc.model.CardBox findByNameAndUserName(
+		java.lang.String name, java.lang.String userName) {
+		return getService().findByNameAndUserName(name, userName);
+	}
+
+	/**
+	* Returns the card box with the primary key.
+	*
+	* @param id the primary key of the card box
+	* @return the card box
+	* @throws PortalException if a card box with the primary key could not be found
+	*/
+	public static de.ki.sbamdc.model.CardBox getCardBox(long id)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCardBox(id);
+	}
+
+	/**
+	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param cardBox the card box
+	* @return the card box that was updated
+	*/
+	public static de.ki.sbamdc.model.CardBox updateCardBox(
+		de.ki.sbamdc.model.CardBox cardBox) {
+		return getService().updateCardBox(cardBox);
+	}
+
+	public static int getCardBoxesCountOfUser(long userId) {
+		return getService().getCardBoxesCountOfUser(userId);
+	}
+
+	/**
+	* Returns the number of card boxs.
+	*
+	* @return the number of card boxs
+	*/
+	public static int getCardBoxsCount() {
+		return getService().getCardBoxsCount();
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
 	}
 
 	/**
@@ -154,67 +232,9 @@ public class CardBoxLocalServiceUtil {
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @return the number of rows matching the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-		return getService().dynamicQueryCount(dynamicQuery);
-	}
-
-	/**
-	* Returns the number of rows matching the dynamic query.
-	*
-	* @param dynamicQuery the dynamic query
-	* @param projection the projection to apply to the query
-	* @return the number of rows matching the dynamic query
-	*/
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection) {
-		return getService().dynamicQueryCount(dynamicQuery, projection);
-	}
-
-	public static de.ki.sbamdc.model.CardBox fetchCardBox(long id) {
-		return getService().fetchCardBox(id);
-	}
-
-	public static de.ki.sbamdc.model.CardBox findByNameAndUserId(
-		java.lang.String name, long userId) {
-		return getService().findByNameAndUserId(name, userId);
-	}
-
-	public static de.ki.sbamdc.model.CardBox findByNameAndUserName(
-		java.lang.String name, java.lang.String userName) {
-		return getService().findByNameAndUserName(name, userName);
-	}
-
 	public static java.util.List<de.ki.sbamdc.model.CardBox> findLearnableCardBoxes(
 		long userId) {
 		return getService().findLearnableCardBoxes(userId);
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	/**
-	* Returns the card box with the primary key.
-	*
-	* @param id the primary key of the card box
-	* @return the card box
-	* @throws PortalException if a card box with the primary key could not be found
-	*/
-	public static de.ki.sbamdc.model.CardBox getCardBox(long id)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getCardBox(id);
-	}
-
-	public static int getCardBoxesCountOfUser(long userId) {
-		return getService().getCardBoxesCountOfUser(userId);
 	}
 
 	public static java.util.List<de.ki.sbamdc.model.CardBox> getCardBoxesOfUser(
@@ -239,37 +259,27 @@ public class CardBoxLocalServiceUtil {
 	}
 
 	/**
-	* Returns the number of card boxs.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the number of card boxs
+	* @param dynamicQuery the dynamic query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static int getCardBoxsCount() {
-		return getService().getCardBoxsCount();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		return getService().getIndexableActionableDynamicQuery();
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
 	/**
-	* Returns the OSGi service identifier.
+	* Returns the number of rows matching the dynamic query.
 	*
-	* @return the OSGi service identifier
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows matching the dynamic query
 	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
-	}
-
-	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
-
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	public static void removeAll() {
@@ -278,17 +288,6 @@ public class CardBoxLocalServiceUtil {
 
 	public static void removeByUserId(long userId) {
 		getService().removeByUserId(userId);
-	}
-
-	/**
-	* Updates the card box in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param cardBox the card box
-	* @return the card box that was updated
-	*/
-	public static de.ki.sbamdc.model.CardBox updateCardBox(
-		de.ki.sbamdc.model.CardBox cardBox) {
-		return getService().updateCardBox(cardBox);
 	}
 
 	public static void clearService() {

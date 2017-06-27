@@ -6,5 +6,7 @@
 *.ear
 
 /.tern-project
+
 docroot/WEB-INF/classes/service.properties
 docroot/WEB-INF/src/service.properties
+docroot/WEB-INF/src/META-INF/portlet-spring.xml
