@@ -154,6 +154,10 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 		_methodName28 = "removeByUserId";
 
 		_methodParameterTypes28 = new String[] { "long" };
+
+		_methodName29 = "setShared";
+
+		_methodParameterTypes29 = new String[] { "long" };
 	}
 
 	@Override
@@ -878,6 +882,25 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 		}
 	}
 
+	@Override
+	public void setShared(long id) {
+		try {
+			_invokableLocalService.invokeMethod(_methodName29,
+				_methodParameterTypes29, new Object[] { id });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -935,4 +958,6 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	private String[] _methodParameterTypes27;
 	private String _methodName28;
 	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
 }

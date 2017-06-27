@@ -35,10 +35,14 @@ import de.ki.sbamdc.service.base.CardBoxLocalServiceBaseImpl;
  * The implementation of the card box local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link de.ki.sbamdc.service.CardBoxLocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link de.ki.sbamdc.service.CardBoxLocalService} interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author Simon Bastian, Alexander Mueller, Diego Castellanos
@@ -50,17 +54,20 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link de.ki.sbamdc.service.CardBoxLocalServiceUtil} to access the card box local service.
+	 * Never reference this class directly. Always use {@link
+	 * de.ki.sbamdc.service.CardBoxLocalServiceUtil} to access the card box
+	 * local service.
 	 */
-		
-	public CardBox findByNameAndUserId(String name, long userId){
+
+	public CardBox findByNameAndUserId(String name, long userId) {
 		return cardBoxPersistence.fetchByNameAndUserId(name, userId);
 	}
-	
-	public CardBox findByNameAndUserName(String name, String userName){
+
+	public CardBox findByNameAndUserName(String name, String userName) {
 		return cardBoxPersistence.fetchByNameAndUserName(name, userName);
 	}
-	public List<CardBox> findLearnableCardBoxes(long userId){
+
+	public List<CardBox> findLearnableCardBoxes(long userId) {
 		List<CardBox> cardBoxes = new ArrayList<>();
 		List<CardBox> own = cardBoxPersistence.findByUserId(userId);
 		List<CardBox> foreignAndShared = cardBoxPersistence.findByForeignAndShared(userId);
@@ -68,14 +75,15 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 		cardBoxes.addAll(foreignAndShared);
 		return Collections.unmodifiableList(cardBoxes);
 	}
-	
-	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end){
+
+	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end) {
 		return cardBoxPersistence.findByUserId(userId, start, end);
 	}
-	
-	public int getCardBoxesCountOfUser(long userId){
+
+	public int getCardBoxesCountOfUser(long userId) {
 		return cardBoxPersistence.countByUserId(userId);
 	}
+
 	public CardBox addCardBox(String name, long userId) throws PortalException {
 		CardBox cardBox = cardBoxPersistence.fetchByNameAndUserId(name, userId);
 		if (cardBox == null) {
@@ -88,14 +96,21 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 		}
 		return cardBox;
 	}
-	
-	
-	public void removeByUserId(long userId){
+
+	public void removeByUserId(long userId) {
 		cardBoxPersistence.removeByUserId(userId);
 	}
-	
-	public void removeAll(){
+
+	public void removeAll() {
 		flashcardPersistence.removeAll();
 		cardBoxPersistence.removeAll();
+	}
+
+	public void setShared(long id) {
+		CardBox cb = cardBoxPersistence.fetchByPrimaryKey(id);
+		if (cb != null) {
+			cb.setShared(!cb.isShared());
+			cardBoxPersistence.update(cb);
+		}
 	}
 }

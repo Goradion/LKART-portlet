@@ -154,6 +154,10 @@ public class CardBoxLocalServiceClpInvoker {
 		_methodName58 = "removeAll";
 
 		_methodParameterTypes58 = new String[] {  };
+
+		_methodName59 = "setShared";
+
+		_methodParameterTypes59 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -314,6 +318,13 @@ public class CardBoxLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			CardBoxLocalServiceUtil.setShared(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -373,4 +384,6 @@ public class CardBoxLocalServiceClpInvoker {
 	private String[] _methodParameterTypes57;
 	private String _methodName58;
 	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
 }

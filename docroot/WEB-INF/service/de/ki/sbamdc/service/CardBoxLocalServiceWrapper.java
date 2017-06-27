@@ -311,6 +311,11 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
+	public void setShared(long id) {
+		_cardBoxLocalService.setShared(id);
+	}
+
+	@Override
 	public CardBoxLocalService getWrappedService() {
 		return _cardBoxLocalService;
 	}

@@ -290,6 +290,10 @@ public class CardBoxLocalServiceUtil {
 		getService().removeByUserId(userId);
 	}
 
+	public static void setShared(long id) {
+		getService().setShared(id);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

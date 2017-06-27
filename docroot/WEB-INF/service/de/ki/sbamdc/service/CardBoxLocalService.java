@@ -249,4 +249,6 @@ public interface CardBoxLocalService extends BaseLocalService,
 	public void removeAll();
 
 	public void removeByUserId(long userId);
+
+	public void setShared(long id);
 }

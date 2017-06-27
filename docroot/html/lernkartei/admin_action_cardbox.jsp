@@ -20,4 +20,14 @@
 		confirmation="Möchten Sie diese Lernkartei wirklich löschen? 
 		Alle zugehörigen Karteikarten werden ebenfalls gelöscht!"/>
 	
+	
+	<portlet:actionURL name="setShared" var="setShared">
+		<portlet:param name="cardBoxId" value='<%=""+cardBoxId%>'/>
+	</portlet:actionURL>
+	<%if(!cardBox.isShared()) {%>
+	<liferay-ui:icon iconCssClass="icon-eye-open" message="Sichtbar machen" url='<%=setShared %>'/>
+	<%} else { %>
+		<liferay-ui:icon iconCssClass="icon-eye-close" message="Unsichtbar machen" url='<%=setShared %>'/>
+	<%} %>
+	
 </liferay-ui:icon-menu>

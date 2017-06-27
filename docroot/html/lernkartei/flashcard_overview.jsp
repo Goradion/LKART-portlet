@@ -45,9 +45,7 @@
 <!-- SearchContainer END -->
 
 
-<p>
-	<a href=<%=newFlashcard%>>Neue Lernkarte</a>
-</p>
-<p>
-	<a href=<%=editMode%>>Zurück</a>
+<p style="text-align:center">
+	<a class="btn btn-primary" href=<%=newFlashcard%>>Neue Lernkarte</a>
+	<a class="btn btn-primary" href=<%=editMode%>>Zurück</a>
 </p>

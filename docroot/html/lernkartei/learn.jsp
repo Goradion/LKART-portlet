@@ -19,7 +19,7 @@
 				<portlet:param name="progress" value="${loop.index}" />
 			</portlet:actionURL>
 			<span>
-				<a href= <%=choose %> style='color:${"cyan"}; ${loop.index == portletSessionScope.progress ? "background-color:gray;": ""}'  class="btn btn-default">
+				<a href= <%=choose %> style='color:${portletSessionScope.progressQueues.getColor(loop.index)}; ${loop.index == portletSessionScope.progress ? "background-color:gray;": ""}'  class="btn btn-default">
 	  				<span class="glyphicon glyphicon-folder-open" aria-hidden="true">
 	  					${q.size()}
 	  				</span>

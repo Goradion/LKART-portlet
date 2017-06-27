@@ -52,9 +52,7 @@
 	<portlet:actionURL name="clearCardBoxes" var="clear"/>
 	<a href=<%=clear%>>Alles löschen</a>
 </p>
-<p>
-	<a href=<%=newCardBox%>>Neue Kartei</a>
-</p>
-<p>
-	<a href=<%=editMode%>>Back</a>
+<p align="center">
+	<a class="btn btn-primary" href=<%=newCardBox%>>Neue Kartei</a>
+	<a class="btn btn-primary" href=<%=editMode%>>Back</a>
 </p>
