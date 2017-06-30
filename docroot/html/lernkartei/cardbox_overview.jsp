@@ -50,7 +50,7 @@
 
 <p>
 	<portlet:actionURL name="clearCardBoxes" var="clear"/>
-	<a href=<%=clear%>>Alles löschen</a>
+	<a class="btn btn-warning" href=<%=clear%>>Alles löschen</a>
 </p>
 <p align="center">
 	<a class="btn btn-primary" href=<%=newCardBox%>>Neue Kartei</a>
