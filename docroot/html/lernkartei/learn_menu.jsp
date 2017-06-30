@@ -18,7 +18,7 @@
   
 </aui:field-wrapper>
 </aui:form>
-<br>
+
 <%-- <c:forEach items="${sessionScope.cardBoxList}" var="c">
 	<portlet:actionURL name="toLearnMode" var="startLearning">
 		<portlet:param name="cardBoxId" value="${c.getId()}"/>
