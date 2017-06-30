@@ -246,9 +246,8 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
-	public java.util.List<de.ki.sbamdc.model.CardBox> findLearnableCardBoxes(
-		long userId) {
-		return _cardBoxLocalService.findLearnableCardBoxes(userId);
+	public java.util.List<de.ki.sbamdc.model.CardBox> findByUserId(long userId) {
+		return _cardBoxLocalService.findByUserId(userId);
 	}
 
 	@Override
@@ -272,6 +271,12 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	public java.util.List<de.ki.sbamdc.model.CardBox> getCardBoxs(int start,
 		int end) {
 		return _cardBoxLocalService.getCardBoxs(start, end);
+	}
+
+	@Override
+	public java.util.SortedMap<java.lang.String, java.util.List<de.ki.sbamdc.model.CardBox>> findLearnableCardBoxes(
+		long userId) throws com.liferay.portal.kernel.exception.PortalException {
+		return _cardBoxLocalService.findLearnableCardBoxes(userId);
 	}
 
 	/**

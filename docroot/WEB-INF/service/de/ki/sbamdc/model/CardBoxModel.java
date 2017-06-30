@@ -208,21 +208,6 @@ public interface CardBoxModel extends BaseModel<CardBox>, GroupedModel,
 	public void setName(String name);
 
 	/**
-	 * Returns the author of this card box.
-	 *
-	 * @return the author of this card box
-	 */
-	@AutoEscape
-	public String getAuthor();
-
-	/**
-	 * Sets the author of this card box.
-	 *
-	 * @param author the author of this card box
-	 */
-	public void setAuthor(String author);
-
-	/**
 	 * Returns the shared of this card box.
 	 *
 	 * @return the shared of this card box

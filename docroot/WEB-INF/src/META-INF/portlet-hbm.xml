@@ -16,7 +16,6 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="author" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="shared" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 	<class name="de.ki.sbamdc.model.impl.FlashcardImpl" table="sbamdc_Flashcard">

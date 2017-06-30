@@ -122,7 +122,7 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName22 = "findLearnableCardBoxes";
+		_methodName22 = "findByUserId";
 
 		_methodParameterTypes22 = new String[] { "long" };
 
@@ -134,30 +134,34 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 
 		_methodParameterTypes24 = new String[] { "int", "int" };
 
-		_methodName25 = "dynamicQueryCount";
+		_methodName25 = "findLearnableCardBoxes";
 
-		_methodParameterTypes25 = new String[] {
-				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
-			};
+		_methodParameterTypes25 = new String[] { "long" };
 
 		_methodName26 = "dynamicQueryCount";
 
 		_methodParameterTypes26 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
+			};
+
+		_methodName27 = "dynamicQueryCount";
+
+		_methodParameterTypes27 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
 
-		_methodName27 = "removeAll";
+		_methodName28 = "removeAll";
 
-		_methodParameterTypes27 = new String[] {  };
+		_methodParameterTypes28 = new String[] {  };
 
-		_methodName28 = "removeByUserId";
-
-		_methodParameterTypes28 = new String[] { "long" };
-
-		_methodName29 = "setShared";
+		_methodName29 = "removeByUserId";
 
 		_methodParameterTypes29 = new String[] { "long" };
+
+		_methodName30 = "setShared";
+
+		_methodParameterTypes30 = new String[] { "long" };
 	}
 
 	@Override
@@ -718,8 +722,7 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
-	public java.util.List<de.ki.sbamdc.model.CardBox> findLearnableCardBoxes(
-		long userId) {
+	public java.util.List<de.ki.sbamdc.model.CardBox> findByUserId(long userId) {
 		Object returnObj = null;
 
 		try {
@@ -790,13 +793,41 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	}
 
 	@Override
+	public java.util.SortedMap<java.lang.String, java.util.List<de.ki.sbamdc.model.CardBox>> findLearnableCardBoxes(
+		long userId) throws com.liferay.portal.kernel.exception.PortalException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25, new Object[] { userId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.SortedMap<java.lang.String, java.util.List<de.ki.sbamdc.model.CardBox>>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -821,8 +852,8 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -847,8 +878,8 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	@Override
 	public void removeAll() {
 		try {
-			_invokableLocalService.invokeMethod(_methodName27,
-				_methodParameterTypes27, new Object[] {  });
+			_invokableLocalService.invokeMethod(_methodName28,
+				_methodParameterTypes28, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -866,8 +897,8 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	@Override
 	public void removeByUserId(long userId) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName28,
-				_methodParameterTypes28, new Object[] { userId });
+			_invokableLocalService.invokeMethod(_methodName29,
+				_methodParameterTypes29, new Object[] { userId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -885,8 +916,8 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	@Override
 	public void setShared(long id) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName29,
-				_methodParameterTypes29, new Object[] { id });
+			_invokableLocalService.invokeMethod(_methodName30,
+				_methodParameterTypes30, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -960,4 +991,6 @@ public class CardBoxLocalServiceClp implements CardBoxLocalService {
 	private String[] _methodParameterTypes28;
 	private String _methodName29;
 	private String[] _methodParameterTypes29;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
 }

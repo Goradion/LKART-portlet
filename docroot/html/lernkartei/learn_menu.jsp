@@ -2,8 +2,8 @@
 
 <portlet:actionURL name="toMainMenu" var="back"></portlet:actionURL>
 <portlet:actionURL name="toLearnMode" var="startLearning"></portlet:actionURL>
-<aui:form action="<%=startLearning %>">
-<aui:field-wrapper label="Was soll gelernt werden?">
+<aui:form action="<%=startLearning %>" style="text-align:center">
+ <h2>Was soll gelernt werden?</h2>
     
     <p>
     Kartei: 
@@ -17,18 +17,12 @@
 		</c:forEach>
 	</select>
     </p>
-    <aui:button type="submit" value="Los gehts"></aui:button>
+    <p>
+    	<a class="btn btn-warning" href=<%=back %>>Zurück</a>
+    	<aui:button type="submit" value="Los gehts"></aui:button>
+    </p>
   
-</aui:field-wrapper>
 </aui:form>
-<br>
-<%-- <c:forEach items="${sessionScope.cardBoxList}" var="c">
-	<portlet:actionURL name="toLearnMode" var="startLearning">
-		<portlet:param name="cardBoxId" value="${c.getId()}"/>
-	</portlet:actionURL>
-	<a href = <%=startLearning%>>${c.getName()}</a> <br>
-</c:forEach> --%>
-
-<a class="btn btn-primary" href=<%=back %>>Zurück</a>
-
+	
+</p>
 

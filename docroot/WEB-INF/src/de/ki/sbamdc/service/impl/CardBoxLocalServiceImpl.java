@@ -17,15 +17,12 @@ package de.ki.sbamdc.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
-import org.apache.maven.artifact.repository.layout.LegacyRepositoryLayout;
-
-import com.liferay.portal.kernel.exception.NoSuchUserException;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.search.Indexable;
-import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
-import com.liferay.portal.kernel.service.persistence.UserUtil;
 
 import aQute.bnd.annotation.ProviderType;
 import de.ki.sbamdc.model.CardBox;
@@ -67,15 +64,27 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 		return cardBoxPersistence.fetchByNameAndUserName(name, userName);
 	}
 
-	public List<CardBox> findLearnableCardBoxes(long userId) {
-		List<CardBox> cardBoxes = new ArrayList<>();
+	public SortedMap<String,List<CardBox>> findLearnableCardBoxes(long userId) throws PortalException {
+		SortedMap<String,List<CardBox>> cardBoxesOfUsers = new TreeMap<>();
 		List<CardBox> own = cardBoxPersistence.findByUserId(userId);
+		UserLocalServiceUtil.getUser(userId).getScreenName();
+		cardBoxesOfUsers.put("Eigene", own);
 		List<CardBox> foreignAndShared = cardBoxPersistence.findByForeignAndShared(userId);
-		cardBoxes.addAll(own);
-		cardBoxes.addAll(foreignAndShared);
-		return Collections.unmodifiableList(cardBoxes);
+		for (CardBox cardBox : foreignAndShared){
+			if (cardBoxesOfUsers.containsKey(cardBox.getUserName())){
+				cardBoxesOfUsers.get(cardBox.getUserName()).add(cardBox);
+			} else {
+				List<CardBox> cardBoxesOfUser = new ArrayList<>();
+				cardBoxesOfUser.add(cardBox);
+				cardBoxesOfUsers.put(cardBox.getUserName(), cardBoxesOfUser);
+			}
+		}
+		return Collections.unmodifiableSortedMap(cardBoxesOfUsers);
 	}
 
+	public List<CardBox> findByUserId(long userId){
+		return cardBoxPersistence.findByUserId(userId);
+	}
 	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end) {
 		return cardBoxPersistence.findByUserId(userId, start, end);
 	}
@@ -98,12 +107,15 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 	}
 
 	public void removeByUserId(long userId) {
+		flashcardPersistence.removeByUserId(userId);
+		learnProgressPersistence.removeByUserId(userId);
 		cardBoxPersistence.removeByUserId(userId);
 	}
 
 	public void removeAll() {
 		flashcardPersistence.removeAll();
 		cardBoxPersistence.removeAll();
+		learnProgressPersistence.removeAll();
 	}
 
 	public void setShared(long id) {

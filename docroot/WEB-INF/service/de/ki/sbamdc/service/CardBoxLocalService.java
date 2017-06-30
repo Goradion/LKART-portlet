@@ -38,6 +38,7 @@ import de.ki.sbamdc.model.CardBox;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.SortedMap;
 
 /**
  * Provides the local service interface for CardBox. Methods of this
@@ -209,7 +210,7 @@ public interface CardBoxLocalService extends BaseLocalService,
 	public <T> List<T> dynamicQuery(DynamicQuery dynamicQuery, int start,
 		int end, OrderByComparator<T> orderByComparator);
 
-	public List<CardBox> findLearnableCardBoxes(long userId);
+	public List<CardBox> findByUserId(long userId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CardBox> getCardBoxesOfUser(long userId, int start, int end);
@@ -227,6 +228,9 @@ public interface CardBoxLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CardBox> getCardBoxs(int start, int end);
+
+	public SortedMap<java.lang.String, List<CardBox>> findLearnableCardBoxes(
+		long userId) throws PortalException;
 
 	/**
 	* Returns the number of rows matching the dynamic query.

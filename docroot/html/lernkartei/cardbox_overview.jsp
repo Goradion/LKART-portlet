@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@page import="de.ki.sbamdc.model.CardBox" %>
 <%@page import="de.ki.sbamdc.service.CardBoxLocalServiceUtil" %>
+<%@page import="lkart.util.CardBoxComparatorUtil" %>
 <%@page import="lkart.util.Constants" %>
 
 
@@ -11,10 +12,6 @@
 
 
 <!-- SearchContainer START -->
-<%
-// 	List<CardBox> cardboxes = CardBoxLocalServiceUtil.getCardBoxs(0,
-// 			CardBoxLocalServiceUtil.getCardBoxsCount());
-%>
 <portlet:actionURL name="toMainMenu" var="mainMenu"></portlet:actionURL>
 <liferay-portlet:renderURL varImpl="iteratorURL">
 	<portlet:param name="mvcPath" value="<%=Constants.CARDBOX_OVERVIEW_JSP%>" />
@@ -23,15 +20,21 @@
 <h1>Lernkarteien</h1>
 
 <liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Lernkarteien wurden gefunden."
-	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true" orderByType="asc"
+	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true" 
 	iteratorURL="<%=iteratorURL%>">
-	<liferay-ui:search-container-results>
+	<liferay-ui:search-container-results >
 		<%
-			results = CardBoxLocalServiceUtil.getCardBoxesOfUser(themeDisplay.getUserId(), searchContainer.getStart(),
-					searchContainer.getEnd());
-			total = CardBoxLocalServiceUtil.getCardBoxesCountOfUser(themeDisplay.getUserId());
+			results = CardBoxLocalServiceUtil.findByUserId(themeDisplay.getUserId());
+			total = results.size();
+// 					CardBoxLocalServiceUtil.getCardBoxesCountOfUser(themeDisplay.getUserId());
 			searchContainer.setTotal(total);
+			String sortByCol = ParamUtil.getString(request, "orderByCol"); 
+			String sortByType = ParamUtil.getString(request, "orderByType"); 
+			if (sortByCol != null){
+				results = ListUtil.sort(results, CardBoxComparatorUtil.getComparator(sortByCol, sortByType));
+			}
 			searchContainer.setResults(results);
+			searchContainer.setTotal(total);
 		%>
 
 	</liferay-ui:search-container-results>
@@ -39,7 +42,7 @@
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.CardBox"
 		modelVar="cardBox" keyProperty="id">
 		<liferay-ui:search-container-column-text property="name" name="Name" orderable="true" />
-		<liferay-ui:search-container-column-text name="Für alle sichtbar">
+		<liferay-ui:search-container-column-text  name = "Geteilt" orderable ="true">
 			<%=(cardBox.isShared())? "Ja":"Nein" %>
 		</liferay-ui:search-container-column-text>		
 	<liferay-ui:search-container-column-jsp  name="Verwaltung" path="<%=Constants.ADMIN_ACTION_CARDBOX %>"/>	
@@ -50,9 +53,9 @@
 
 <p>
 	<portlet:actionURL name="clearCardBoxes" var="clear"/>
-	<a class="btn btn-warning" href=<%=clear%>>Alles löschen</a>
+	<a class="btn btn-danger" href=<%=clear%>>Alles löschen</a>
 </p>
 <p align="center">
+	<a class="btn btn-warning" href=<%=editMode%>>Zurück</a>
 	<a class="btn btn-primary" href=<%=newCardBox%>>Neue Kartei</a>
-	<a class="btn btn-primary" href=<%=editMode%>>Back</a>
 </p>

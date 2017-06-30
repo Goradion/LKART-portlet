@@ -25,20 +25,23 @@
 	<liferay-ui:search-container-results>
 		<%
 			results = FlashcardLocalServiceUtil.findByUserId(userId);
-					total = FlashcardLocalServiceUtil.findByUserId(userId).size();
-					searchContainer.setTotal(total);
-					searchContainer.setResults(results);
+			total = FlashcardLocalServiceUtil.findByUserId(userId).size();
+			searchContainer.setTotal(total);
+			searchContainer.setResults(results);
 		%>
 
 	</liferay-ui:search-container-results>
-
+	
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.Flashcard"
-		modelVar="flashcard" keyProperty="id">
-		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_preview_link.jsp" name="Bezeichnung"/>
+		modelVar="flashcard" keyProperty="id" >
+		<liferay-ui:search-container-column-text name="Bezeichnung">
+			<%=flashcard.getTitle() %>
+		</liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_preview_link.jsp" name="Vorschau" />
 		<liferay-ui:search-container-column-text name="Lernkartei">
 			<%=(CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk())!=null)?CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk()).getName() : ""%>
 		</liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-jsp path="<%=Constants.ADMIN_ACTION_FLASHCARD %>"></liferay-ui:search-container-column-jsp>
+		<liferay-ui:search-container-column-jsp path="<%=Constants.ADMIN_ACTION_FLASHCARD %>" name="Verwaltung"/>
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator searchContainer="<%=searchContainer%>" />
 </liferay-ui:search-container>
