@@ -28,6 +28,7 @@
 	</portlet:actionURL>
 	<a href = <%=startLearning%>>${c.getName()}</a> <br>
 </c:forEach> --%>
-<a href=<%=back %>>Zurück</a>
+
+<a class="btn btn-primary" href=<%=back %>>Zurück</a>
 
 

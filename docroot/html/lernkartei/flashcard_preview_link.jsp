@@ -44,7 +44,8 @@ AUI().use('aui-base',
 							//cssClass: 'yourCSSclassName',
 							modal: true,
 							resizable: false,
-							width: 500
+							width: 500,
+							height: 375
 						}
 					}).plug( 
 						A.Plugin.DialogIframe,

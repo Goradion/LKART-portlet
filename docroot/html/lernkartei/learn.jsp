@@ -62,8 +62,6 @@
 					.getAttribute("hidden");
 			var backSideHidden = innerDoc.getElementById("backSide")
 					.getAttribute("hidden");
-			console.log("frontSideHidden = " + frontSideHidden);
-			console.log("backSideHidden = " + backSideHidden);
 			if (frontSideHidden == null || frontSideHidden == "") {
 				innerDoc.getElementById("frontSide").setAttribute("hidden",
 						"true");
