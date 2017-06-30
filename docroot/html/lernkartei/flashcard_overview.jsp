@@ -4,6 +4,7 @@
 <%@page import="de.ki.sbamdc.model.Flashcard"%>
 <%@page import="de.ki.sbamdc.service.FlashcardLocalServiceUtil" %>
 <%@page import="de.ki.sbamdc.service.CardBoxLocalServiceUtil" %>
+<%@page import="lkart.util.FlashcardComparatorUtil" %>
 <%@page import="lkart.util.Constants" %>
 
 <portlet:actionURL name="toEditMode" var="editMode"></portlet:actionURL>
@@ -41,6 +42,11 @@
 		<%
 			results = flashcards;
 			total = flashcards.size();
+			String sortByCol = ParamUtil.getString(request, "orderByCol"); 
+			String sortByType = ParamUtil.getString(request, "orderByType");
+			if (sortByCol != null){
+				results = ListUtil.sort(results, FlashcardComparatorUtil.getComparator(sortByCol, sortByType));
+			}
 			searchContainer.setTotal(total);
 			searchContainer.setResults(results);
 		%>
@@ -49,11 +55,11 @@
 
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.Flashcard"
 		modelVar="flashcard" keyProperty="id" >
-		<liferay-ui:search-container-column-text name="Bezeichnung">
+		<liferay-ui:search-container-column-text name="Bezeichnung" orderable="true">
 			<%=flashcard.getTitle() %>
 		</liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-jsp path="/html/lernkartei/flashcard_preview_link.jsp" name="Vorschau" />
-		<liferay-ui:search-container-column-text name="Lernkartei">
+		<liferay-ui:search-container-column-text name="Lernkartei" orderable="true">
 			<%=(CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk())!=null)?CardBoxLocalServiceUtil.fetchCardBox(flashcard.getCardBoxId_fk()).getName() : ""%>
 		</liferay-ui:search-container-column-text>
 		<liferay-ui:search-container-column-jsp path="<%=Constants.ADMIN_ACTION_FLASHCARD %>" name="Verwaltung"/>
