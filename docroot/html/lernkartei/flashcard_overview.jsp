@@ -48,7 +48,7 @@
 				results = ListUtil.sort(results, FlashcardComparatorUtil.getComparator(sortByCol, sortByType));
 			}
 			searchContainer.setTotal(total);
-			searchContainer.setResults(results);
+			searchContainer.setResults(ListUtil.subList(results, searchContainer.getStart(), searchContainer.getEnd()));
 		%>
 
 	</liferay-ui:search-container-results>
