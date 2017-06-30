@@ -65,7 +65,7 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{id=");
 		sb.append(id);
@@ -83,8 +83,6 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
-		sb.append(", author=");
-		sb.append(author);
 		sb.append(", shared=");
 		sb.append(shared);
 		sb.append("}");
@@ -129,13 +127,6 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 			cardBoxImpl.setName(name);
 		}
 
-		if (author == null) {
-			cardBoxImpl.setAuthor(StringPool.BLANK);
-		}
-		else {
-			cardBoxImpl.setAuthor(author);
-		}
-
 		cardBoxImpl.setShared(shared);
 
 		cardBoxImpl.resetOriginalValues();
@@ -156,7 +147,6 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
-		author = objectInput.readUTF();
 
 		shared = objectInput.readBoolean();
 	}
@@ -189,13 +179,6 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 			objectOutput.writeUTF(name);
 		}
 
-		if (author == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(author);
-		}
-
 		objectOutput.writeBoolean(shared);
 	}
 
@@ -207,6 +190,5 @@ public class CardBoxCacheModel implements CacheModel<CardBox>, Externalizable {
 	public long createDate;
 	public long modifiedDate;
 	public String name;
-	public String author;
 	public boolean shared;
 }

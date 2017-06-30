@@ -89,8 +89,8 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 
 	public static final String TABLE_SQL_CREATE = "create table sbamdc_Flashcard (id_ LONG not null primary key,userId LONG,frontSide STRING null,backSide STRING null,cardBoxId_fk LONG,title VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_Flashcard";
-	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id DESC";
-	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ DESC";
+	public static final String ORDER_BY_JPQL = " ORDER BY flashcard.id ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_Flashcard.id_ ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -432,8 +432,6 @@ public class FlashcardModelImpl extends BaseModelImpl<Flashcard>
 		else {
 			value = 0;
 		}
-
-		value = value * -1;
 
 		if (value != 0) {
 			return value;

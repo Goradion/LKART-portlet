@@ -78,7 +78,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "name", Types.VARCHAR },
-			{ "author", Types.VARCHAR },
 			{ "shared", Types.BOOLEAN }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
@@ -92,14 +91,13 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("author", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("shared", Types.BOOLEAN);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table sbamdc_CardBox (id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,author VARCHAR(75) null,shared BOOLEAN)";
+	public static final String TABLE_SQL_CREATE = "create table sbamdc_CardBox (id_ LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,shared BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table sbamdc_CardBox";
-	public static final String ORDER_BY_JPQL = " ORDER BY cardBox.name DESC";
-	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_CardBox.name DESC";
+	public static final String ORDER_BY_JPQL = " ORDER BY cardBox.id ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY sbamdc_CardBox.id_ ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -115,6 +113,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public static final long NAME_COLUMN_BITMASK = 1L;
 	public static final long USERID_COLUMN_BITMASK = 2L;
 	public static final long USERNAME_COLUMN_BITMASK = 4L;
+	public static final long ID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -137,7 +136,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setName(soapModel.getName());
-		model.setAuthor(soapModel.getAuthor());
 		model.setShared(soapModel.getShared());
 
 		return model;
@@ -211,7 +209,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
-		attributes.put("author", getAuthor());
 		attributes.put("shared", getShared());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -270,12 +267,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 			setName(name);
 		}
 
-		String author = (String)attributes.get("author");
-
-		if (author != null) {
-			setAuthor(author);
-		}
-
 		Boolean shared = (Boolean)attributes.get("shared");
 
 		if (shared != null) {
@@ -291,6 +282,8 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setId(long id) {
+		_columnBitmask = -1L;
+
 		_id = id;
 	}
 
@@ -422,7 +415,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public void setName(String name) {
-		_columnBitmask = -1L;
+		_columnBitmask |= NAME_COLUMN_BITMASK;
 
 		if (_originalName == null) {
 			_originalName = _name;
@@ -433,22 +426,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	public String getOriginalName() {
 		return GetterUtil.getString(_originalName);
-	}
-
-	@JSON
-	@Override
-	public String getAuthor() {
-		if (_author == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _author;
-		}
-	}
-
-	@Override
-	public void setAuthor(String author) {
-		_author = author;
 	}
 
 	@JSON
@@ -506,7 +483,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		cardBoxImpl.setCreateDate(getCreateDate());
 		cardBoxImpl.setModifiedDate(getModifiedDate());
 		cardBoxImpl.setName(getName());
-		cardBoxImpl.setAuthor(getAuthor());
 		cardBoxImpl.setShared(getShared());
 
 		cardBoxImpl.resetOriginalValues();
@@ -518,9 +494,15 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	public int compareTo(CardBox cardBox) {
 		int value = 0;
 
-		value = getName().compareTo(cardBox.getName());
-
-		value = value * -1;
+		if (getId() < cardBox.getId()) {
+			value = -1;
+		}
+		else if (getId() > cardBox.getId()) {
+			value = 1;
+		}
+		else {
+			value = 0;
+		}
 
 		if (value != 0) {
 			return value;
@@ -629,14 +611,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 			cardBoxCacheModel.name = null;
 		}
 
-		cardBoxCacheModel.author = getAuthor();
-
-		String author = cardBoxCacheModel.author;
-
-		if ((author != null) && (author.length() == 0)) {
-			cardBoxCacheModel.author = null;
-		}
-
 		cardBoxCacheModel.shared = getShared();
 
 		return cardBoxCacheModel;
@@ -644,7 +618,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{id=");
 		sb.append(getId());
@@ -662,8 +636,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		sb.append(getModifiedDate());
 		sb.append(", name=");
 		sb.append(getName());
-		sb.append(", author=");
-		sb.append(getAuthor());
 		sb.append(", shared=");
 		sb.append(getShared());
 		sb.append("}");
@@ -673,7 +645,7 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.CardBox");
@@ -712,10 +684,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>author</column-name><column-value><![CDATA[");
-		sb.append(getAuthor());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>shared</column-name><column-value><![CDATA[");
 		sb.append(getShared());
 		sb.append("]]></column-value></column>");
@@ -742,7 +710,6 @@ public class CardBoxModelImpl extends BaseModelImpl<CardBox>
 	private boolean _setModifiedDate;
 	private String _name;
 	private String _originalName;
-	private String _author;
 	private boolean _shared;
 	private long _columnBitmask;
 	private CardBox _escapedModel;

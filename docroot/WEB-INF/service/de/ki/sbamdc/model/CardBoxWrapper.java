@@ -65,7 +65,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
-		attributes.put("author", getAuthor());
 		attributes.put("shared", getShared());
 
 		return attributes;
@@ -121,12 +120,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 			setName(name);
 		}
 
-		String author = (String)attributes.get("author");
-
-		if (author != null) {
-			setAuthor(author);
-		}
-
 		Boolean shared = (Boolean)attributes.get("shared");
 
 		if (shared != null) {
@@ -142,16 +135,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	@Override
 	public int compareTo(de.ki.sbamdc.model.CardBox cardBox) {
 		return _cardBox.compareTo(cardBox);
-	}
-
-	/**
-	* Returns the author of this card box.
-	*
-	* @return the author of this card box
-	*/
-	@Override
-	public java.lang.String getAuthor() {
-		return _cardBox.getAuthor();
 	}
 
 	/**
@@ -307,16 +290,6 @@ public class CardBoxWrapper implements CardBox, ModelWrapper<CardBox> {
 	@Override
 	public void persist() {
 		_cardBox.persist();
-	}
-
-	/**
-	* Sets the author of this card box.
-	*
-	* @param author the author of this card box
-	*/
-	@Override
-	public void setAuthor(java.lang.String author) {
-		_cardBox.setAuthor(author);
 	}
 
 	@Override

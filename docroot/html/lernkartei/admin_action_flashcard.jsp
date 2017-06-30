@@ -8,7 +8,7 @@
 	long flashcardId = flashcard.getPrimaryKey();
 %>
 
-<liferay-ui:icon-menu>
+<liferay-ui:icon-menu message="Aktionen">
 	<portlet:actionURL name="toEditFlashcard" var="editFlashcard">
 		<portlet:param name="fcId" value='<%=""+flashcardId%>'/>
 	</portlet:actionURL>

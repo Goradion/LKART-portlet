@@ -381,8 +381,6 @@ public class FlashcardClp extends BaseModelImpl<Flashcard> implements Flashcard 
 			value = 0;
 		}
 
-		value = value * -1;
-
 		if (value != 0) {
 			return value;
 		}

@@ -7,7 +7,6 @@ create table sbamdc_CardBox (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
-	author VARCHAR(75) null,
 	shared BOOLEAN
 );
 

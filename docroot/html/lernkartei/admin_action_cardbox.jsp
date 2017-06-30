@@ -7,7 +7,7 @@
 	long cardBoxId = cardBox.getPrimaryKey();
 %>
 
-<liferay-ui:icon-menu>
+<liferay-ui:icon-menu message="Aktionen">
 	<portlet:actionURL name="toEditCardbox" var="editCardBox">
 		<portlet:param name="cardBoxId" value='<%=""+cardBoxId%>'/>
 	</portlet:actionURL>

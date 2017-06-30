@@ -27,7 +27,10 @@
 	<portlet:param name="fcBackSide" value="<%=flashcardBackSide %>"/>
 </portlet:renderURL>
 <div>
-	<aui:button name='<%=""+flashcardId %>' value="<%=flashcardTitle %>"/>
+	<aui:button icon="icon-eye-open" name='<%=""+flashcardId %>'> 
+
+	</aui:button>
+
 </div>
 <aui:script>
 AUI().use('aui-base',

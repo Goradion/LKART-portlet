@@ -88,7 +88,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
-		attributes.put("author", getAuthor());
 		attributes.put("shared", getShared());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
@@ -145,12 +144,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 
 		if (name != null) {
 			setName(name);
-		}
-
-		String author = (String)attributes.get("author");
-
-		if (author != null) {
-			setAuthor(author);
 		}
 
 		Boolean shared = (Boolean)attributes.get("shared");
@@ -364,29 +357,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	}
 
 	@Override
-	public String getAuthor() {
-		return _author;
-	}
-
-	@Override
-	public void setAuthor(String author) {
-		_author = author;
-
-		if (_cardBoxRemoteModel != null) {
-			try {
-				Class<?> clazz = _cardBoxRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setAuthor", String.class);
-
-				method.invoke(_cardBoxRemoteModel, author);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
 	public boolean getShared() {
 		return _shared;
 	}
@@ -491,7 +461,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setName(getName());
-		clone.setAuthor(getAuthor());
 		clone.setShared(getShared());
 
 		return clone;
@@ -501,9 +470,15 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	public int compareTo(CardBox cardBox) {
 		int value = 0;
 
-		value = getName().compareTo(cardBox.getName());
-
-		value = value * -1;
+		if (getId() < cardBox.getId()) {
+			value = -1;
+		}
+		else if (getId() > cardBox.getId()) {
+			value = 1;
+		}
+		else {
+			value = 0;
+		}
 
 		if (value != 0) {
 			return value;
@@ -555,7 +530,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{id=");
 		sb.append(getId());
@@ -573,8 +548,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		sb.append(getModifiedDate());
 		sb.append(", name=");
 		sb.append(getName());
-		sb.append(", author=");
-		sb.append(getAuthor());
 		sb.append(", shared=");
 		sb.append(getShared());
 		sb.append("}");
@@ -584,7 +557,7 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("de.ki.sbamdc.model.CardBox");
@@ -623,10 +596,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>author</column-name><column-value><![CDATA[");
-		sb.append(getAuthor());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>shared</column-name><column-value><![CDATA[");
 		sb.append(getShared());
 		sb.append("]]></column-value></column>");
@@ -644,7 +613,6 @@ public class CardBoxClp extends BaseModelImpl<CardBox> implements CardBox {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
-	private String _author;
 	private boolean _shared;
 	private BaseModel<?> _cardBoxRemoteModel;
 	private Class<?> _clpSerializerClass = de.ki.sbamdc.service.ClpSerializer.class;

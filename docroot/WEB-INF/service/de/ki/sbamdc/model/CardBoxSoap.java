@@ -42,7 +42,6 @@ public class CardBoxSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
-		soapModel.setAuthor(model.getAuthor());
 		soapModel.setShared(model.getShared());
 
 		return soapModel;
@@ -160,14 +159,6 @@ public class CardBoxSoap implements Serializable {
 		_name = name;
 	}
 
-	public String getAuthor() {
-		return _author;
-	}
-
-	public void setAuthor(String author) {
-		_author = author;
-	}
-
 	public boolean getShared() {
 		return _shared;
 	}
@@ -188,6 +179,5 @@ public class CardBoxSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
-	private String _author;
 	private boolean _shared;
 }
