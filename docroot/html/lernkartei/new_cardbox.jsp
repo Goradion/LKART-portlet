@@ -11,4 +11,6 @@ Name:
 <input type="text" name="<portlet:namespace/>cardBoxName" value="${cardBoxName}" maxlength="75" /> <br />
 <input type="submit" value="Abschicken"> <br>
 </form>
-<p><a href=<%=cardBoxOverview%>>Zurück</a></p>
+<p>
+<a class="btn btn-warning" href=<%=cardBoxOverview%>>Zurück</a>
+</p>

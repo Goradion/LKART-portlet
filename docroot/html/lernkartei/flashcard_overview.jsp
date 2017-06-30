@@ -47,5 +47,5 @@
 
 <p style="text-align:center">
 	<a class="btn btn-primary" href=<%=newFlashcard%>>Neue Lernkarte</a>
-	<a class="btn btn-primary" href=<%=editMode%>>Zurück</a>
+	<a class="btn btn-warning" href=<%=editMode%>>Zurück</a>
 </p>

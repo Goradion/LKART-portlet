@@ -13,6 +13,6 @@
 </p>
 
 <p style="text-align:center">
-<a href=<%=zumEditModus %> class="btn btn-primary">Verwaltung</a>
+<a href=<%=zumEditModus %> class="btn btn-warning">Verwaltung</a>
 </p>
 

@@ -14,4 +14,6 @@ Sichtbar schalten:
 <input type="submit" value="Abschicken"> <br>
 </form>
 
-<p><a href=<%=cardBoxOverview%>>Zurück</a></p>
+<p>
+<a class="btn btn-warning" href=<%=cardBoxOverview%>>Zurück</a>
+</p>

@@ -26,6 +26,6 @@
 	<a href = <%=startLearning%>>${c.getName()}</a> <br>
 </c:forEach> --%>
 
-<a class="btn btn-primary" href=<%=back %>>Zurück</a>
+<a class="btn btn-warning" href=<%=back %>>Zurück</a>
 
 

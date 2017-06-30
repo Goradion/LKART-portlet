@@ -18,14 +18,14 @@
 			<portlet:actionURL name="chooseProgress" var="choose">
 				<portlet:param name="progress" value="${loop.index}" />
 			</portlet:actionURL>
-			<span>
-				<a href= <%=choose %> style='color:${portletSessionScope.progressQueues.getColor(loop.index)}; ${loop.index == portletSessionScope.progress ? "background-color:gray;": ""}'  class="btn btn-default">
-	  				<span class="glyphicon glyphicon-folder-open" aria-hidden="true">
-	  					${q.size()}
-	  				</span>
-				</a>
+			<span> <a href=<%=choose %>
+				style='color:${portletSessionScope.progressQueues.getColor(loop.index)}; ${loop.index == portletSessionScope.progress ? "background-color:gray;": ""}'
+				class="btn btn-default"> <span
+					class="glyphicon glyphicon-folder-open" aria-hidden="true">
+						${q.size()} </span>
+			</a>
 			</span>
-	</c:forEach>		
+		</c:forEach>
 	</aui:row>
 
 	<!-- 	 @formatter: off -->
@@ -38,17 +38,21 @@
 				${portletSessionScope.progressQueues.get(portletSessionScope.progress).peek().getBackSide()}
 			</div>
 			'
-		width="500" height="300">
-	</iframe>
+		width="500" height="300"> </iframe>
 	<!-- 	 @formatter: on -->
 	<footer>
 		<div>
 			<hr>
-			<button id="flipTheCard" style="">Karte umdrehen</button>
-			
+			<p>
+				<button id="flipTheCard" style="" class="btn btn-primary">Karte
+					umdrehen</button>
+			</p>
 			<div id="submittingRow">
-				<a href=<%=wrong%>>Falsch</a>
-				<a href=<%=correct%>>Richtig</a>
+				<p>
+					<a class="btn btn-primary" href=<%=wrong%>>Falsch</a>
+			
+					<a class="btn btn-primary" href=<%=correct%>>Richtig</a>
+				</p>
 			</div>
 		</div>
 	</footer>
@@ -76,6 +80,7 @@
 		};
 	</script>
 
-
-	<a href=<%=back%>>Zurück</a>
+	<p>
+		<a class="btn btn-warning" href=<%=back%>>Zurück</a>
+	</p>
 </aui:container>
