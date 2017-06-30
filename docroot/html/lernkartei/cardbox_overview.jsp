@@ -23,7 +23,7 @@
 <h1>Lernkarteien</h1>
 
 <liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Lernkarteien wurden gefunden."
-	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true"
+	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true" orderByType="asc"
 	iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results>
 		<%
@@ -38,7 +38,7 @@
 
 	<liferay-ui:search-container-row className="de.ki.sbamdc.model.CardBox"
 		modelVar="cardBox" keyProperty="id">
-		<liferay-ui:search-container-column-text property="name" name="Name" />
+		<liferay-ui:search-container-column-text property="name" name="Name" orderable="true" />
 		<liferay-ui:search-container-column-text name="Für alle sichtbar">
 			<%=(cardBox.isShared())? "Ja":"Nein" %>
 		</liferay-ui:search-container-column-text>		

@@ -8,9 +8,12 @@
     <p>
     Kartei: 
 	<select name= "<portlet:namespace />kartei" required="true">
-		<c:forEach items="${sessionScope.cardBoxList}" var="c">
-<%-- 		${c.getUserName()}.${c.getName()} --%>
-			<option value="${c.getId()}">${c.getName()}</option>
+		<c:forEach items="${sessionScope.cardBoxMap}" var="entry">
+			<optgroup label="${entry.key}">
+				<c:forEach items="${entry.value}" var="cardBox">
+					<option value="${cardBox.getId()}">${cardBox.getName()}</option>
+				</c:forEach>
+			</optgroup>
 		</c:forEach>
 	</select>
     </p>
