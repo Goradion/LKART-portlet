@@ -461,7 +461,7 @@ public abstract class LearnProgressServiceBaseImpl extends BaseServiceImpl
 	protected FlashcardPersistence flashcardPersistence;
 	@BeanReference(type = de.ki.sbamdc.service.LearnProgressLocalService.class)
 	protected de.ki.sbamdc.service.LearnProgressLocalService learnProgressLocalService;
-	@BeanReference(type = LearnProgressService.class)
+	@BeanReference(type = de.ki.sbamdc.service.LearnProgressService.class)
 	protected LearnProgressService learnProgressService;
 	@BeanReference(type = LearnProgressPersistence.class)
 	protected LearnProgressPersistence learnProgressPersistence;

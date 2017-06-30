@@ -28,248 +28,119 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		InvokableLocalService invokableLocalService) {
 		_invokableLocalService = invokableLocalService;
 
-		_methodName0 = "getActionableDynamicQuery";
+		_methodName0 = "addLearnProgress";
 
-		_methodParameterTypes0 = new String[] {  };
+		_methodParameterTypes0 = new String[] { "de.ki.sbamdc.model.LearnProgress" };
 
-		_methodName1 = "dynamicQuery";
+		_methodName1 = "addLearnProgress";
 
-		_methodParameterTypes1 = new String[] {  };
-
-		_methodName2 = "getIndexableActionableDynamicQuery";
-
-		_methodParameterTypes2 = new String[] {  };
-
-		_methodName3 = "deletePersistedModel";
-
-		_methodParameterTypes3 = new String[] {
-				"com.liferay.portal.kernel.model.PersistedModel"
-			};
-
-		_methodName4 = "getPersistedModel";
-
-		_methodParameterTypes4 = new String[] { "java.io.Serializable" };
-
-		_methodName5 = "addLearnProgress";
-
-		_methodParameterTypes5 = new String[] { "de.ki.sbamdc.model.LearnProgress" };
-
-		_methodName6 = "addLearnProgress";
-
-		_methodParameterTypes6 = new String[] {
+		_methodParameterTypes1 = new String[] {
 				"long", "de.ki.sbamdc.model.Flashcard"
 			};
 
-		_methodName7 = "createLearnProgress";
+		_methodName2 = "createLearnProgress";
 
-		_methodParameterTypes7 = new String[] { "long" };
+		_methodParameterTypes2 = new String[] { "long" };
 
-		_methodName8 = "deleteLearnProgress";
+		_methodName3 = "deleteLearnProgress";
 
-		_methodParameterTypes8 = new String[] { "de.ki.sbamdc.model.LearnProgress" };
+		_methodParameterTypes3 = new String[] { "long" };
 
-		_methodName9 = "deleteLearnProgress";
+		_methodName4 = "deleteLearnProgress";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes4 = new String[] { "de.ki.sbamdc.model.LearnProgress" };
 
-		_methodName10 = "fetchByUserIdAndFlashcardId";
+		_methodName5 = "deletePersistedModel";
 
-		_methodParameterTypes10 = new String[] { "long", "long" };
-
-		_methodName11 = "fetchLearnProgress";
-
-		_methodParameterTypes11 = new String[] { "long" };
-
-		_methodName12 = "getLearnProgress";
-
-		_methodParameterTypes12 = new String[] { "long" };
-
-		_methodName13 = "updateLearnProgress";
-
-		_methodParameterTypes13 = new String[] {
-				"de.ki.sbamdc.model.LearnProgress"
+		_methodParameterTypes5 = new String[] {
+				"com.liferay.portal.kernel.model.PersistedModel"
 			};
 
-		_methodName14 = "getLearnProgressesCount";
+		_methodName6 = "dynamicQuery";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes6 = new String[] {  };
 
-		_methodName16 = "getOSGiServiceIdentifier";
+		_methodName7 = "dynamicQuery";
 
-		_methodParameterTypes16 = new String[] {  };
-
-		_methodName17 = "loadProgressByUserIdAndCardBoxId";
-
-		_methodParameterTypes17 = new String[] { "long", "long" };
-
-		_methodName18 = "dynamicQuery";
-
-		_methodParameterTypes18 = new String[] {
+		_methodParameterTypes7 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName19 = "dynamicQuery";
+		_methodName8 = "dynamicQuery";
 
-		_methodParameterTypes19 = new String[] {
+		_methodParameterTypes8 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery", "int", "int"
 			};
 
-		_methodName20 = "dynamicQuery";
+		_methodName9 = "dynamicQuery";
 
-		_methodParameterTypes20 = new String[] {
+		_methodParameterTypes9 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName21 = "findByUserId";
+		_methodName10 = "dynamicQueryCount";
 
-		_methodParameterTypes21 = new String[] { "long" };
-
-		_methodName22 = "getLearnProgresses";
-
-		_methodParameterTypes22 = new String[] { "int", "int" };
-
-		_methodName23 = "dynamicQueryCount";
-
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes10 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName24 = "dynamicQueryCount";
+		_methodName11 = "dynamicQueryCount";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes11 = new String[] {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
 				"com.liferay.portal.kernel.dao.orm.Projection"
 			};
-	}
 
-	@Override
-	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		Object returnObj = null;
+		_methodName12 = "fetchByUserIdAndFlashcardId";
 
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName0,
-					_methodParameterTypes0, new Object[] {  });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
+		_methodParameterTypes12 = new String[] { "long", "long" };
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
+		_methodName13 = "fetchLearnProgress";
 
-		return (com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
-	}
+		_methodParameterTypes13 = new String[] { "long" };
 
-	@Override
-	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		Object returnObj = null;
+		_methodName14 = "findByUserId";
 
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName1,
-					_methodParameterTypes1, new Object[] {  });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
+		_methodParameterTypes14 = new String[] { "long" };
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
+		_methodName15 = "getActionableDynamicQuery";
 
-		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
-	}
+		_methodParameterTypes15 = new String[] {  };
 
-	@Override
-	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		Object returnObj = null;
+		_methodName16 = "getIndexableActionableDynamicQuery";
 
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName2,
-					_methodParameterTypes2, new Object[] {  });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
+		_methodParameterTypes16 = new String[] {  };
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
+		_methodName17 = "getLearnProgress";
 
-		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
-	}
+		_methodParameterTypes17 = new String[] { "long" };
 
-	@Override
-	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		Object returnObj = null;
+		_methodName18 = "getLearnProgresses";
 
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName3,
-					_methodParameterTypes3,
-					new Object[] { ClpSerializer.translateInput(persistedModel) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
+		_methodParameterTypes18 = new String[] { "int", "int" };
 
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
+		_methodName19 = "getLearnProgressesCount";
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
+		_methodParameterTypes19 = new String[] {  };
 
-		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
-	}
+		_methodName20 = "getOSGiServiceIdentifier";
 
-	@Override
-	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		Object returnObj = null;
+		_methodParameterTypes20 = new String[] {  };
 
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName4,
-					_methodParameterTypes4,
-					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
+		_methodName21 = "getPersistedModel";
 
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
+		_methodParameterTypes21 = new String[] { "java.io.Serializable" };
 
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
+		_methodName23 = "loadProgressByUserIdAndCardBoxId";
 
-		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+		_methodParameterTypes23 = new String[] { "long", "long" };
+
+		_methodName24 = "updateLearnProgress";
+
+		_methodParameterTypes24 = new String[] {
+				"de.ki.sbamdc.model.LearnProgress"
+			};
 	}
 
 	@Override
@@ -278,8 +149,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName5,
-					_methodParameterTypes5,
+			returnObj = _invokableLocalService.invokeMethod(_methodName0,
+					_methodParameterTypes0,
 					new Object[] { ClpSerializer.translateInput(learnProgress) });
 		}
 		catch (Throwable t) {
@@ -303,8 +174,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName6,
-					_methodParameterTypes6,
+			returnObj = _invokableLocalService.invokeMethod(_methodName1,
+					_methodParameterTypes1,
 					new Object[] { userId, ClpSerializer.translateInput(
 							flashcard) });
 		}
@@ -328,33 +199,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName7,
-					_methodParameterTypes7, new Object[] { id });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress deleteLearnProgress(
-		de.ki.sbamdc.model.LearnProgress learnProgress) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName8,
-					_methodParameterTypes8,
-					new Object[] { ClpSerializer.translateInput(learnProgress) });
+			returnObj = _invokableLocalService.invokeMethod(_methodName2,
+					_methodParameterTypes2, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -377,8 +223,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { id });
+			returnObj = _invokableLocalService.invokeMethod(_methodName3,
+					_methodParameterTypes3, new Object[] { id });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -400,89 +246,13 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 	}
 
 	@Override
-	public de.ki.sbamdc.model.LearnProgress fetchByUserIdAndFlashcardId(
-		long userId, long flashcardId) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
-					new Object[] { userId, flashcardId });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress fetchLearnProgress(long id) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11, new Object[] { id });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress getLearnProgress(long id)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { id });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress updateLearnProgress(
+	public de.ki.sbamdc.model.LearnProgress deleteLearnProgress(
 		de.ki.sbamdc.model.LearnProgress learnProgress) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13,
+			returnObj = _invokableLocalService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
 					new Object[] { ClpSerializer.translateInput(learnProgress) });
 		}
 		catch (Throwable t) {
@@ -501,12 +271,42 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 	}
 
 	@Override
-	public int getLearnProgressesCount() {
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName5,
+					_methodParameterTypes5,
+					new Object[] { ClpSerializer.translateInput(persistedModel) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName6,
+					_methodParameterTypes6, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -520,61 +320,7 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 			}
 		}
 
-		return ((Integer)returnObj).intValue();
-	}
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public java.lang.String getOSGiServiceIdentifier() {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName16,
-					_methodParameterTypes16, new Object[] {  });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress> loadProgressByUserIdAndCardBoxId(
-		long userId, long cardBoxId) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName17,
-					_methodParameterTypes17, new Object[] { userId, cardBoxId });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -583,8 +329,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+			returnObj = _invokableLocalService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -609,8 +355,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -642,8 +388,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -670,61 +416,13 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 	}
 
 	@Override
-	public java.util.List<de.ki.sbamdc.model.LearnProgress> findByUserId(
-		long userId_fk) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { userId_fk });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.List<de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
-	public java.util.List<de.ki.sbamdc.model.LearnProgress> getLearnProgresses(
-		int start, int end) {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22, new Object[] { start, end });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.List<de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10,
 					new Object[] { ClpSerializer.translateInput(dynamicQuery) });
 		}
 		catch (Throwable t) {
@@ -749,8 +447,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
 					new Object[] {
 						ClpSerializer.translateInput(dynamicQuery),
 						
@@ -770,6 +468,308 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 		}
 
 		return ((Long)returnObj).longValue();
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress fetchByUserIdAndFlashcardId(
+		long userId, long flashcardId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
+					new Object[] { userId, flashcardId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress fetchLearnProgress(long id) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { id });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<de.ki.sbamdc.model.LearnProgress> findByUserId(
+		long userId_fk) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] { userId_fk });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress getLearnProgress(long id)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName17,
+					_methodParameterTypes17, new Object[] { id });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<de.ki.sbamdc.model.LearnProgress> getLearnProgresses(
+		int start, int end) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] { start, end });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public int getLearnProgressesCount() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	@Override
+	public java.lang.String getOSGiServiceIdentifier() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.kernel.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress> loadProgressByUserIdAndCardBoxId(
+		long userId, long cardBoxId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { userId, cardBoxId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress updateLearnProgress(
+		de.ki.sbamdc.model.LearnProgress learnProgress) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] { ClpSerializer.translateInput(learnProgress) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (de.ki.sbamdc.model.LearnProgress)ClpSerializer.translateOutput(returnObj);
 	}
 
 	private InvokableLocalService _invokableLocalService;
@@ -803,6 +803,8 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
+	private String _methodName15;
+	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
@@ -815,8 +817,6 @@ public class LearnProgressLocalServiceClp implements LearnProgressLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
-	private String _methodName22;
-	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
 	private String _methodName24;

@@ -14,10 +14,13 @@
 
 package de.ki.sbamdc.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import aQute.bnd.annotation.ProviderType;
 import de.ki.sbamdc.exception.NoSuchFlashcardException;
+import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.service.base.FlashcardLocalServiceBaseImpl;
 
@@ -82,5 +85,22 @@ public class FlashcardLocalServiceImpl extends FlashcardLocalServiceBaseImpl {
 	public Flashcard fetchByCardBoxIdAndTitle(long cardBoxId, String title){
 		return flashcardPersistence.fetchByCardBoxIdAndTitle(cardBoxId, title);
 	}
-
+	
+	public List<Flashcard> findByKeyword(String keyword, long userId){
+		List<Flashcard> flashcards = new ArrayList<Flashcard>();
+		List<CardBox> cardboxes = cardBoxPersistence.findByUserId(userId);
+		HashMap<Long, String> cbMap = new HashMap<Long, String>();
+		for(CardBox cb : cardboxes) {
+			cbMap.put(cb.getId(), cb.getName().toLowerCase());
+		}
+		
+		for(Flashcard fc : flashcardPersistence.findByUserId(userId)){
+			if(fc.getTitle().toLowerCase().contains(keyword.toLowerCase()) || 
+					cbMap.get(fc.getCardBoxId_fk()).toLowerCase().contains(keyword.toLowerCase())){
+						flashcards.add(fc);
+			}
+		}
+		
+		return flashcards;
+	}
 }

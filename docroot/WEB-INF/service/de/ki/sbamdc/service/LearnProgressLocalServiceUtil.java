@@ -41,32 +41,6 @@ public class LearnProgressLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link de.ki.sbamdc.service.impl.LearnProgressLocalServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
-		return getService().getActionableDynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
-		return getService().dynamicQuery();
-	}
-
-	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
-		return getService().getIndexableActionableDynamicQuery();
-	}
-
-	/**
-	* @throws PortalException
-	*/
-	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
-		com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().deletePersistedModel(persistedModel);
-	}
-
-	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
-		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getPersistedModel(primaryKeyObj);
-	}
 
 	/**
 	* Adds the learn progress to the database. Also notifies the appropriate model listeners.
@@ -95,17 +69,6 @@ public class LearnProgressLocalServiceUtil {
 	}
 
 	/**
-	* Deletes the learn progress from the database. Also notifies the appropriate model listeners.
-	*
-	* @param learnProgress the learn progress
-	* @return the learn progress that was removed
-	*/
-	public static de.ki.sbamdc.model.LearnProgress deleteLearnProgress(
-		de.ki.sbamdc.model.LearnProgress learnProgress) {
-		return getService().deleteLearnProgress(learnProgress);
-	}
-
-	/**
 	* Deletes the learn progress with the primary key from the database. Also notifies the appropriate model listeners.
 	*
 	* @param id the primary key of the learn progress
@@ -117,65 +80,28 @@ public class LearnProgressLocalServiceUtil {
 		return getService().deleteLearnProgress(id);
 	}
 
-	public static de.ki.sbamdc.model.LearnProgress fetchByUserIdAndFlashcardId(
-		long userId, long flashcardId) {
-		return getService().fetchByUserIdAndFlashcardId(userId, flashcardId);
-	}
-
-	public static de.ki.sbamdc.model.LearnProgress fetchLearnProgress(long id) {
-		return getService().fetchLearnProgress(id);
-	}
-
 	/**
-	* Returns the learn progress with the primary key.
-	*
-	* @param id the primary key of the learn progress
-	* @return the learn progress
-	* @throws PortalException if a learn progress with the primary key could not be found
-	*/
-	public static de.ki.sbamdc.model.LearnProgress getLearnProgress(long id)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		return getService().getLearnProgress(id);
-	}
-
-	/**
-	* Updates the learn progress in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Deletes the learn progress from the database. Also notifies the appropriate model listeners.
 	*
 	* @param learnProgress the learn progress
-	* @return the learn progress that was updated
+	* @return the learn progress that was removed
 	*/
-	public static de.ki.sbamdc.model.LearnProgress updateLearnProgress(
+	public static de.ki.sbamdc.model.LearnProgress deleteLearnProgress(
 		de.ki.sbamdc.model.LearnProgress learnProgress) {
-		return getService().updateLearnProgress(learnProgress);
+		return getService().deleteLearnProgress(learnProgress);
 	}
 
 	/**
-	* Returns the number of learn progresses.
-	*
-	* @return the number of learn progresses
+	* @throws PortalException
 	*/
-	public static int getLearnProgressesCount() {
-		return getService().getLearnProgressesCount();
+	public static com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable {
-		return getService().invokeMethod(name, parameterTypes, arguments);
-	}
-
-	/**
-	* Returns the OSGi service identifier.
-	*
-	* @return the OSGi service identifier
-	*/
-	public static java.lang.String getOSGiServiceIdentifier() {
-		return getService().getOSGiServiceIdentifier();
-	}
-
-	public static java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress> loadProgressByUserIdAndCardBoxId(
-		long userId, long cardBoxId) {
-		return getService().loadProgressByUserIdAndCardBoxId(userId, cardBoxId);
+	public static com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return getService().dynamicQuery();
 	}
 
 	/**
@@ -228,27 +154,6 @@ public class LearnProgressLocalServiceUtil {
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
-	public static java.util.List<de.ki.sbamdc.model.LearnProgress> findByUserId(
-		long userId_fk) {
-		return getService().findByUserId(userId_fk);
-	}
-
-	/**
-	* Returns a range of all the learn progresses.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.LearnProgressModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param start the lower bound of the range of learn progresses
-	* @param end the upper bound of the range of learn progresses (not inclusive)
-	* @return the range of learn progresses
-	*/
-	public static java.util.List<de.ki.sbamdc.model.LearnProgress> getLearnProgresses(
-		int start, int end) {
-		return getService().getLearnProgresses(start, end);
-	}
-
 	/**
 	* Returns the number of rows matching the dynamic query.
 	*
@@ -271,6 +176,102 @@ public class LearnProgressLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	public static de.ki.sbamdc.model.LearnProgress fetchByUserIdAndFlashcardId(
+		long userId, long flashcardId) {
+		return getService().fetchByUserIdAndFlashcardId(userId, flashcardId);
+	}
+
+	public static de.ki.sbamdc.model.LearnProgress fetchLearnProgress(long id) {
+		return getService().fetchLearnProgress(id);
+	}
+
+	public static java.util.List<de.ki.sbamdc.model.LearnProgress> findByUserId(
+		long userId_fk) {
+		return getService().findByUserId(userId_fk);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
+		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	/**
+	* Returns the learn progress with the primary key.
+	*
+	* @param id the primary key of the learn progress
+	* @return the learn progress
+	* @throws PortalException if a learn progress with the primary key could not be found
+	*/
+	public static de.ki.sbamdc.model.LearnProgress getLearnProgress(long id)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getLearnProgress(id);
+	}
+
+	/**
+	* Returns a range of all the learn progresses.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link de.ki.sbamdc.model.impl.LearnProgressModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of learn progresses
+	* @param end the upper bound of the range of learn progresses (not inclusive)
+	* @return the range of learn progresses
+	*/
+	public static java.util.List<de.ki.sbamdc.model.LearnProgress> getLearnProgresses(
+		int start, int end) {
+		return getService().getLearnProgresses(start, end);
+	}
+
+	/**
+	* Returns the number of learn progresses.
+	*
+	* @return the number of learn progresses
+	*/
+	public static int getLearnProgressesCount() {
+		return getService().getLearnProgressesCount();
+	}
+
+	/**
+	* Returns the OSGi service identifier.
+	*
+	* @return the OSGi service identifier
+	*/
+	public static java.lang.String getOSGiServiceIdentifier() {
+		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+		java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable {
+		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static java.util.HashMap<java.lang.Long, de.ki.sbamdc.model.LearnProgress> loadProgressByUserIdAndCardBoxId(
+		long userId, long cardBoxId) {
+		return getService().loadProgressByUserIdAndCardBoxId(userId, cardBoxId);
+	}
+
+	/**
+	* Updates the learn progress in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	*
+	* @param learnProgress the learn progress
+	* @return the learn progress that was updated
+	*/
+	public static de.ki.sbamdc.model.LearnProgress updateLearnProgress(
+		de.ki.sbamdc.model.LearnProgress learnProgress) {
+		return getService().updateLearnProgress(learnProgress);
 	}
 
 	public static void clearService() {

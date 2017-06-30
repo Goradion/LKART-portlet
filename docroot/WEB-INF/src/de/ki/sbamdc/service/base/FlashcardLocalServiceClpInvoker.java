@@ -150,6 +150,10 @@ public class FlashcardLocalServiceClpInvoker {
 		_methodName56 = "fetchByCardBoxIdAndTitle";
 
 		_methodParameterTypes56 = new String[] { "long", "java.lang.String" };
+
+		_methodName57 = "findByKeyword";
+
+		_methodParameterTypes57 = new String[] { "java.lang.String", "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -300,6 +304,12 @@ public class FlashcardLocalServiceClpInvoker {
 				(java.lang.String)arguments[1]);
 		}
 
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return FlashcardLocalServiceUtil.findByKeyword((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -355,4 +365,6 @@ public class FlashcardLocalServiceClpInvoker {
 	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
 }

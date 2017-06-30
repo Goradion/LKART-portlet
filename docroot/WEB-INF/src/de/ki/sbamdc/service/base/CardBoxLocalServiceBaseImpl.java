@@ -225,7 +225,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public ActionableDynamicQuery getActionableDynamicQuery() {
 		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
 
-		actionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -238,7 +238,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		IndexableActionableDynamicQuery indexableActionableDynamicQuery = new IndexableActionableDynamicQuery();
 
-		indexableActionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
+		indexableActionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
 		indexableActionableDynamicQuery.setClassLoader(getClassLoader());
 		indexableActionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -249,7 +249,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 
 	protected void initActionableDynamicQuery(
 		ActionableDynamicQuery actionableDynamicQuery) {
-		actionableDynamicQuery.setBaseLocalService(cardBoxLocalService);
+		actionableDynamicQuery.setBaseLocalService(de.ki.sbamdc.service.CardBoxLocalServiceUtil.getService());
 		actionableDynamicQuery.setClassLoader(getClassLoader());
 		actionableDynamicQuery.setModelClass(CardBox.class);
 
@@ -611,7 +611,7 @@ public abstract class CardBoxLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
-	@BeanReference(type = CardBoxLocalService.class)
+	@BeanReference(type = de.ki.sbamdc.service.CardBoxLocalService.class)
 	protected CardBoxLocalService cardBoxLocalService;
 	@BeanReference(type = CardBoxPersistence.class)
 	protected CardBoxPersistence cardBoxPersistence;

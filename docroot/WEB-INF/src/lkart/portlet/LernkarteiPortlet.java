@@ -211,6 +211,9 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void toFlashcardOverview(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
 				PortletSession.PORTLET_SCOPE);
+		ThemeDisplay td = getThemeDisplay(actionRequest);
+		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByUserId(td.getUserId());
+		actionRequest.getPortletSession().setAttribute("flashcards", flashcards,PortletSession.PORTLET_SCOPE);
 	}
 
 	/**
@@ -481,9 +484,16 @@ public class LernkarteiPortlet extends MVCPortlet {
 			}
 		}
 	}
-	
+
 	public void chooseProgress(ActionRequest actionRequest, ActionResponse actionResponse) {
 		int newProgress = ParamUtil.getInteger(actionRequest, "progress",0);
 		actionRequest.getPortletSession().setAttribute("progress", newProgress);
+	}
+	
+	public void searchFlashcards(ActionRequest actionRequest, ActionResponse actionResponse) {
+		String keyword = actionRequest.getParameter("keyword");
+		ThemeDisplay td = getThemeDisplay(actionRequest);
+		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByKeyword(keyword, td.getUserId());
+		actionRequest.getPortletSession().setAttribute("flashcards", flashcards,PortletSession.PORTLET_SCOPE);
 	}
 }
