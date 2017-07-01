@@ -23,5 +23,3 @@
     </p>
   
 </aui:form>
-
-<a class="btn btn-warning" href=<%=back %>>Zurück</a>
