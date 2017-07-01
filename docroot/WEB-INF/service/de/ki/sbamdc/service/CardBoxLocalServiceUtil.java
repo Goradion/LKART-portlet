@@ -182,6 +182,11 @@ public class CardBoxLocalServiceUtil {
 		return getService().fetchCardBox(id);
 	}
 
+	public static java.util.List<de.ki.sbamdc.model.CardBox> findByKeyword(
+		java.lang.String keyword, long userId) {
+		return getService().findByKeyword(keyword, userId);
+	}
+
 	public static de.ki.sbamdc.model.CardBox findByNameAndUserId(
 		java.lang.String name, long userId) {
 		return getService().findByNameAndUserId(name, userId);

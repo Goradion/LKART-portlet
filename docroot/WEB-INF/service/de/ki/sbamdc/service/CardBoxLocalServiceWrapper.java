@@ -186,6 +186,12 @@ public class CardBoxLocalServiceWrapper implements CardBoxLocalService,
 	}
 
 	@Override
+	public java.util.List<de.ki.sbamdc.model.CardBox> findByKeyword(
+		java.lang.String keyword, long userId) {
+		return _cardBoxLocalService.findByKeyword(keyword, userId);
+	}
+
+	@Override
 	public de.ki.sbamdc.model.CardBox findByNameAndUserId(
 		java.lang.String name, long userId) {
 		return _cardBoxLocalService.findByNameAndUserId(name, userId);

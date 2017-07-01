@@ -9,7 +9,11 @@
 
 <portlet:actionURL name="toEditMode" var="editMode"></portlet:actionURL>
 <portlet:actionURL name="toNewCardBox" var="newCardBox"></portlet:actionURL>
+<portlet:actionURL name="searchCardBoxes" var="searchCardBoxes" ></portlet:actionURL>
 
+<%
+	List<CardBox> foundCardBoxes = (List<CardBox>)portletSession.getAttribute("foundCardBoxes");
+%>
 
 <!-- SearchContainer START -->
 <portlet:actionURL name="toMainMenu" var="mainMenu"></portlet:actionURL>
@@ -19,12 +23,22 @@
 
 <h1>Lernkarteien</h1>
 
+<aui:form action="<%=searchCardBoxes %>" >
+    <div class="input-group">
+      <input min="3" type="text" class="form-control" placeholder="Suchen nach..." name='<portlet:namespace/>cbKeyword'>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Suchen</button>
+      </span>
+    </div><!-- /input-group -->
+</aui:form>
+
 <liferay-ui:search-container var="searchContainer" delta="5" emptyResultsMessage="Keine Lernkarteien wurden gefunden."
 	compactEmptyResultsMessage="Keine Lernkartei" deltaConfigurable="true" 
 	iteratorURL="<%=iteratorURL%>">
 	<liferay-ui:search-container-results >
 		<%
-			results = CardBoxLocalServiceUtil.findByUserId(themeDisplay.getUserId());
+			results = foundCardBoxes;
+//					CardBoxLocalServiceUtil.findByUserId(themeDisplay.getUserId());
 			total = results.size();
 // 					CardBoxLocalServiceUtil.getCardBoxesCountOfUser(themeDisplay.getUserId());
 			searchContainer.setTotal(total);

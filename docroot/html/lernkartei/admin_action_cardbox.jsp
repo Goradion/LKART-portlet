@@ -25,9 +25,9 @@
 		<portlet:param name="cardBoxId" value='<%=""+cardBoxId%>'/>
 	</portlet:actionURL>
 	<%if(!cardBox.isShared()) {%>
-	<liferay-ui:icon iconCssClass="icon-eye-open" message="Sichtbar machen" url='<%=setShared %>'/>
+	<liferay-ui:icon iconCssClass="icon-eye-open" message="Freischalten" url='<%=setShared %>'/>
 	<%} else { %>
-		<liferay-ui:icon iconCssClass="icon-eye-close" message="Unsichtbar machen" url='<%=setShared %>'/>
+		<liferay-ui:icon iconCssClass="icon-eye-close" message="Privat machen" url='<%=setShared %>'/>
 	<%} %>
 	
 </liferay-ui:icon-menu>

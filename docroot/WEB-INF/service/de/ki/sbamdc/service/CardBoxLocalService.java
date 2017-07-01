@@ -171,6 +171,8 @@ public interface CardBoxLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CardBox fetchCardBox(long id);
 
+	public List<CardBox> findByKeyword(java.lang.String keyword, long userId);
+
 	public CardBox findByNameAndUserId(java.lang.String name, long userId);
 
 	public CardBox findByNameAndUserName(java.lang.String name,

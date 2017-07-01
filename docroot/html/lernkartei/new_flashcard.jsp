@@ -26,6 +26,7 @@
 		fcFrontSide = (String) portletSession.getAttribute("fcFrontSide");
 	if (portletSession.getAttribute("flashcardTitle") != null)
 		flashcardTitle = (String) portletSession.getAttribute("flashcardTitle");
+	
 %>
 
 
@@ -54,7 +55,7 @@
 	<select id="kartei" name="<portlet:namespace />kartei" required="true">
 			<%
 				for (CardBox cb : cbList) {
-							if (cb.getName() == cbName) {
+							if (cb.getName().equals(cbName)) {
 			%>
 			<option selected="selected" value="<%=cb.getName()%>"><%=cb.getName()%>
 			</option>

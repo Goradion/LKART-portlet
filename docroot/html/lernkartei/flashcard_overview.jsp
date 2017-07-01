@@ -11,9 +11,7 @@
 <portlet:actionURL name="toNewFlashcard" var="newFlashcard"></portlet:actionURL>
 <portlet:actionURL name="searchFlashcards" var="searchFlashcards"></portlet:actionURL>
 <%
-	long userId = themeDisplay.getUserId();
-	List<Flashcard>	flashcards = (List<Flashcard>)portletSession.getAttribute("flashcards");
-	
+	List<Flashcard>	flashcards = (List<Flashcard>)portletSession.getAttribute("foundFlashcards");
 %>
 
 
@@ -27,7 +25,7 @@
 
 <aui:form action="<%=searchFlashcards %>" >
     <div class="input-group">
-      <input min="3" type="text" class="form-control" placeholder="Suchen nach..." name='<portlet:namespace/>keyword'>
+      <input min="3" type="text" class="form-control" placeholder="Suchen nach..." name='<portlet:namespace/>fcKeyword'>
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit">Suchen</button>
       </span>
