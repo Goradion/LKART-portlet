@@ -201,9 +201,9 @@ public class LernkarteiPortlet extends MVCPortlet {
 		CardBox cardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
 		if (cardBox != null) {
 			PortletSession portletSession = actionRequest.getPortletSession();
-			portletSession.setAttribute("cardBoxId", cardBox.getId(), PortletSession.APPLICATION_SCOPE);
-			portletSession.setAttribute("cardBoxName", cardBox.getName(), PortletSession.APPLICATION_SCOPE);
-			portletSession.setAttribute("cardBoxShared", cardBox.isShared(), PortletSession.APPLICATION_SCOPE);
+			portletSession.setAttribute("cardBoxId", cardBox.getId(), PortletSession.PORTLET_SCOPE);
+			portletSession.setAttribute("cardBoxName", cardBox.getName(), PortletSession.PORTLET_SCOPE);
+			portletSession.setAttribute("cardBoxShared", cardBox.isShared(), PortletSession.PORTLET_SCOPE);
 		}
 	}
 
