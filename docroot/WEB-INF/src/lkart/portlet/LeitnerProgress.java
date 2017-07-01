@@ -15,7 +15,7 @@ public class LeitnerProgress extends ArrayList<Queue<Flashcard>>{
 	
 	private HashMap<Long, LearnProgress> progressMap = null;
 	
-	private List<String> progressColors = new ArrayList<String>(Arrays.asList(new String[]{"red", "orange", "yellow", "skyblue", "green"}));
+	private List<String> progressColors = new ArrayList<String>(Arrays.asList(new String[]{"Red", "Orange", "Gold", "GreenYellow ", "Green"}));
 	
 	public LeitnerProgress(HashMap<Long, LearnProgress> progressMap){
 		this.setProgressMap(progressMap);

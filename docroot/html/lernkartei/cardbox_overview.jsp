@@ -33,8 +33,8 @@
 			if (sortByCol != null){
 				results = ListUtil.sort(results, CardBoxComparatorUtil.getComparator(sortByCol, sortByType));
 			}
-			searchContainer.setResults(results);
 			searchContainer.setTotal(total);
+			searchContainer.setResults(ListUtil.subList(results, searchContainer.getStart(), searchContainer.getEnd()));
 		%>
 
 	</liferay-ui:search-container-results>
