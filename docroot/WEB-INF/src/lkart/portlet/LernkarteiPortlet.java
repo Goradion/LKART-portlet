@@ -29,6 +29,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import org.joda.time.IllegalInstantException;
+
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -60,7 +62,6 @@ public class LernkarteiPortlet extends MVCPortlet {
 	@Override
 	public void doView(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
-		System.out.println("Do View!");
 		PortletContext portletContext = this.getPortletContext();
 		PortletRequestDispatcher portletRequestDispatcher = portletContext.getRequestDispatcher(VIEW_JSP);
 		Object o = renderRequest.getPortletSession().getAttribute("currentPage", PortletSession.PORTLET_SCOPE);
@@ -166,10 +167,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.removeAttribute("cardBoxId", PortletSession.APPLICATION_SCOPE);
 		portletSession.removeAttribute("cardBoxName", PortletSession.APPLICATION_SCOPE);
-		
-		List<CardBox> cardBoxesOfUser = CardBoxLocalServiceUtil.findByUserId(getThemeDisplay(actionRequest).getUserId());
-		
-		portletSession.setAttribute("foundCardBoxes",cardBoxesOfUser);
+
+		List<CardBox> cardBoxesOfUser = CardBoxLocalServiceUtil
+				.findByUserId(getThemeDisplay(actionRequest).getUserId());
+
+		portletSession.setAttribute("foundCardBoxes", cardBoxesOfUser);
 	}
 
 	/**
@@ -227,7 +229,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 				PortletSession.PORTLET_SCOPE);
 		ThemeDisplay td = getThemeDisplay(actionRequest);
 		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByUserId(td.getUserId());
-		actionRequest.getPortletSession().setAttribute("flashcards", flashcards,PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("flashcards", flashcards, PortletSession.PORTLET_SCOPE);
 	}
 
 	/**
@@ -313,29 +315,26 @@ public class LernkarteiPortlet extends MVCPortlet {
 			cardBoxId = cardbox.getId();
 
 		if (!(cardBoxId < 0)) {
-			try {
-				if (!fcFrontSide.isEmpty()) {
-					Flashcard fc = FlashcardLocalServiceUtil.fetchByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
-					if (fc == null) {
-						Flashcard newFlashcard = FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide,
-								flashcardTitle, cardBoxId, userId);
-						LearnProgressLocalServiceUtil.addLearnProgress(userId, newFlashcard);
-						SessionMessages.add(actionRequest, "success");
-					} else {
-						actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
-						actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
-						actionRequest.getPortletSession().setAttribute("kartei", cardBoxName);
-						actionRequest.getPortletSession().setAttribute("flashcardTitle", flashcardTitle);
-						List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
-						actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList,
-								PortletSession.PORTLET_SCOPE);
-						SessionErrors.add(actionRequest, "titleExistsError");
-					}
+
+			if (!fcFrontSide.isEmpty()) {
+				Flashcard fc = FlashcardLocalServiceUtil.fetchByCardBoxIdAndTitle(cardBoxId, flashcardTitle);
+				if (fc == null) {
+					Flashcard newFlashcard = FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide,
+							flashcardTitle, cardBoxId, userId);
+					LearnProgressLocalServiceUtil.addLearnProgress(userId, newFlashcard);
+					SessionMessages.add(actionRequest, "success");
+				} else {
+					actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
+					actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
+					actionRequest.getPortletSession().setAttribute("kartei", cardBoxName);
+					actionRequest.getPortletSession().setAttribute("flashcardTitle", flashcardTitle);
+					List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
+					actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList,
+							PortletSession.PORTLET_SCOPE);
+					SessionErrors.add(actionRequest, "titleExistsError");
 				}
-			} catch (NumberFormatException nfe) {
-				nfe.printStackTrace();
-				SessionErrors.add(actionRequest, "error");
 			}
+
 		}
 
 	}
@@ -518,7 +517,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		String keyword = actionRequest.getParameter("keyword");
 		ThemeDisplay td = getThemeDisplay(actionRequest);
 		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByKeyword(keyword, td.getUserId());
-		actionRequest.getPortletSession().setAttribute("flashcards", flashcards,PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("flashcards", flashcards, PortletSession.PORTLET_SCOPE);
 	}
 
 }
