@@ -448,7 +448,7 @@ public abstract class CardBoxServiceBaseImpl extends BaseServiceImpl
 
 	@BeanReference(type = de.ki.sbamdc.service.CardBoxLocalService.class)
 	protected de.ki.sbamdc.service.CardBoxLocalService cardBoxLocalService;
-	@BeanReference(type = de.ki.sbamdc.service.CardBoxService.class)
+	@BeanReference(type = CardBoxService.class)
 	protected CardBoxService cardBoxService;
 	@BeanReference(type = CardBoxPersistence.class)
 	protected CardBoxPersistence cardBoxPersistence;

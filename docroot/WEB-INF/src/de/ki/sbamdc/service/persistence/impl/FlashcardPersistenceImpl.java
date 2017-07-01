@@ -34,7 +34,6 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import de.ki.sbamdc.exception.NoSuchFlashcardException;
 import de.ki.sbamdc.model.Flashcard;
@@ -50,6 +49,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -1133,8 +1133,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
+			if (_log.isDebugEnabled()) {
+				_log.debug(msg.toString());
 			}
 
 			throw new NoSuchFlashcardException(msg.toString());
@@ -1179,7 +1179,7 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 			Flashcard flashcard = (Flashcard)result;
 
 			if ((cardBoxId_fk != flashcard.getCardBoxId_fk()) ||
-					!Validator.equals(title, flashcard.getTitle())) {
+					!Objects.equals(title, flashcard.getTitle())) {
 				result = null;
 			}
 		}
@@ -1545,8 +1545,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 					primaryKey);
 
 			if (flashcard == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isDebugEnabled()) {
+					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -1713,8 +1713,8 @@ public class FlashcardPersistenceImpl extends BasePersistenceImpl<Flashcard>
 		Flashcard flashcard = fetchByPrimaryKey(primaryKey);
 
 		if (flashcard == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isDebugEnabled()) {
+				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchFlashcardException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

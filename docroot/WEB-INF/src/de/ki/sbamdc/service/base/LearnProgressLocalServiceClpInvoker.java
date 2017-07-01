@@ -137,9 +137,17 @@ public class LearnProgressLocalServiceClpInvoker {
 				"long", "de.ki.sbamdc.model.Flashcard"
 			};
 
-		_methodName54 = "loadProgressByUserIdAndCardBoxId";
+		_methodName54 = "removeByCardBoxId";
 
-		_methodParameterTypes54 = new String[] { "long", "long" };
+		_methodParameterTypes54 = new String[] { "long" };
+
+		_methodName55 = "removeByUserIdAndFlashcardId";
+
+		_methodParameterTypes55 = new String[] { "long", "long" };
+
+		_methodName56 = "loadProgressByUserIdAndCardBoxId";
+
+		_methodParameterTypes56 = new String[] { "long", "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -270,6 +278,21 @@ public class LearnProgressLocalServiceClpInvoker {
 
 		if (_methodName54.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+			LearnProgressLocalServiceUtil.removeByCardBoxId(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			LearnProgressLocalServiceUtil.removeByUserIdAndFlashcardId(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+
+			return null;
+		}
+
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return LearnProgressLocalServiceUtil.loadProgressByUserIdAndCardBoxId(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
@@ -325,4 +348,8 @@ public class LearnProgressLocalServiceClpInvoker {
 	private String[] _methodParameterTypes53;
 	private String _methodName54;
 	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
 }

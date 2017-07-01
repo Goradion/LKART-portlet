@@ -73,6 +73,14 @@ public class LearnProgressLocalServiceImpl
 		return learnProgressPersistence.update(learnProgress);
 	}
 	
+	public void removeByCardBoxId(long cardBoxId){
+		learnProgressPersistence.removeByCardBoxId(cardBoxId);
+	}
+	
+	public void removeByUserIdAndFlashcardId(long userId, long flashcardId) throws NoSuchLearnProgressException{
+			learnProgressPersistence.removeByUserIdAndFlashcardId(userId, flashcardId);
+	}
+	
 	public HashMap<Long, LearnProgress> loadProgressByUserIdAndCardBoxId(long userId, long cardBoxId){
 		HashMap<Long, LearnProgress> progressMap = new HashMap<>();
 		List<LearnProgress> cardBoxProgress = learnProgressPersistence.findByCardBoxId(cardBoxId);
