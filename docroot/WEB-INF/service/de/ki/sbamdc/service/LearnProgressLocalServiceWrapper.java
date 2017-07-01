@@ -283,6 +283,18 @@ public class LearnProgressLocalServiceWrapper
 			cardBoxId);
 	}
 
+	@Override
+	public void removeByCardBoxId(long cardBoxId) {
+		_learnProgressLocalService.removeByCardBoxId(cardBoxId);
+	}
+
+	@Override
+	public void removeByUserIdAndFlashcardId(long userId, long flashcardId)
+		throws de.ki.sbamdc.exception.NoSuchLearnProgressException {
+		_learnProgressLocalService.removeByUserIdAndFlashcardId(userId,
+			flashcardId);
+	}
+
 	/**
 	* Updates the learn progress in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

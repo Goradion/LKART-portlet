@@ -12,8 +12,6 @@ import static lkart.util.Constants.NEW_FLASHCARD_JSP;
 import static lkart.util.Constants.VIEW_JSP;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +27,6 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.joda.time.IllegalInstantException;
-
-import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -40,20 +35,16 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.ListUtil;
-import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import de.ki.sbamdc.exception.NoSuchCardBoxException;
-import de.ki.sbamdc.exception.NoSuchFlashcardException;
 import de.ki.sbamdc.model.CardBox;
 import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.model.LearnProgress;
 import de.ki.sbamdc.service.CardBoxLocalServiceUtil;
 import de.ki.sbamdc.service.FlashcardLocalServiceUtil;
 import de.ki.sbamdc.service.LearnProgressLocalServiceUtil;
-import lkart.util.CardBoxComparatorUtil;
 
 public class LernkarteiPortlet extends MVCPortlet {
 
@@ -97,59 +88,54 @@ public class LernkarteiPortlet extends MVCPortlet {
 
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		long cardBoxId = ParamUtil.getLong(actionRequest, "kartei");
-		try {
-			CardBox chosenCardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
-			if (chosenCardBox != null) {
-				List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByCardBoxId(chosenCardBox.getId());
-				long userId = getThemeDisplay(actionRequest).getUserId();
-				HashMap<Long, LearnProgress> progressMap = LearnProgressLocalServiceUtil
-						.loadProgressByUserIdAndCardBoxId(userId, chosenCardBox.getId());
-				LeitnerProgress leitnerProgress = new LeitnerProgress(progressMap);
-				Queue<Flashcard> progress0Flashcards = new LinkedList<>();
-				Queue<Flashcard> progress1Flashcards = new LinkedList<>();
-				Queue<Flashcard> progress2Flashcards = new LinkedList<>();
-				Queue<Flashcard> progress3Flashcards = new LinkedList<>();
-				Queue<Flashcard> progress4Flashcards = new LinkedList<>();
-				leitnerProgress.add(progress0Flashcards);
-				leitnerProgress.add(progress1Flashcards);
-				leitnerProgress.add(progress2Flashcards);
-				leitnerProgress.add(progress3Flashcards);
-				leitnerProgress.add(progress4Flashcards);
-				// if the CardBox is shared by a different User, the current
-				// user might not have any learnProgress records for the
-				// flashcards
-				for (Flashcard flashcard : flashcards) {
-					if (!progressMap.containsKey(flashcard.getId())) {
-						LearnProgress newLearnProgress = LearnProgressLocalServiceUtil.addLearnProgress(userId,
-								flashcard);
-						progressMap.put(flashcard.getId(), newLearnProgress);
-					}
-					int progress = progressMap.get(flashcard.getId()).getProgress();
-					if (progress >= 0 && progress <= 4) {
-						leitnerProgress.get(progress).add(flashcard);
-					} else {
-						log.warn("Invalid progress for flashcard with id " + flashcard.getId() + "! was " + progress
-								+ " expected 0<=progress<=4");
-					}
+		CardBox chosenCardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
+		if (chosenCardBox != null) {
+			List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByCardBoxId(chosenCardBox.getId());
+			long userId = getThemeDisplay(actionRequest).getUserId();
+			HashMap<Long, LearnProgress> progressMap = LearnProgressLocalServiceUtil
+					.loadProgressByUserIdAndCardBoxId(userId, chosenCardBox.getId());
+			LeitnerProgress leitnerProgress = new LeitnerProgress(progressMap);
+			Queue<Flashcard> progress0Flashcards = new LinkedList<>();
+			Queue<Flashcard> progress1Flashcards = new LinkedList<>();
+			Queue<Flashcard> progress2Flashcards = new LinkedList<>();
+			Queue<Flashcard> progress3Flashcards = new LinkedList<>();
+			Queue<Flashcard> progress4Flashcards = new LinkedList<>();
+			leitnerProgress.add(progress0Flashcards);
+			leitnerProgress.add(progress1Flashcards);
+			leitnerProgress.add(progress2Flashcards);
+			leitnerProgress.add(progress3Flashcards);
+			leitnerProgress.add(progress4Flashcards);
+			// if the CardBox is shared by a different User, the current
+			// user might not have any learnProgress records for the
+			// flashcards
+			for (Flashcard flashcard : flashcards) {
+				if (!progressMap.containsKey(flashcard.getId())) {
+					LearnProgress newLearnProgress = LearnProgressLocalServiceUtil.addLearnProgress(userId, flashcard);
+					progressMap.put(flashcard.getId(), newLearnProgress);
 				}
-				int startProgress = 0;
-				for (Queue<Flashcard> q : leitnerProgress) {
-					if (q.size() != 0) {
-						break;
-					} else {
-						startProgress++;
-					}
+				int progress = progressMap.get(flashcard.getId()).getProgress();
+				if (progress >= 0 && progress <= 4) {
+					leitnerProgress.get(progress).add(flashcard);
+				} else {
+					log.warn("Invalid progress for flashcard with id " + flashcard.getId() + "! was " + progress
+							+ " expected 0<=progress<=4");
 				}
-				actionRequest.getPortletSession().setAttribute("progressQueues", leitnerProgress,
-						PortletSession.PORTLET_SCOPE);
-				actionRequest.getPortletSession().setAttribute("progress", startProgress, PortletSession.PORTLET_SCOPE);
-				actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
-			} else {
-				actionRequest.getPortletSession().setAttribute("currentPage", VIEW_JSP, PortletSession.PORTLET_SCOPE);
-				SessionErrors.add(actionRequest, "error");
 			}
-		} catch (NumberFormatException nfe) {
-			// nfe.printStackTrace();//TODO
+			int startProgress = 0;
+			for (Queue<Flashcard> q : leitnerProgress) {
+				if (q.size() != 0) {
+					break;
+				} else {
+					startProgress++;
+				}
+			}
+			actionRequest.getPortletSession().setAttribute("progressQueues", leitnerProgress,
+					PortletSession.PORTLET_SCOPE);
+			actionRequest.getPortletSession().setAttribute("progress", startProgress, PortletSession.PORTLET_SCOPE);
+			actionRequest.getPortletSession().setAttribute("currentPage", LEARN_JSP, PortletSession.PORTLET_SCOPE);
+		} else {
+			actionRequest.getPortletSession().setAttribute("currentPage", VIEW_JSP, PortletSession.PORTLET_SCOPE);
+			SessionErrors.add(actionRequest, "error");
 		}
 	}
 
@@ -205,23 +191,20 @@ public class LernkarteiPortlet extends MVCPortlet {
 	/**
 	 * fills the portlet session with attributes of the cardBox to use in a page
 	 * 
+	 * the id of the cardBox is given in the actionRequest's parameter
+	 * "cardBoxId" if no cardBox is found nothing happens
+	 * 
 	 * @param actionRequest
 	 * @param actionResponse
 	 */
 	private void fillCardBoxEditForm(ActionRequest actionRequest, ActionResponse actionResponse) {
-		String cardBoxId = actionRequest.getParameter("cardBoxId");
-		try {
-			CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(Long.parseLong(cardBoxId));
+		long cardBoxId = ParamUtil.getLong(actionRequest, "cardBoxId", -1);
+		CardBox cardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
+		if (cardBox != null) {
 			PortletSession portletSession = actionRequest.getPortletSession();
 			portletSession.setAttribute("cardBoxId", cardBox.getId(), PortletSession.APPLICATION_SCOPE);
 			portletSession.setAttribute("cardBoxName", cardBox.getName(), PortletSession.APPLICATION_SCOPE);
 			portletSession.setAttribute("cardBoxShared", cardBox.isShared(), PortletSession.APPLICATION_SCOPE);
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -273,28 +256,26 @@ public class LernkarteiPortlet extends MVCPortlet {
 		List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.PORTLET_SCOPE);
 
-		// actionRequest.getPortletSession().setAttribute("fcId", "" + fcId,
-		// PortletSession.PORTLET_SCOPE);
-
-		try {
-			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
-			Flashcard fc = FlashcardLocalServiceUtil.getFlashcard(fcId);
+		long fcId = ParamUtil.getLong(actionRequest, "fcId", -1);
+		Flashcard fc = FlashcardLocalServiceUtil.fetchFlashcard(fcId);
+		if (fc != null) {
 			String fcFrontSide = fc.getFrontSide();
 			String fcBackSide = fc.getBackSide();
 			String fcTitle = fc.getTitle();
 
-			actionRequest.getPortletSession().setAttribute("cardBoxName",
-					CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
+			try {
+				actionRequest.getPortletSession().setAttribute("cardBoxName",
+						CardBoxLocalServiceUtil.getCardBox(fc.getCardBoxId_fk()).getName());
+			} catch (PortalException e) {
+				log.warn("The CardBox with id " + fc.getCardBoxId_fk() + " referenced by the Flashcard with id "
+						+ fc.getId() + " does not exist!");
+			}
 			actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
 			actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
 			actionRequest.getPortletSession().setAttribute("fcTitle", fcTitle);
 			actionRequest.getPortletSession().setAttribute("fcId", "" + fcId);
-		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
-		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -397,33 +378,28 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
-		String cardBoxIdString = actionRequest.getParameter("cardBoxId");
+		long cardBoxId = ParamUtil.getLong(actionRequest, "cardBoxId", -1);
 		String cardBoxName = actionRequest.getParameter("cardBoxName");
 		String shared = actionRequest.getParameter("shared");
 		boolean isShared = (shared != null);
 		ThemeDisplay td = getThemeDisplay(actionRequest);
 		User user = td.getUser();
 		try {
-			if (cardBoxIdString == null) {
+			if (cardBoxId < 0) {
 				if (CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, user.getUserId()) != null) {
-					actionRequest.setAttribute("error", "Name " + cardBoxName + " bereits vorhanden!");
+					SessionErrors.add(actionRequest, "error", "Name " + cardBoxName + " bereits vorhanden!");
 					toNewCardBox(actionRequest, actionResponse);
 				} else {
 					CardBoxLocalServiceUtil.addCardBox(cardBoxName, user.getUserId());
 					SessionMessages.add(actionRequest, "success");
 				}
 			} else {
-				long cardBoxId = Long.parseLong(cardBoxIdString);
 				CardBox cardBox = CardBoxLocalServiceUtil.getCardBox(cardBoxId);
 				cardBox.setName(cardBoxName);
 				cardBox.setShared(isShared);
 				CardBoxLocalServiceUtil.updateCardBox(cardBox);
 			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		toCardBoxOverview(actionRequest, actionResponse);
@@ -432,34 +408,34 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void deleteCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
 			long cardBoxId = ParamUtil.getLong(actionRequest, "cardBoxId", -1);
+			LearnProgressLocalServiceUtil.removeByCardBoxId(cardBoxId);
 			FlashcardLocalServiceUtil.removeByCardBoxId(cardBoxId);
 			CardBoxLocalServiceUtil.deleteCardBox(cardBoxId);
+
 			updateFoundCardBoxes(actionRequest);
-			// TODO delete learnProgress!
+
 		} catch (NoSuchCardBoxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
-			long flashcardId = Long.parseLong(actionRequest.getParameter("fcId"));
+			long flashcardId = ParamUtil.getLong(actionRequest, "fcId", -1);
+			LearnProgressLocalServiceUtil.removeByUserIdAndFlashcardId(getThemeDisplay(actionRequest).getUserId(),
+					flashcardId);
 			FlashcardLocalServiceUtil.deleteFlashcard(flashcardId);
+
 			updateFoundFlashcards(actionRequest);
-			// TODO delete learnProgress
-		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
 		} catch (PortalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// ignore, if they don't exist we don't need to delete them
 		}
 	}
 
 	public void test(ActionRequest actionRequest, ActionResponse actionResponse) {
+		//TODO remove
 		// FlashcardLocalServiceUtil.getFlashcard(0).get
 		// CardBoxLocalServiceUtil.fi
 	}

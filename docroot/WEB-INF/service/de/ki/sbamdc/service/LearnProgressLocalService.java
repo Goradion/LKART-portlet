@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
+import de.ki.sbamdc.exception.NoSuchLearnProgressException;
 import de.ki.sbamdc.model.Flashcard;
 import de.ki.sbamdc.model.LearnProgress;
 
@@ -235,6 +236,11 @@ public interface LearnProgressLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public HashMap<java.lang.Long, LearnProgress> loadProgressByUserIdAndCardBoxId(
 		long userId, long cardBoxId);
+
+	public void removeByCardBoxId(long cardBoxId);
+
+	public void removeByUserIdAndFlashcardId(long userId, long flashcardId)
+		throws NoSuchLearnProgressException;
 
 	/**
 	* Updates the learn progress in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -263,6 +263,16 @@ public class LearnProgressLocalServiceUtil {
 		return getService().loadProgressByUserIdAndCardBoxId(userId, cardBoxId);
 	}
 
+	public static void removeByCardBoxId(long cardBoxId) {
+		getService().removeByCardBoxId(cardBoxId);
+	}
+
+	public static void removeByUserIdAndFlashcardId(long userId,
+		long flashcardId)
+		throws de.ki.sbamdc.exception.NoSuchLearnProgressException {
+		getService().removeByUserIdAndFlashcardId(userId, flashcardId);
+	}
+
 	/**
 	* Updates the learn progress in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
