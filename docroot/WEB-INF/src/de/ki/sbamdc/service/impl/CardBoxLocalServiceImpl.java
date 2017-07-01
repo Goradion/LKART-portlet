@@ -93,6 +93,16 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 		return cardBoxPersistence.countByUserId(userId);
 	}
 
+	public List<CardBox> findByKeyword(String keyword, long userId){
+		List<CardBox> foundCardboxes = new ArrayList<CardBox>();
+		List<CardBox> allUserCardboxes = cardBoxPersistence.findByUserId(userId);
+		for(CardBox cb : allUserCardboxes) {
+			if(cb.getName().toLowerCase().contains(keyword.toLowerCase()))
+				foundCardboxes.add(cb);
+		}
+		return foundCardboxes;
+	}
+	
 	public CardBox addCardBox(String name, long userId) throws PortalException {
 		CardBox cardBox = cardBoxPersistence.fetchByNameAndUserId(name, userId);
 		if (cardBox == null) {

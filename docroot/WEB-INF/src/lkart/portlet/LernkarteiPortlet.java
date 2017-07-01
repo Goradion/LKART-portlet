@@ -153,11 +153,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 		PortletSession portletSession = actionRequest.getPortletSession();
 		portletSession.removeAttribute("cardBoxId", PortletSession.APPLICATION_SCOPE);
 		portletSession.removeAttribute("cardBoxName", PortletSession.APPLICATION_SCOPE);
-
+		actionRequest.getPortletSession().removeAttribute("cbKeyword", PortletSession.PORTLET_SCOPE);
+		
 		List<CardBox> cardBoxesOfUser = CardBoxLocalServiceUtil
 				.findByUserId(getThemeDisplay(actionRequest).getUserId());
 
-		portletSession.setAttribute("foundCardBoxes", cardBoxesOfUser);
+		portletSession.setAttribute("foundCardBoxes", cardBoxesOfUser,PortletSession.PORTLET_SCOPE);
 	}
 
 	/**
@@ -212,7 +213,8 @@ public class LernkarteiPortlet extends MVCPortlet {
 				PortletSession.PORTLET_SCOPE);
 		ThemeDisplay td = getThemeDisplay(actionRequest);
 		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByUserId(td.getUserId());
-		actionRequest.getPortletSession().setAttribute("flashcards", flashcards, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("foundFlashcards", flashcards, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().removeAttribute("fcKeyword", PortletSession.PORTLET_SCOPE);
 	}
 
 	/**
@@ -288,7 +290,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		String fcBackSide = actionRequest.getParameter("fcBackSide");
 		String cardBoxName = actionRequest.getParameter("kartei");
 		String flashcardTitle = actionRequest.getParameter("flashcardTitle");
-		ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay td = getThemeDisplay(actionRequest);
 		long userId = td.getUserId();
 		CardBox cardbox = CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, userId);
 		long cardBoxId = -1;
@@ -303,7 +305,14 @@ public class LernkarteiPortlet extends MVCPortlet {
 					Flashcard newFlashcard = FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide,
 							flashcardTitle, cardBoxId, userId);
 					LearnProgressLocalServiceUtil.addLearnProgress(userId, newFlashcard);
-					SessionMessages.add(actionRequest, "success");
+					actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
+					actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
+					actionRequest.getPortletSession().setAttribute("kartei", cardBoxName);
+					actionRequest.getPortletSession().setAttribute("flashcardTitle", flashcardTitle);
+					List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
+					actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList,
+							PortletSession.PORTLET_SCOPE);
+					SessionMessages.add(actionRequest, "success");			
 				} else {
 					actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
 					actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
@@ -338,7 +347,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			String flashcardTitle = actionRequest.getParameter("flashcardTitle");
 			long fcId = Long.parseLong(actionRequest.getParameter("fcId"));
 
-			ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			ThemeDisplay td = getThemeDisplay(actionRequest);
 			long uid = td.getUserId();
 
 			long cardBoxId = CardBoxLocalServiceUtil.findByNameAndUserId(cardBoxName, uid).getId();
@@ -373,7 +382,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 		String cardBoxName = actionRequest.getParameter("cardBoxName");
 		String shared = actionRequest.getParameter("shared");
 		boolean isShared = (shared != null);
-		ThemeDisplay td = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay td = getThemeDisplay(actionRequest);
 		User user = td.getUser();
 		try {
 			if (cardBoxId < 0) {
@@ -402,6 +411,9 @@ public class LernkarteiPortlet extends MVCPortlet {
 			LearnProgressLocalServiceUtil.removeByCardBoxId(cardBoxId);
 			FlashcardLocalServiceUtil.removeByCardBoxId(cardBoxId);
 			CardBoxLocalServiceUtil.deleteCardBox(cardBoxId);
+
+			updateFoundCardBoxes(actionRequest);
+
 		} catch (NoSuchCardBoxException e) {
 			e.printStackTrace();
 		} catch (PortalException e) {
@@ -415,6 +427,8 @@ public class LernkarteiPortlet extends MVCPortlet {
 			LearnProgressLocalServiceUtil.removeByUserIdAndFlashcardId(getThemeDisplay(actionRequest).getUserId(),
 					flashcardId);
 			FlashcardLocalServiceUtil.deleteFlashcard(flashcardId);
+
+			updateFoundFlashcards(actionRequest);
 		} catch (PortalException e) {
 			// ignore, if they don't exist we don't need to delete them
 		}
@@ -430,9 +444,13 @@ public class LernkarteiPortlet extends MVCPortlet {
 		try {
 			long id = Long.parseLong(actionRequest.getParameter("cardBoxId"));
 			CardBoxLocalServiceUtil.setShared(id);
+			//aktualisiere foundCardBoxes Variable
+			updateFoundCardBoxes(actionRequest);
+			System.out.println(actionRequest.getPortletSession().getAttribute("keyword"));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
+		System.out.println(actionRequest.getPortletSession().getAttribute("currentPage"));
 	}
 
 	public void clearCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -485,11 +503,56 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("progress", newProgress);
 	}
 
+	/**
+	 * 
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void searchFlashcards(ActionRequest actionRequest, ActionResponse actionResponse) {
-		String keyword = actionRequest.getParameter("keyword");
+		String keyword = actionRequest.getParameter("fcKeyword");
 		ThemeDisplay td = getThemeDisplay(actionRequest);
 		List<Flashcard> flashcards = FlashcardLocalServiceUtil.findByKeyword(keyword, td.getUserId());
-		actionRequest.getPortletSession().setAttribute("flashcards", flashcards, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("foundFlashcards", flashcards, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("fcKeyword", keyword, PortletSession.PORTLET_SCOPE);
 	}
 
+	public void searchCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse){
+		String keyword = actionRequest.getParameter("cbKeyword");
+		ThemeDisplay td = getThemeDisplay(actionRequest);
+		List<CardBox> cardboxes = CardBoxLocalServiceUtil.findByKeyword(keyword, td.getUserId());
+		actionRequest.getPortletSession().setAttribute("foundCardBoxes", cardboxes, PortletSession.PORTLET_SCOPE);
+		actionRequest.getPortletSession().setAttribute("cbKeyword", keyword, PortletSession.PORTLET_SCOPE);
+	}
+	
+	private void updateFoundCardBoxes(ActionRequest actionRequest){
+		String cbKeyword = (String)actionRequest.getPortletSession().getAttribute("cbKeyword",PortletSession.PORTLET_SCOPE);
+		List<CardBox> foundCardBoxes;
+		if(cbKeyword == null){
+			foundCardBoxes = CardBoxLocalServiceUtil
+			.findByUserId(getThemeDisplay(actionRequest).getUserId());
+		} else {
+			foundCardBoxes = 
+					CardBoxLocalServiceUtil
+					.findByKeyword(cbKeyword, getThemeDisplay(actionRequest).getUserId());
+		}
+		
+		actionRequest.getPortletSession().setAttribute("foundCardBoxes", foundCardBoxes,PortletSession.PORTLET_SCOPE);
+		
+	}
+	
+	private void updateFoundFlashcards(ActionRequest actionRequest){
+		String fcKeyword = (String)actionRequest.getPortletSession().getAttribute("fcKeyword",PortletSession.PORTLET_SCOPE);
+		List<Flashcard> foundFlashcards;
+		if(fcKeyword == null){
+			foundFlashcards = FlashcardLocalServiceUtil
+			.findByUserId(getThemeDisplay(actionRequest).getUserId());
+		} else {
+			foundFlashcards = 
+					FlashcardLocalServiceUtil
+					.findByKeyword(fcKeyword, getThemeDisplay(actionRequest).getUserId());
+		}
+		
+		actionRequest.getPortletSession().setAttribute("foundFlashcards", foundFlashcards,PortletSession.PORTLET_SCOPE);
+		
+	}
 }

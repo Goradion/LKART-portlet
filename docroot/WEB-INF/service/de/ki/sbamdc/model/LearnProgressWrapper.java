@@ -20,12 +20,12 @@ import com.liferay.expando.kernel.model.ExpandoBridge;
 
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * <p>
@@ -100,78 +100,13 @@ public class LearnProgressWrapper implements LearnProgress,
 	}
 
 	@Override
-	public boolean isCachedModel() {
-		return _learnProgress.isCachedModel();
-	}
-
-	@Override
-	public boolean isEscapedModel() {
-		return _learnProgress.isEscapedModel();
-	}
-
-	@Override
-	public boolean isNew() {
-		return _learnProgress.isNew();
-	}
-
-	@Override
-	public ExpandoBridge getExpandoBridge() {
-		return _learnProgress.getExpandoBridge();
-	}
-
-	@Override
-	public com.liferay.portal.kernel.model.CacheModel<de.ki.sbamdc.model.LearnProgress> toCacheModel() {
-		return _learnProgress.toCacheModel();
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress toEscapedModel() {
-		return new LearnProgressWrapper(_learnProgress.toEscapedModel());
-	}
-
-	@Override
-	public de.ki.sbamdc.model.LearnProgress toUnescapedModel() {
-		return new LearnProgressWrapper(_learnProgress.toUnescapedModel());
-	}
-
-	@Override
-	public int compareTo(de.ki.sbamdc.model.LearnProgress learnProgress) {
-		return _learnProgress.compareTo(learnProgress);
-	}
-
-	/**
-	* Returns the progress of this learn progress.
-	*
-	* @return the progress of this learn progress
-	*/
-	@Override
-	public int getProgress() {
-		return _learnProgress.getProgress();
-	}
-
-	@Override
-	public int hashCode() {
-		return _learnProgress.hashCode();
-	}
-
-	@Override
-	public Serializable getPrimaryKeyObj() {
-		return _learnProgress.getPrimaryKeyObj();
-	}
-
-	@Override
 	public java.lang.Object clone() {
 		return new LearnProgressWrapper((LearnProgress)_learnProgress.clone());
 	}
 
 	@Override
-	public java.lang.String toString() {
-		return _learnProgress.toString();
-	}
-
-	@Override
-	public java.lang.String toXmlString() {
-		return _learnProgress.toXmlString();
+	public int compareTo(de.ki.sbamdc.model.LearnProgress learnProgress) {
+		return _learnProgress.compareTo(learnProgress);
 	}
 
 	/**
@@ -182,6 +117,11 @@ public class LearnProgressWrapper implements LearnProgress,
 	@Override
 	public long getCardBoxId_fk() {
 		return _learnProgress.getCardBoxId_fk();
+	}
+
+	@Override
+	public ExpandoBridge getExpandoBridge() {
+		return _learnProgress.getExpandoBridge();
 	}
 
 	/**
@@ -214,6 +154,21 @@ public class LearnProgressWrapper implements LearnProgress,
 		return _learnProgress.getPrimaryKey();
 	}
 
+	@Override
+	public Serializable getPrimaryKeyObj() {
+		return _learnProgress.getPrimaryKeyObj();
+	}
+
+	/**
+	* Returns the progress of this learn progress.
+	*
+	* @return the progress of this learn progress
+	*/
+	@Override
+	public int getProgress() {
+		return _learnProgress.getProgress();
+	}
+
 	/**
 	* Returns the user id_fk of this learn progress.
 	*
@@ -222,6 +177,26 @@ public class LearnProgressWrapper implements LearnProgress,
 	@Override
 	public long getUserId_fk() {
 		return _learnProgress.getUserId_fk();
+	}
+
+	@Override
+	public int hashCode() {
+		return _learnProgress.hashCode();
+	}
+
+	@Override
+	public boolean isCachedModel() {
+		return _learnProgress.isCachedModel();
+	}
+
+	@Override
+	public boolean isEscapedModel() {
+		return _learnProgress.isEscapedModel();
+	}
+
+	@Override
+	public boolean isNew() {
+		return _learnProgress.isNew();
 	}
 
 	@Override
@@ -245,14 +220,14 @@ public class LearnProgressWrapper implements LearnProgress,
 	}
 
 	@Override
-	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
-		_learnProgress.setExpandoBridgeAttributes(expandoBridge);
-	}
-
-	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_learnProgress.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		_learnProgress.setExpandoBridgeAttributes(expandoBridge);
 	}
 
 	@Override
@@ -321,6 +296,31 @@ public class LearnProgressWrapper implements LearnProgress,
 	}
 
 	@Override
+	public com.liferay.portal.kernel.model.CacheModel<de.ki.sbamdc.model.LearnProgress> toCacheModel() {
+		return _learnProgress.toCacheModel();
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress toEscapedModel() {
+		return new LearnProgressWrapper(_learnProgress.toEscapedModel());
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return _learnProgress.toString();
+	}
+
+	@Override
+	public de.ki.sbamdc.model.LearnProgress toUnescapedModel() {
+		return new LearnProgressWrapper(_learnProgress.toUnescapedModel());
+	}
+
+	@Override
+	public java.lang.String toXmlString() {
+		return _learnProgress.toXmlString();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -332,7 +332,7 @@ public class LearnProgressWrapper implements LearnProgress,
 
 		LearnProgressWrapper learnProgressWrapper = (LearnProgressWrapper)obj;
 
-		if (Objects.equals(_learnProgress, learnProgressWrapper._learnProgress)) {
+		if (Validator.equals(_learnProgress, learnProgressWrapper._learnProgress)) {
 			return true;
 		}
 

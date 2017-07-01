@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import de.ki.sbamdc.exception.NoSuchCardBoxException;
 import de.ki.sbamdc.model.CardBox;
@@ -55,7 +56,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -123,8 +123,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
 			}
 
 			throw new NoSuchCardBoxException(msg.toString());
@@ -165,7 +165,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		if (result instanceof CardBox) {
 			CardBox cardBox = (CardBox)result;
 
-			if (!Objects.equals(name, cardBox.getName())) {
+			if (!Validator.equals(name, cardBox.getName())) {
 				result = null;
 			}
 		}
@@ -866,8 +866,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
 			}
 
 			throw new NoSuchCardBoxException(msg.toString());
@@ -911,7 +911,7 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		if (result instanceof CardBox) {
 			CardBox cardBox = (CardBox)result;
 
-			if (!Objects.equals(name, cardBox.getName()) ||
+			if (!Validator.equals(name, cardBox.getName()) ||
 					(userId != cardBox.getUserId())) {
 				result = null;
 			}
@@ -1129,8 +1129,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
 			}
 
 			throw new NoSuchCardBoxException(msg.toString());
@@ -1174,8 +1174,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		if (result instanceof CardBox) {
 			CardBox cardBox = (CardBox)result;
 
-			if (!Objects.equals(name, cardBox.getName()) ||
-					!Objects.equals(userName, cardBox.getUserName())) {
+			if (!Validator.equals(name, cardBox.getName()) ||
+					!Validator.equals(userName, cardBox.getUserName())) {
 				result = null;
 			}
 		}
@@ -2134,8 +2134,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 			CardBox cardBox = (CardBox)session.get(CardBoxImpl.class, primaryKey);
 
 			if (cardBox == null) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchCardBoxException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -2310,8 +2310,8 @@ public class CardBoxPersistenceImpl extends BasePersistenceImpl<CardBox>
 		CardBox cardBox = fetchByPrimaryKey(primaryKey);
 
 		if (cardBox == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchCardBoxException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +

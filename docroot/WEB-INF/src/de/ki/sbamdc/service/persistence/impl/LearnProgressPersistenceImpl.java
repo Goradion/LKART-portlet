@@ -1143,8 +1143,8 @@ public class LearnProgressPersistenceImpl extends BasePersistenceImpl<LearnProgr
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
-			if (_log.isDebugEnabled()) {
-				_log.debug(msg.toString());
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
 			}
 
 			throw new NoSuchLearnProgressException(msg.toString());
@@ -1530,8 +1530,8 @@ public class LearnProgressPersistenceImpl extends BasePersistenceImpl<LearnProgr
 					primaryKey);
 
 			if (learnProgress == null) {
-				if (_log.isDebugEnabled()) {
-					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 				}
 
 				throw new NoSuchLearnProgressException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
@@ -1698,8 +1698,8 @@ public class LearnProgressPersistenceImpl extends BasePersistenceImpl<LearnProgr
 		LearnProgress learnProgress = fetchByPrimaryKey(primaryKey);
 
 		if (learnProgress == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
 			}
 
 			throw new NoSuchLearnProgressException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
