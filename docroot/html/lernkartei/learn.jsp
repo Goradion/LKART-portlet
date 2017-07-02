@@ -11,6 +11,9 @@
 	<portlet:param name="known" value="false" />
 </portlet:actionURL>
 
+<liferay-ui:error key="noFlashcardsError"
+	message="Fehler! Kartei enthält keine Karten!" />
+
 <aui:container align="center">
 	<aui:row>
 		<c:forEach items="${portletSessionScope.progressQueues}" var="q"
