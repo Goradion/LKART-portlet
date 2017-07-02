@@ -17,6 +17,7 @@ public class FlashcardComparatorUtil {
 			break;
 		default:
 			comparator = new IdComparator();
+			break;
 		}
 		if (type == null || type.equals("asc")){
 			return comparator;

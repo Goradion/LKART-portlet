@@ -8,7 +8,6 @@ public class CardBoxComparatorUtil {
 
 	public static Comparator<CardBox> getComparator(String column, String type) {
 		Comparator<CardBox> comparator = null;
-		System.out.println(column);
 		switch (column) {
 		case "Name":
 			comparator = new NameComparator();
@@ -17,6 +16,7 @@ public class CardBoxComparatorUtil {
 			comparator = new SharedComparator();
 		default:
 			comparator = new IdComparator();
+			break;
 		}
 		if (type == null || type.equals("asc")){
 			return comparator;
