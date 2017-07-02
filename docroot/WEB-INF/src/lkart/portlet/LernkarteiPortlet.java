@@ -227,6 +227,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 	public void toNewFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", NEW_FLASHCARD_JSP, PortletSession.PORTLET_SCOPE);
 
+		actionRequest.getPortletSession().removeAttribute("fcFrontSide");
+		actionRequest.getPortletSession().removeAttribute("fcBackSide");
+		actionRequest.getPortletSession().removeAttribute("kartei");
+		actionRequest.getPortletSession().removeAttribute("flashcardTitle");
+		actionRequest.getPortletSession().removeAttribute("cardBoxList");
+		
 		List<CardBox> cardBoxList = getMyCardboxes(getThemeDisplay(actionRequest).getUserId());
 		actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList, PortletSession.APPLICATION_SCOPE);
 
@@ -305,10 +311,10 @@ public class LernkarteiPortlet extends MVCPortlet {
 					Flashcard newFlashcard = FlashcardLocalServiceUtil.addFlashcard(fcFrontSide, fcBackSide,
 							flashcardTitle, cardBoxId, userId);
 					LearnProgressLocalServiceUtil.addLearnProgress(userId, newFlashcard);
-					actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
-					actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
+//					actionRequest.getPortletSession().setAttribute("fcFrontSide", fcFrontSide);
+//					actionRequest.getPortletSession().setAttribute("fcBackSide", fcBackSide);
 					actionRequest.getPortletSession().setAttribute("kartei", cardBoxName);
-					actionRequest.getPortletSession().setAttribute("flashcardTitle", flashcardTitle);
+//					actionRequest.getPortletSession().setAttribute("flashcardTitle", flashcardTitle);
 					List<CardBox> cardBoxList = getMyCardboxes(td.getUserId());
 					actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList,
 							PortletSession.PORTLET_SCOPE);

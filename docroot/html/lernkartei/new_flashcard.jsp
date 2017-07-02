@@ -22,7 +22,7 @@
 		cbName = (String) portletSession.getAttribute("kartei");
 	if (portletSession.getAttribute("fcBackSide") != null)
 		fcBackSide = (String) portletSession.getAttribute("fcBackSide");
-	if (portletSession.getAttribute("fcFronSide") != null)
+	if (portletSession.getAttribute("fcFrontSide") != null)
 		fcFrontSide = (String) portletSession.getAttribute("fcFrontSide");
 	if (portletSession.getAttribute("flashcardTitle") != null)
 		flashcardTitle = (String) portletSession.getAttribute("flashcardTitle");
