@@ -5,10 +5,10 @@
 %>
 
 <div id="flip" style="width:450px; height:270px; max-width: 100%; text-align: center">
-	<div style="position:relative; top:50%" id="frontSide" >
+	<div style="position:relative;" id="frontSide" >
 		<% out.print(frontSide); %>
 	</div>
-	<div style="position:relative; top:50%" id="backSide" hidden="true">
+	<div style="position:relative;" id="backSide" hidden="true">
 		<% out.print(backSide); %>
 	</div>
 </div>

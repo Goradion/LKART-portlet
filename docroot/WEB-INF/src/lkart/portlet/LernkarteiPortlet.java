@@ -373,7 +373,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 			if (fc == null || fc.getId() == fcId) {
 				FlashcardLocalServiceUtil.updateFlashcard(fcFrontSide, fcBackSide, flashcardTitle, fcId, cardBoxId);
 				SessionMessages.add(actionRequest, "success");
-				toEditFlashcard(actionRequest, actionResponse);
+//				toEditFlashcard(actionRequest, actionResponse);
 			} else {
 				List<CardBox> cardBoxList = getMyCardboxes(uid);
 				actionRequest.getPortletSession().setAttribute("cardBoxList", cardBoxList,
