@@ -47,6 +47,10 @@ public interface CardBoxService extends BaseService, InvokableService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CardBoxServiceUtil} to access the card box remote service. Add custom service methods to {@link de.ki.sbamdc.service.impl.CardBoxServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	@Override
+	public java.lang.Object invokeMethod(java.lang.String name,
+		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
+		throws java.lang.Throwable;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -54,9 +58,4 @@ public interface CardBoxService extends BaseService, InvokableService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
-
-	@Override
-	public java.lang.Object invokeMethod(java.lang.String name,
-		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
-		throws java.lang.Throwable;
 }

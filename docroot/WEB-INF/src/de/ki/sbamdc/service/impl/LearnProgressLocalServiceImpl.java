@@ -83,7 +83,7 @@ public class LearnProgressLocalServiceImpl
 	
 	public HashMap<Long, LearnProgress> loadProgressByUserIdAndCardBoxId(long userId, long cardBoxId){
 		HashMap<Long, LearnProgress> progressMap = new HashMap<>();
-		List<LearnProgress> cardBoxProgress = learnProgressPersistence.findByCardBoxId(cardBoxId);
+		List<LearnProgress> cardBoxProgress = learnProgressPersistence.findByUserIdAndCardBoxId(userId, cardBoxId);
 		for (LearnProgress learnProgress : cardBoxProgress){
 			progressMap.put(learnProgress.getFlashcardId_fk(), learnProgress);
 		}

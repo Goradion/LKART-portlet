@@ -8,7 +8,7 @@
 
 
 <p style="text-align:center">
-<a href=<%=lernen %> class="btn btn-primary" >Lernen</a> <br>
+<a href=<%=lernen %> class="btn btn-primary">Lernen</a> <br>
 </p>
 
 <c:if test="<%=permissionChecker.isSignedIn() %>">

@@ -305,6 +305,154 @@ public interface LearnProgressPersistence extends BasePersistence<LearnProgress>
 	public int countByCardBoxId(long cardBoxId_fk);
 
 	/**
+	* Returns all the learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @return the matching learn progresses
+	*/
+	public java.util.List<LearnProgress> findByUserIdAndCardBoxId(
+		long userId_fk, long cardBoxId_fk);
+
+	/**
+	* Returns a range of all the learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link LearnProgressModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param start the lower bound of the range of learn progresses
+	* @param end the upper bound of the range of learn progresses (not inclusive)
+	* @return the range of matching learn progresses
+	*/
+	public java.util.List<LearnProgress> findByUserIdAndCardBoxId(
+		long userId_fk, long cardBoxId_fk, int start, int end);
+
+	/**
+	* Returns an ordered range of all the learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link LearnProgressModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param start the lower bound of the range of learn progresses
+	* @param end the upper bound of the range of learn progresses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching learn progresses
+	*/
+	public java.util.List<LearnProgress> findByUserIdAndCardBoxId(
+		long userId_fk, long cardBoxId_fk, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator);
+
+	/**
+	* Returns an ordered range of all the learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link LearnProgressModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param start the lower bound of the range of learn progresses
+	* @param end the upper bound of the range of learn progresses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @param retrieveFromCache whether to retrieve from the finder cache
+	* @return the ordered range of matching learn progresses
+	*/
+	public java.util.List<LearnProgress> findByUserIdAndCardBoxId(
+		long userId_fk, long cardBoxId_fk, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator,
+		boolean retrieveFromCache);
+
+	/**
+	* Returns the first learn progress in the ordered set where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching learn progress
+	* @throws NoSuchLearnProgressException if a matching learn progress could not be found
+	*/
+	public LearnProgress findByUserIdAndCardBoxId_First(long userId_fk,
+		long cardBoxId_fk,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator)
+		throws NoSuchLearnProgressException;
+
+	/**
+	* Returns the first learn progress in the ordered set where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching learn progress, or <code>null</code> if a matching learn progress could not be found
+	*/
+	public LearnProgress fetchByUserIdAndCardBoxId_First(long userId_fk,
+		long cardBoxId_fk,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator);
+
+	/**
+	* Returns the last learn progress in the ordered set where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching learn progress
+	* @throws NoSuchLearnProgressException if a matching learn progress could not be found
+	*/
+	public LearnProgress findByUserIdAndCardBoxId_Last(long userId_fk,
+		long cardBoxId_fk,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator)
+		throws NoSuchLearnProgressException;
+
+	/**
+	* Returns the last learn progress in the ordered set where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching learn progress, or <code>null</code> if a matching learn progress could not be found
+	*/
+	public LearnProgress fetchByUserIdAndCardBoxId_Last(long userId_fk,
+		long cardBoxId_fk,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator);
+
+	/**
+	* Returns the learn progresses before and after the current learn progress in the ordered set where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param id the primary key of the current learn progress
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next learn progress
+	* @throws NoSuchLearnProgressException if a learn progress with the primary key could not be found
+	*/
+	public LearnProgress[] findByUserIdAndCardBoxId_PrevAndNext(long id,
+		long userId_fk, long cardBoxId_fk,
+		com.liferay.portal.kernel.util.OrderByComparator<LearnProgress> orderByComparator)
+		throws NoSuchLearnProgressException;
+
+	/**
+	* Removes all the learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63; from the database.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	*/
+	public void removeByUserIdAndCardBoxId(long userId_fk, long cardBoxId_fk);
+
+	/**
+	* Returns the number of learn progresses where userId_fk = &#63; and cardBoxId_fk = &#63;.
+	*
+	* @param userId_fk the user id_fk
+	* @param cardBoxId_fk the card box id_fk
+	* @return the number of matching learn progresses
+	*/
+	public int countByUserIdAndCardBoxId(long userId_fk, long cardBoxId_fk);
+
+	/**
 	* Returns the learn progress where userId_fk = &#63; and flashcardId_fk = &#63; or throws a {@link NoSuchLearnProgressException} if it could not be found.
 	*
 	* @param userId_fk the user id_fk
