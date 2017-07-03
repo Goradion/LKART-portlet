@@ -73,6 +73,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("currentPage", EDIT_CONTENT_JSP, PortletSession.PORTLET_SCOPE);
 	}
 
+	/**
+	 * Navigates the learn menu where a user can choose between the available card boxes to learn.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void toLearnMenue(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
 			SortedMap<String, List<CardBox>> learnableBoxes = CardBoxLocalServiceUtil
@@ -85,7 +90,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 		}
 
 	}
-
+	
+	/**
+	 * Navigates to learn process view and loads the current process status for that.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void toLearnMode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		long cardBoxId = ParamUtil.getLong(actionRequest, "kartei");
 		CardBox chosenCardBox = CardBoxLocalServiceUtil.fetchCardBox(cardBoxId);
@@ -213,6 +223,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 		}
 	}
 
+	/**
+	 * Sets the next view to FLASHCARD_OVERVIEW_JSP and passes the list of all
+	 * user flashcards to it to display them in the search container.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void toFlashcardOverview(ActionRequest actionRequest, ActionResponse actionResponse) {
 		actionRequest.getPortletSession().setAttribute("currentPage", FLASHCARD_OVERVIEW_JSP,
 				PortletSession.PORTLET_SCOPE);
@@ -248,6 +264,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		return themeDisplay;
 	}
 
+	/**
+	 * Returns a list of user card boxes
+	 * @param userId
+	 * @return Liste von Karteikarten
+	 */
 	private List<CardBox> getMyCardboxes(long userId) {
 		int end = CardBoxLocalServiceUtil.getCardBoxesCountOfUser(userId);
 		return CardBoxLocalServiceUtil.getCardBoxesOfUser(userId, 0, end);
@@ -390,7 +411,12 @@ public class LernkarteiPortlet extends MVCPortlet {
 			SessionErrors.add(actionRequest, "error");
 		}
 	}
-
+	/**
+	 * Creates a new card box if no cardboxId is present in the request.
+	 * Updates a card box otherwise.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void saveCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
 		long cardBoxId = ParamUtil.getLong(actionRequest, "cardBoxId", -1);
 		String cardBoxName = actionRequest.getParameter("cardBoxName");
@@ -419,6 +445,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		toCardBoxOverview(actionRequest, actionResponse);
 	}
 
+	/**
+	 * Deletes a card box from the database.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void deleteCardBox(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
 			long cardBoxId = ParamUtil.getLong(actionRequest, "cardBoxId", -1);
@@ -435,6 +466,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		}
 	}
 
+	/**
+	 * Deletes a flashcard from the database.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void deleteFlashcard(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
 			long flashcardId = ParamUtil.getLong(actionRequest, "fcId", -1);
@@ -448,23 +484,20 @@ public class LernkarteiPortlet extends MVCPortlet {
 		}
 	}
 
-	public void test(ActionRequest actionRequest, ActionResponse actionResponse) {
-		// TODO remove
-		// FlashcardLocalServiceUtil.getFlashcard(0).get
-		// CardBoxLocalServiceUtil.fi
-	}
-
+	/**
+	 * Shares a card box with the id given in the action request.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void setShared(ActionRequest actionRequest, ActionResponse actionResponse) {
 		try {
 			long id = Long.parseLong(actionRequest.getParameter("cardBoxId"));
 			CardBoxLocalServiceUtil.setShared(id);
 			// aktualisiere foundCardBoxes Variable
 			updateFoundCardBoxes(actionRequest);
-			System.out.println(actionRequest.getPortletSession().getAttribute("keyword"));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		System.out.println(actionRequest.getPortletSession().getAttribute("currentPage"));
 	}
 
 	public void clearCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -476,6 +509,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		CardBoxLocalServiceUtil.removeByUserId(ParamUtil.getLong(actionRequest, "userId"));
 	}
 
+	/**
+	 * Updates the progress of a flashcard depending on user's choice.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void submitLeitner(ActionRequest actionRequest, ActionResponse actionResponse) {
 		int oldProgress = (int) actionRequest.getPortletSession().getAttribute("progress");
 		int newProgress = 0;
@@ -519,7 +557,8 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	/**
-	 * 
+	 * Searches for flashcards containing the keyword passed in the actionRequest.
+	 * The keyword can be contained in the name of the flashcard or cardbox.
 	 * @param actionRequest
 	 * @param actionResponse
 	 */
@@ -531,6 +570,11 @@ public class LernkarteiPortlet extends MVCPortlet {
 		actionRequest.getPortletSession().setAttribute("fcKeyword", keyword, PortletSession.PORTLET_SCOPE);
 	}
 
+	/**
+	 * Searches for card boxes with the name containing the keyword passed in the actionRequest.
+	 * @param actionRequest
+	 * @param actionResponse
+	 */
 	public void searchCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse) {
 		String keyword = actionRequest.getParameter("cbKeyword");
 		ThemeDisplay td = getThemeDisplay(actionRequest);
