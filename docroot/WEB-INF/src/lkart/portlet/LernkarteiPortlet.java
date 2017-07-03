@@ -501,7 +501,7 @@ public class LernkarteiPortlet extends MVCPortlet {
 	}
 
 	public void clearCardBoxes(ActionRequest actionRequest, ActionResponse actionResponse) {
-		CardBoxLocalServiceUtil.removeAll();
+		CardBoxLocalServiceUtil.removeByUserId(getThemeDisplay(actionRequest).getUserId());
 		updateFoundCardBoxes(actionRequest);
 	}
 
