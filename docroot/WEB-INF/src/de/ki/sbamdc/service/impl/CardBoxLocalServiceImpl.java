@@ -68,7 +68,9 @@ public class CardBoxLocalServiceImpl extends CardBoxLocalServiceBaseImpl {
 		SortedMap<String,List<CardBox>> cardBoxesOfUsers = new TreeMap<>();
 		List<CardBox> own = cardBoxPersistence.findByUserId(userId);
 		UserLocalServiceUtil.getUser(userId).getScreenName();
-		cardBoxesOfUsers.put("Eigene", own);
+		if (!own.isEmpty()){
+			cardBoxesOfUsers.put("Eigene", own);
+		}
 		List<CardBox> foreignAndShared = cardBoxPersistence.findByForeignAndShared(userId);
 		for (CardBox cardBox : foreignAndShared){
 			if (cardBoxesOfUsers.containsKey(cardBox.getUserName())){

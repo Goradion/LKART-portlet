@@ -67,7 +67,7 @@
 
 <p>
 	<portlet:actionURL name="clearCardBoxes" var="clear"/>
-	<a class="btn btn-danger" href=<%=clear%>>Alles löschen</a>
+	<a class="btn btn-danger" onclick="return confirm('Wollen Sie wirklich all ihre Lernkarteien löschen?')" href=<%=clear%>>Alles löschen</a>
 </p>
 <p align="center">
 	<a class="btn btn-warning" href=<%=editMode%>>Zurück</a>
